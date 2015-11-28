@@ -5,17 +5,19 @@
  * Variables that can be used in the template
  */
 
-$post_type = get_post_type( get_the_ID() );
+$post_id = get_the_ID();
+$post_type = get_post_type( $post_id );
 
 // Meeting Meta
-$meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'meeting_date', true ) ) );
-$meeting_type = get_the_term_list( get_the_ID(), 'meeting_type', '<span class="category">', ', ', '</span>' );
-$meeting_tags = get_the_term_list( get_the_ID(), 'meeting_tag', '<span class="tags">', ', ', '</span>' );
+// $meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( $post_id, 'meeting_date', true ) ) );
+$meeting_date = ( get_field( 'meeting_date' ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_field( 'meeting_date' ) ) ) : '' ;
+$meeting_type = get_the_term_list( $post_id, 'meeting_type', '<span class="category">', ', ', '</span>' );
+$meeting_tags = get_the_term_list( $post_id, 'meeting_tag', '<span class="tags">', ', ', '</span>' );
 
 // Proposal Meta
 $approval_date = $meeting_date;
-$effective_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) );
-$proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span class="tags">', ', ', '</span>' );
+$effective_date = ( get_field( 'proposal_date_effective' ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_field( 'proposal_date_effective' ) ) ) : '' ;
+$proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class="tags">', ', ', '</span>' );
 
 // Associated Content
 $connected_agenda = get_posts( array(
@@ -55,8 +57,8 @@ if( 'meeting' == $post_type ) {
 }
 
 if( 'proposal' == $post_type ) {
-    $meeting_pre_content .= ( $meeting_date ) ? '<p class="meta"><span class="meta-label">' . __( 'Date Appoved:', 'meeting' ) . '</span> ' . $meeting_date . '</p>' : '';
-    $meeting_pre_content .= ( $effective_date ) ? '<p class="meta"><span class="meta-label">' . __( 'Date Effective:', 'meeting' ) . '</span> ' . $meeting_date . '</p>' : '';
+    $meeting_pre_content .= ( $meeting_date ) ? '<p class="meta"><span class="meta-label">' . __( 'Date Appoved:', 'meeting' ) . '</span> <time>' . $meeting_date . '</time></p>' : '';
+    $meeting_pre_content .= ( $effective_date ) ? '<p class="meta"><span class="meta-label">' . __( 'Date Effective:', 'meeting' ) . '</span> <time>' . $effective_date . '</time></p>' : '';
     $meeting_pre_content .= ( $proposal_status ) ? '<p class="meta"><span class="meta-label">' . __( 'Status:', 'meeting' ) . '</span> ' . $proposal_status . '</p>' : '';
 }
 
@@ -83,7 +85,6 @@ if( !empty( $connected_agenda ) || !empty( $connected_summary ) || !empty( $conn
 
     if( 'proposal' == get_post_type() ) {
 
-      $count = 0;
       foreach( $connected_proposal as $proposal ) {
           $post_type_obj = get_post_type_object( get_post_type( $proposal->ID ) );
           $post_type_name = __( 'Meeting', 'meeting' );
@@ -95,7 +96,7 @@ if( !empty( $connected_agenda ) || !empty( $connected_summary ) || !empty( $conn
     }
 
 
-    if( 'meeting' == get_post_type() ) {
+    if( 'meeting' == get_post_type() && count( $connected_proposal ) > 0 ) {
 
         $meeting_pre_content .= '<li class="proposal-link"><a href="#proposals">' . __( 'Proposal(s)', 'meeting' ) . '</a></li>';
 
