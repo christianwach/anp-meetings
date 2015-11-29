@@ -15,8 +15,8 @@ Plugin Name: Activist Network Meetings
 Description: Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display meeting notes/minutes and decisions.
 Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 0.1
-License: GPL
+Version: 1.0
+License: GPLv3
 Text Domain: meeting
 */
 
