@@ -43,7 +43,7 @@ if ( ! function_exists('anp_agenda_post_type') ) {
             'label'               => __( 'Agenda', 'meeting' ),
             'labels'              => $labels,
             'supports'            => array( 'title', 'editor', 'author', ),
-            'taxonomies'          => array( 'meeting_type', 'meeting_tag' ),
+            'taxonomies'          => array( 'meeting_tag' ),
             'hierarchical'        => false,
             'public'              => true,
             'show_ui'             => true,

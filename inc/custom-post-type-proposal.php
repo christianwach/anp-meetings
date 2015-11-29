@@ -44,10 +44,9 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'label'               => __( 'Proposal', 'anp_meeting' ),
             'description'         => __( '', 'anp_meeting' ),
             'labels'              => $labels,
-            'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'custom-fields', ),
+            'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail' ),
             'taxonomies'          => array( 
                 'proposal_status', 
-                'meeting_type', 
                 'meeting_tag' ),
             'hierarchical'        => false,
             'public'              => true,

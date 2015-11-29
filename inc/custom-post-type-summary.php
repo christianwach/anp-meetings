@@ -44,7 +44,7 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 			'label'               => __( 'Summary', 'meeting' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', ),
-			'taxonomies'          => array( 'meeting_type', 'meeting_tag' ),
+			'taxonomies'          => array( 'meeting_tag' ),
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_ui'             => true,
