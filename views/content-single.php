@@ -9,7 +9,6 @@ $post_id = get_the_ID();
 $post_type = get_post_type( $post_id );
 
 // Meeting Meta
-// $meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( $post_id, 'meeting_date', true ) ) );
 $meeting_date = ( get_field( 'meeting_date' ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_field( 'meeting_date' ) ) ) : '' ;
 $meeting_type = get_the_term_list( $post_id, 'meeting_type', '<span class="category">', ', ', '</span>' );
 $meeting_tags = get_the_term_list( $post_id, 'meeting_tag', '<span class="tags">', ', ', '</span>' );
@@ -132,9 +131,12 @@ if( !empty( $connected_proposal ) ) {
 
     foreach ( $connected_proposal as $proposal ) {
 
+        $statuses = wp_get_post_terms( $proposal->ID, 'proposal_status', array( "fields" => "names" ) );
+        $status = ( !empty( $statuses ) ) ? ' <span class="proposal-status"><label for="proposal-status">' . __( 'Status', 'meetings' ) .'</label> ' . $statuses[0] . '</span>' : '';
+
         $meeting_post_content .= '<li class="proposal-link"><a href="' . get_post_permalink( $proposal->ID ) . '">';
         $meeting_post_content .= $proposal->post_title;
-        $meeting_post_content .= '</a></li>';
+        $meeting_post_content .= '</a>' . $status . '</li>';
         
     }
 
