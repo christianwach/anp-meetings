@@ -43,7 +43,7 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 		$args = array(
 			'label'               => __( 'Summary', 'meeting' ),
 			'labels'              => $labels,
-			'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', ),
+			'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'revisions' ),
 			'taxonomies'          => array( 'meeting_tag' ),
 			'hierarchical'        => false,
 			'public'              => true,

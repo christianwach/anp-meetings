@@ -44,7 +44,7 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 			'label'               => __( 'Meetings', 'anp_meeting' ),
 			'description'         => __( 'Custom post type for meeting agendas and notes', 'anp_meeting' ),
 			'labels'              => $labels,
-			'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'comments', 'custom-fields', 'wpcom-markdown' ),
+			'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
 			'taxonomies'          => array( 'meeting_type', 'meeting_tag' ),
 			'hierarchical'        => false,
 			'public'              => true,
