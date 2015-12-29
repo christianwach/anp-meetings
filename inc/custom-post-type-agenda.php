@@ -42,7 +42,7 @@ if ( ! function_exists('anp_agenda_post_type') ) {
         $args = array(
             'label'               => __( 'Agenda', 'meeting' ),
             'labels'              => $labels,
-            'supports'            => array( 'title', 'editor', 'author', 'revisions' ),
+            'supports'            => array( 'title', 'editor', 'author', 'wpcom-markdown', 'revisions' ),
             'taxonomies'          => array( 'meeting_tag' ),
             'hierarchical'        => false,
             'public'              => true,

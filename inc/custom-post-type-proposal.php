@@ -44,7 +44,7 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'label'               => __( 'Proposal', 'anp_meeting' ),
             'description'         => __( '', 'anp_meeting' ),
             'labels'              => $labels,
-            'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'revisions' ),
+            'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'wpcom-markdown', 'revisions' ),
             'taxonomies'          => array( 
                 'proposal_status', 
                 'meeting_tag' ),
