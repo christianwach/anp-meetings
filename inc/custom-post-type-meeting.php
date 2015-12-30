@@ -17,6 +17,8 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 	// Register Custom Post Type - Meeting
 	function anp_meetings_post_type() {
 
+		$slug = 'meeting';
+
 		$labels = array(
 			'name'                => _x( 'Meetings', 'Post Type General Name', 'anp_meeting' ),
 			'singular_name'       => _x( 'Meeting', 'Post Type Singular Name', 'anp_meeting' ),
@@ -35,12 +37,12 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 			'not_found_in_trash'  => __( 'Not found in Trash', 'anp_meeting' ),
 		);
 		$rewrite = array(
-			'slug'                => 'meeting',
+			'slug'                => $slug,
 			'with_front'          => false,
 			'pages'               => true,
 			'feeds'               => true,
 		);
-		$args = array(
+		$default_config = array(
 			'label'               => __( 'Meetings', 'anp_meeting' ),
 			'description'         => __( 'Custom post type for meeting agendas and notes', 'anp_meeting' ),
 			'labels'              => $labels,
@@ -62,7 +64,11 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 			'rewrite'             => $rewrite,
 			'capability_type'     => 'page',
 		);
-		register_post_type( 'meeting', $args );
+
+		// Allow customization of the default post type configuration via filter.
+		$config = apply_filters( 'meeting_post_type_defaults', $default_config, $slug );
+
+		register_post_type( $slug, $config );
 
 	}
 

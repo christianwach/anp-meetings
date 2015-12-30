@@ -17,6 +17,8 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 	// Register Custom Post Type
 	function anp_summary_post_type() {
 
+        $slug = 'summary';
+
 		$labels = array(
 			'name'                => _x( 'Summaries', 'Post Type General Name', 'meeting' ),
 			'singular_name'       => _x( 'Summary', 'Post Type Singular Name', 'meeting' ),
@@ -35,12 +37,12 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 			'not_found_in_trash'  => __( 'Not found in Trash', 'meeting' ),
 		);
 		$rewrite = array(
-			'slug'                => 'summary',
+			'slug'                => $slug,
 			'with_front'          => false,
 			'pages'               => true,
 			'feeds'               => true,
 		);
-		$args = array(
+		$default_config = array(
 			'label'               => __( 'Summary', 'meeting' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'wpcom-markdown', 'revisions' ),
@@ -60,7 +62,10 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 			'rewrite'             => $rewrite,
 			'capability_type'     => 'page',
 		);
-		register_post_type( 'summary', $args );
+		// Allow customization of the default post type configuration via filter.
+        $config = apply_filters( 'summary_post_type_defaults', $default_config, $slug );
+
+        register_post_type( $slug, $config );
 
 	}
 	add_action( 'init', 'anp_summary_post_type', 0 );
@@ -90,7 +95,7 @@ if ( ! function_exists( 'anp_summary_add_to_menu' ) ) {
 
     }
 
-    add_action('admin_menu', 'anp_summary_add_to_menu'); 
+    add_action( 'admin_menu', 'anp_summary_add_to_menu' ); 
 
 }
 

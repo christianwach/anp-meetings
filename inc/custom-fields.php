@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ANP Meetings Summaries Post Type
+ * ANP Meetings Custom Fields
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+

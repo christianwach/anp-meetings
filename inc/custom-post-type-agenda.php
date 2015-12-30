@@ -16,6 +16,8 @@ if ( ! function_exists('anp_agenda_post_type') ) {
     // Register Custom Post Type
     function anp_agenda_post_type() {
 
+        $slug = 'agenda';
+
         $labels = array(
             'name'                => _x( 'Agendas', 'Post Type General Name', 'meeting' ),
             'singular_name'       => _x( 'Agenda', 'Post Type Singular Name', 'meeting' ),
@@ -34,12 +36,12 @@ if ( ! function_exists('anp_agenda_post_type') ) {
             'not_found_in_trash'  => __( 'Not found in Trash', 'meeting' ),
         );
         $rewrite = array(
-            'slug'                => 'agenda',
+            'slug'                => $slug,
             'with_front'          => false,
             'pages'               => true,
             'feeds'               => true,
         );
-        $args = array(
+        $default_config = array(
             'label'               => __( 'Agenda', 'meeting' ),
             'labels'              => $labels,
             'supports'            => array( 'title', 'editor', 'author', 'wpcom-markdown', 'revisions' ),
@@ -59,8 +61,10 @@ if ( ! function_exists('anp_agenda_post_type') ) {
             'rewrite'             => $rewrite,
             'capability_type'     => 'page',
         );
-        register_post_type( 'agenda', $args );
+        // Allow customization of the default post type configuration via filter.
+        $config = apply_filters( 'agenda_post_type_defaults', $default_config, $slug );
 
+        register_post_type( $slug, $config );
     }
     add_action( 'init', 'anp_agenda_post_type', 0 );
 

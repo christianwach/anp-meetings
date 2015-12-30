@@ -17,6 +17,8 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
     // Register Custom Post Type
     function anp_proposals_post_type() {
 
+        $slug = 'proposal';
+
         $labels = array(
             'name'                => _x( 'Proposals', 'Post Type General Name', 'anp_meeting' ),
             'singular_name'       => _x( 'Proposal', 'Post Type Singular Name', 'anp_meeting' ),
@@ -35,12 +37,12 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'not_found_in_trash'  => __( 'Not found in Trash', 'anp_meeting' ),
         );
         $rewrite = array(
-            'slug'                => 'proposal',
+            'slug'                => $slug,
             'with_front'          => false,
             'pages'               => true,
             'feeds'               => true,
         );
-        $args = array(
+        $default_config = array(
             'label'               => __( 'Proposal', 'anp_meeting' ),
             'description'         => __( '', 'anp_meeting' ),
             'labels'              => $labels,
@@ -63,7 +65,10 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'rewrite'             => $rewrite,
             'capability_type'     => 'page',
         );
-        register_post_type( 'proposal', $args );
+        // Allow customization of the default post type configuration via filter.
+        $config = apply_filters( 'proposal_post_type_defaults', $default_config, $slug );
+
+        register_post_type( $slug, $config );
 
     }
     add_action( 'init', 'anp_proposals_post_type', 0 );
