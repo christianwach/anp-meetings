@@ -33,7 +33,7 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
 
             global $post;
 
-            $term_list = wp_get_post_terms( get_the_ID(), 'meeting_type', array( "fields" => "names" ) );
+            $term_list = wp_get_post_terms( $post->ID, 'meeting_type', array( "fields" => "names" ) );
             $meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( $post->ID, 'meeting_date', true ) ) );
 
             return ( !empty( $term_list ) ) ? $term_list[0] . ' - ' . $meeting_date : $post->post_title;
@@ -47,8 +47,9 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
 
             $post_type_object = get_post_type_object( get_post_type( get_the_ID() ) );
             $post_type_name = $post_type_object->labels->singular_name;
-            $term_list = wp_get_post_terms( get_the_ID(), 'meeting_type', array( "fields" => "names" ) );
-            $meeting_date = ( get_field( 'meeting_date', get_the_ID() ) ) ? ' - ' . date_i18n( get_option( 'date_format' ), strtotime( get_field( 'meeting_date', get_the_ID() ) ) ) : '';
+            $term_list = wp_get_post_terms( $post->ID, 'meeting_type', array( "fields" => "names" ) );
+            $meeting = get_post_meta( $post->ID, 'meeting_date', true );
+            // $meeting_date = ( get_field( 'meeting_date', $post->ID ) ) ? ' - ' . date_i18n( get_option( 'date_format' ), strtotime( get_field( 'meeting_date', $post->ID ) ) ) : '';
 
             return ( !empty( $term_list ) ) ? '<span class="post-type">' . $post_type_name . ':</span> ' . $term_list[0] . ' <time>' . $meeting_date . '<time>' : $post->post_title;
 
@@ -62,9 +63,11 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
 
             $term_list = wp_get_post_terms( get_the_ID(), 'meeting_type', array( "fields" => "names" ) );
 
-            $meeting_date = ( get_field( 'meeting_date', get_the_ID() ) ) ? ' - ' . date_i18n( get_option( 'date_format' ), strtotime( get_field( 'meeting_date', get_the_ID() ) ) ) : '';
+            $meeting_date = get_post_meta( $post->ID, 'meeting_date', true );
 
-            return ( !empty( $term_list ) ) ? $term_list[0] . ' <time>' . $meeting_date . '<time>' : $post->title;
+            // $meeting_date = ( get_field( 'meeting_date', get_the_ID() ) ) ? ' - ' . date_i18n( get_option( 'date_format' ), strtotime( get_field( 'meeting_date', get_the_ID() ) ) ) : '';
+
+            return ( !empty( $term_list ) ) ? $term_list[0] . ' <time>' . $meeting_date . '<time>' : $post->post_title;
 
         }
 
@@ -73,7 +76,7 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
 
             global $post;
 
-            $post_type_object = get_post_type_object( get_post_type( get_the_ID() ) );
+            $post_type_object = get_post_type_object( get_post_type( $post->ID ) );
             $post_type_name = $post_type_object->labels->singular_name;
             $term_list = wp_get_post_terms( $post->ID, 'proposal_status', array( "fields" => "names" ) );
             $meeting_title = ( !empty( $term_list ) ) ? ' <span class="proposal-status meta"><label for="proposal-status">' . __( 'Status', 'meetings' ) .'</label> ' . $term_list[0] . '</span>' : '';

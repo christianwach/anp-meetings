@@ -9,13 +9,14 @@ $post_id = get_the_ID();
 $post_type = get_post_type( $post_id );
 
 // Meeting Meta
-$meeting_date = ( get_field( 'meeting_date' ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_field( 'meeting_date' ) ) ) : '' ;
+
+$meeting_date = get_post_meta( $post_id, 'meeting_date', true );
 $meeting_type = get_the_term_list( $post_id, 'meeting_type', '<span class="category">', ', ', '</span>' );
 $meeting_tags = get_the_term_list( $post_id, 'meeting_tag', '<span class="tags">', ', ', '</span>' );
 
 // Proposal Meta
 $approval_date = $meeting_date;
-$effective_date = ( get_field( 'proposal_date_effective' ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_field( 'proposal_date_effective' ) ) ) : '' ;
+$effective_date = get_post_meta( $post_id, 'proposal_date_effective', true );
 $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class="tags">', ', ', '</span>' );
 
 // Associated Content

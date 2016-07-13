@@ -10,13 +10,13 @@ global $wp_query;
 $post_type = get_post_type( get_the_ID() );
 
 // Meeting Meta
-$meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'meeting_date', true ) ) );
+$meeting_date = ( get_post_meta( get_the_ID(), 'meeting_date', true ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'meeting_date', true ) ) ) : '' ;
 $meeting_type = get_the_term_list( get_the_ID(), 'meeting_type', '<span class="category">', ', ', '</span>' );
 $meeting_tags = get_the_term_list( get_the_ID(), 'meeting_tag', '<span class="tags">', ', ', '</span>' );
 
 // Proposal Meta
 $approval_date = $meeting_date;
-$effective_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) );
+$effective_date = ( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) : '' ;;
 $proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span class="tags">', ', ', '</span>' );
 
 // Associated Content
@@ -90,8 +90,5 @@ if( 'summary' == $post_type ) {
 
 $meeting_post_content = '';
 
-// $meeting_single_post_content .= '<p class="tags meta"><span class="meta-label">' . __( 'Tags:', 'meeting' ) . '</span> ';
-// $meeting_single_post_content .= $meeting_tags;
-// $meeting_single_post_content .= '</p>';
 
 ?>
