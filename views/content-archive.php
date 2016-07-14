@@ -16,7 +16,7 @@ $meeting_tags = get_the_term_list( get_the_ID(), 'meeting_tag', '<span class="ta
 
 // Proposal Meta
 $approval_date = $meeting_date;
-$effective_date = ( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) : '' ;;
+$effective_date = ( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'proposal_date_effective', true ) ) : '' ;
 $proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span class="tags">', ', ', '</span>' );
 
 // Associated Content

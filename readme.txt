@@ -20,6 +20,7 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
    * Added meeting date field to summary
    * Made meeting date required
    * Changed label from Meeting Date to Date Accepted on proposals
+* Fixed syntax error in archive view
 
 = 1.0.2 - July 13, 2016 =
 * [Feature #1483] - Converted custom fields to use CMB2 library instead of Advanced Custom Fields plugin.
