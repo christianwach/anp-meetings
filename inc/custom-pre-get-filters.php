@@ -26,7 +26,7 @@ if(! function_exists( 'anp_meetings_pre_get_posts' ) ) {
         }
         
         // If meeting post archive, meeting_tag archive or meeting_type archive
-        if ( ( is_post_type_archive( array( 'meeting', 'summary', 'agenda', 'proposal' ) ) || is_tax( 'meeting_tag' ) || is_tax( 'meeting_type' ) || is_tax( 'proposal_status' ) ) ) {
+        if ( ( is_post_type_archive( array( 'meeting', 'summary', 'agenda' ) ) || is_tax( 'meeting_tag' ) || is_tax( 'meeting_type' ) ) ) {
 
             set_query_var( 'orderby', 'meta_value' );
             set_query_var( 'meta_key', 'meeting_date' );
