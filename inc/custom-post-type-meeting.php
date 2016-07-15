@@ -208,5 +208,22 @@ if(! function_exists( '' ) ) {
 
 }
 
+/**
+ * Hide custom fields metabox
+ *
+ * @since 1.0.3
+ *
+ * @link https://codex.wordpress.org/Function_Reference/remove_meta_box
+ */
+function meetings_remove_custom_fields_metabox() {
+	remove_meta_box( 'postcustom', 'meeting', 'side' );
+	remove_meta_box( 'postcustom', 'agenda', 'side' );
+	remove_meta_box( 'postcustom', 'summary', 'side' );
+	remove_meta_box( 'postcustom', 'proposal', 'side' );
+}
+
+add_action( 'admin_menu', 'meetings_remove_custom_fields_metabox' );
+
+
 
 ?>
