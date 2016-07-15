@@ -71,19 +71,6 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
 
         }
 
-        // If proposal or status archive, display as the_title {proposal_status} {meeting_date} (conditional)
-        if( is_post_type_archive( 'proposal' ) ||  is_tax( 'proposal_status' ) ) {
-
-            global $post;
-
-            $post_type_object = get_post_type_object( get_post_type( $post->ID ) );
-            $post_type_name = $post_type_object->labels->singular_name;
-            $term_list = wp_get_post_terms( $post->ID, 'proposal_status', array( "fields" => "names" ) );
-            $meeting_title = ( !empty( $term_list ) ) ? ' <span class="proposal-status meta"><label for="proposal-status">' . __( 'Status', 'meetings' ) .'</label> ' . $term_list[0] . '</span>' : '';
-            
-            return $title . $meeting_title;
-
-        }
 
         return $title;
 
