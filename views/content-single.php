@@ -51,15 +51,15 @@ $meeting_pre_content = '';
 
 if( 'meeting' == $post_type ) {
 
-    $meeting_pre_content .= '<p class="meta"><span class="meta-label">' . __( 'Date:', 'meeting' ) . '</span> ' . $meeting_date . '</p>';
-    $meeting_pre_content .= '<p class="meta"><span class="meta-label">' . __( 'Type:', 'meeting' ) . '</span> ' . $meeting_type . '</p>';
+    $meeting_pre_content .= '<p class="meta-date meta"><span class="meta-label">' . __( 'Date:', 'meeting' ) . '</span> ' . $meeting_date . '</p>';
+    $meeting_pre_content .= '<p class="meta-type meta"><span class="meta-label">' . __( 'Type:', 'meeting' ) . '</span> ' . $meeting_type . '</p>';
 
 }
 
 if( 'proposal' == $post_type ) {
-    $meeting_pre_content .= ( $meeting_date ) ? '<p class="meta"><span class="meta-label">' . __( 'Date Appoved:', 'meeting' ) . '</span> <time>' . $meeting_date . '</time></p>' : '';
-    $meeting_pre_content .= ( $effective_date ) ? '<p class="meta"><span class="meta-label">' . __( 'Date Effective:', 'meeting' ) . '</span> <time>' . $effective_date . '</time></p>' : '';
-    $meeting_pre_content .= ( $proposal_status ) ? '<p class="meta"><span class="meta-label">' . __( 'Status:', 'meeting' ) . '</span> ' . $proposal_status . '</p>' : '';
+    $meeting_pre_content .= ( $proposal_status ) ? '<p class="meta-status meta"><span class="meta-label">' . __( 'Status:', 'meeting' ) . '</span> ' . $proposal_status . '</p>' : '';
+    $meeting_pre_content .= ( $meeting_date ) ? '<p class="meta-approval-date meta"><span class="meta-label">' . __( 'Date Appoved:', 'meeting' ) . '</span> <time>' . $meeting_date . '</time></p>' : '';
+    $meeting_pre_content .= ( $effective_date ) ? '<p class="meta-effective-date meta"><span class="meta-label">' . __( 'Date Effective:', 'meeting' ) . '</span> <time>' . $effective_date . '</time></p>' : '';
 }
 
 
@@ -108,7 +108,7 @@ if( !empty( $connected_agenda ) || !empty( $connected_summary ) || !empty( $conn
 
 $meeting_pre_content .= '';
 
-$meeting_pre_content .= '<div class="post-content">';
+$meeting_pre_content .= '<div class="entry-content">';
 
 /* 
  * After the_content()
@@ -116,7 +116,7 @@ $meeting_pre_content .= '<div class="post-content">';
  */
 
 $meeting_post_content = '';
-$meeting_post_content .= '<footer class="post-footer">';
+$meeting_post_content .= '<footer class="entry-footer">';
 
 if( $meeting_tags ) {
     $meeting_post_content .= '<p class="tags meta"><span class="meta-label">' . __( 'Tags:', 'meeting' ) . '</span> ';
