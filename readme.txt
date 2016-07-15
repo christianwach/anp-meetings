@@ -15,6 +15,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 
 == Revisions ==
 
+= 1.0.4 - July 15, 2016 =
+[Feature #1483]
+
 = 1.0.3 - July 14, 2016 =
 * [Feature #1483][Bugfix] - Field fixes
    * Added meeting date field to summary
