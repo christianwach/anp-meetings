@@ -3,7 +3,7 @@ Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.0.3
+Stable tag: 1.0.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,8 +15,14 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 
 == Revisions ==
 
+= 1.0.5 - July 25, 2016 =
+* Removed unnecessarily `console.log` from JS
+
 = 1.0.4 - July 15, 2016 =
-[Feature #1483]
+* [Feature #1483]
+   * Removed `the_title` filter for proposals archives.
+   * Hid custom fields metabox from meeting, agenda, summary and proposal edit screens
+   * Removed proposal from pre-get filters
 
 = 1.0.3 - July 14, 2016 =
 * [Feature #1483][Bugfix] - Field fixes

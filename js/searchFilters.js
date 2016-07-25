@@ -1,14 +1,10 @@
-/*jslint white: true */
 /**
  * 
  * Search Filter
  * 
  * 
  **/
-
 jQuery( document ).ready( function( $ ) {
-
-    console.log( 'filters.js loaded' );
 
     var queryVars = getUrlVars();
 
