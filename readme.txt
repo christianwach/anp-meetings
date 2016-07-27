@@ -3,7 +3,7 @@ Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.0.5
+Stable tag: 1.0.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Useage == 
 
 == Revisions ==
+
+= 1.0.6 - July 27, 2016 =
+* Added support for comments to proposal custom post type.
 
 = 1.0.5 - July 25, 2016 =
 * Removed unnecessarily `console.log` from JS
