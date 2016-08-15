@@ -10,8 +10,11 @@
  * @package   ANP_Meetings
  */
 
-/************* CUSTOM POST TYPE*****************/
-
+/**
+ * Add Custom Post Type
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_proposals_post_type' ) ) {
 
     // Register Custom Post Type
@@ -47,8 +50,8 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'description'         => __( '', 'anp_meeting' ),
             'labels'              => $labels,
             'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
-            'taxonomies'          => array( 
-                'proposal_status', 
+            'taxonomies'          => array(
+                'proposal_status',
                 'meeting_tag' ),
             'hierarchical'        => false,
             'public'              => true,
@@ -63,7 +66,19 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'publicly_queryable'  => true,
             'query_var'           => 'proposal',
             'rewrite'             => $rewrite,
-            'capability_type'     => 'page',
+            'capability_type'     => array( 'post', 'meeting' ),
+			'map_meta_cap'			=> true,
+			'capabilities' => array(
+				'publish_posts' => 'publish_proposals',
+				'edit_posts' => 'edit_proposals',
+				'edit_others_posts' => 'edit_others_proposals',
+				'delete_posts' => 'delete_proposals',
+				'delete_others_posts' => 'delete_others_proposals',
+				'read_private_posts' => 'read_private_proposals',
+				'edit_post' => 'edit_proposal',
+				'delete_post' => 'delete_proposal',
+				'read_post' => 'read_proposal',
+			),
         );
         // Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'proposal_post_type_defaults', $default_config, $slug );
@@ -75,7 +90,11 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
 
 }
 
-
+/**
+ * Add Custom Taxonomy
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_proposals_status_taxonomy' ) ) {
 
     // Register Custom Taxonomy
@@ -123,39 +142,45 @@ if ( ! function_exists( 'anp_proposals_status_taxonomy' ) ) {
 
 }
 
+/**
+ * Move Admin Menus
+ * Display admin as submenu under Meetings
+ *
+ * @uses `add_submenu_page` with $cap set to `edit_proposals`
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_proposals_add_to_menu' ) ) {
 
-    function anp_proposals_add_to_menu() { 
-
-        //edit.php?post_type=meeting
+    function anp_proposals_add_to_menu() {
 
         add_submenu_page(
-            'edit.php?post_type=meeting', 
-            __('All Proposals', 'anp_meeting'), 
-            __('All Proposals', 'anp_meeting'), 
-            'manage_options', 
+            'edit.php?post_type=meeting',
+            __('All Proposals', 'anp_meeting'),
+            __('All Proposals', 'anp_meeting'),
+            'edit_meetings',
             'edit.php?post_type=proposal'
-        ); 
+        );
 
         add_submenu_page(
-            'edit.php?post_type=meeting', 
-            __('New Proposal', 'anp_meeting'), 
-            __('New Proposal', 'anp_meeting'), 
-            'manage_options', 
+            'edit.php?post_type=meeting',
+            __('New Proposal', 'anp_meeting'),
+            __('New Proposal', 'anp_meeting'),
+            'edit_meetings',
             'post-new.php?post_type=proposal'
-        ); 
+        );
 
         add_submenu_page(
-            'edit.php?post_type=meeting', 
-            __('Proposal Statuses', 'anp_meeting'), 
-            __('Proposal Statuses', 'anp_meeting'), 
-            'manage_options', 
+            'edit.php?post_type=meeting',
+            __('Proposal Statuses', 'anp_meeting'),
+            __('Proposal Statuses', 'anp_meeting'),
+            'edit_meetings',
             'edit-tags.php?taxonomy=proposal_status&post_type=proposal'
-        ); 
+        );
 
     }
 
-    add_action('admin_menu', 'anp_proposals_add_to_menu'); 
+    add_action('admin_menu', 'anp_proposals_add_to_menu');
 
 }
 
