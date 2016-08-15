@@ -10,8 +10,11 @@
  * @package   ANP_Meetings
  */
 
-/************* CUSTOM POST TYPE*****************/
-
+/**
+ * Add Custom Post Type
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_summary_post_type' ) ) {
 
 	// Register Custom Post Type
@@ -60,7 +63,19 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 			'publicly_queryable'  => true,
 			'query_var'           => 'summary',
 			'rewrite'             => $rewrite,
-			'capability_type'     => 'page',
+			'capability_type'     => array( 'post', 'meeting' ),
+			'map_meta_cap'			=> true,
+			'capabilities' => array(
+				'publish_posts' => 'publish_summaries',
+				'edit_posts' => 'edit_summaries',
+				'edit_others_posts' => 'edit_others_summaries',
+				'delete_posts' => 'delete_summaries',
+				'delete_others_posts' => 'delete_others_summaries',
+				'read_private_posts' => 'read_private_summaries',
+				'edit_post' => 'edit_summary',
+				'delete_post' => 'delete_summary',
+				'read_post' => 'read_summary',
+			),
 		);
 		// Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'summary_post_type_defaults', $default_config, $slug );
@@ -72,30 +87,37 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 
 }
 
-
+/**
+ * Move Admin Menus
+ * Display admin as submenu under Meetings
+ *
+ * @uses `add_submenu_page` with $cap set to `edit_summaries`
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_summary_add_to_menu' ) ) {
 
-    function anp_summary_add_to_menu() { 
+    function anp_summary_add_to_menu() {
 
         add_submenu_page(
-            'edit.php?post_type=meeting', 
-            __('All Summaries', 'meeting'), 
-            __('All Summaries', 'meeting'), 
-            'manage_options', 
+            'edit.php?post_type=meeting',
+            __('All Summaries', 'meeting'),
+            __('All Summaries', 'meeting'),
+            'edit_meetings',
             'edit.php?post_type=summary'
-        ); 
+        );
 
         add_submenu_page(
-            'edit.php?post_type=meeting', 
-            __('New Summary', 'meeting'), 
-            __('New Summary', 'meeting'), 
-            'manage_options', 
+            'edit.php?post_type=meeting',
+            __('New Summary', 'meeting'),
+            __('New Summary', 'meeting'),
+            'edit_meetings',
             'post-new.php?post_type=summary'
-        ); 
+        );
 
     }
 
-    add_action( 'admin_menu', 'anp_summary_add_to_menu' ); 
+    add_action( 'admin_menu', 'anp_summary_add_to_menu' );
 
 }
 

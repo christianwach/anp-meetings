@@ -10,8 +10,11 @@
  * @package   ANP_Meetings
  */
 
-/************* CUSTOM POST TYPE*****************/
-
+/**
+ * Add Custom Post Type
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 
 	// Register Custom Post Type - Meeting
@@ -62,7 +65,19 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 			'publicly_queryable'  => true,
 			'query_var'           => 'meeting',
 			'rewrite'             => $rewrite,
-			'capability_type'     => 'page',
+			'capability_type'     => array( 'post', 'meeting' ),
+			'map_meta_cap'			=> true,
+			'capabilities' => array(
+				'publish_posts' => 'publish_meetings',
+				'edit_posts' => 'edit_meetings',
+				'edit_others_posts' => 'edit_others_meetings',
+				'delete_posts' => 'delete_meetings',
+				'delete_others_posts' => 'delete_others_meetings',
+				'read_private_posts' => 'read_private_meetings',
+				'edit_post' => 'edit_meeting',
+				'delete_post' => 'delete_meeting',
+				'read_post' => 'read_meeting',
+			),
 		);
 
 		// Allow customization of the default post type configuration via filter.
@@ -77,9 +92,11 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 
 }
 
-
-/************* CUSTOM TAXONOMIES *****************/
-
+/**
+ * Add Custom Taxonomy
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_meetings_type' ) ) {
 
 	// Register Custom Taxonomy
@@ -129,6 +146,11 @@ if ( ! function_exists( 'anp_meetings_type' ) ) {
 
 }
 
+/**
+ * Add Custom Taxonomy
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_meetings_tag' ) ) {
 
 	// Register Custom Taxonomy
@@ -179,8 +201,11 @@ if ( ! function_exists( 'anp_meetings_tag' ) ) {
 }
 
 
-/************* CUSTOM ADMIN COLUMNS *****************/
-
+/**
+ * Add Custom Admin Columns
+ *
+ * @since 1.0.0
+ */
 if(! function_exists( 'anp_meetings_columns' ) ) {
 
 	function anp_meetings_columns( $columns ) {
@@ -223,7 +248,5 @@ function meetings_remove_custom_fields_metabox() {
 }
 
 add_action( 'admin_menu', 'meetings_remove_custom_fields_metabox' );
-
-
 
 ?>

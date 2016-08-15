@@ -10,7 +10,11 @@
  * @package   ANP_Meetings
  */
 
-
+ /**
+  * Add Custom Post Type
+  *
+  * @since 1.0.0
+  */
 if ( ! function_exists('anp_agenda_post_type') ) {
 
     // Register Custom Post Type
@@ -59,7 +63,19 @@ if ( ! function_exists('anp_agenda_post_type') ) {
             'publicly_queryable'  => true,
             'query_var'           => 'agenda',
             'rewrite'             => $rewrite,
-            'capability_type'     => 'page',
+            'capability_type'     => array( 'post', 'meeting' ),
+			'map_meta_cap'			=> true,
+			'capabilities' => array(
+				'publish_posts' => 'publish_agendas',
+				'edit_posts' => 'edit_agendas',
+				'edit_others_posts' => 'edit_others_agendas',
+				'delete_posts' => 'delete_agendas',
+				'delete_others_posts' => 'delete_others_agendas',
+				'read_private_posts' => 'read_private_agendas',
+				'edit_post' => 'edit_agenda',
+				'delete_post' => 'delete_agenda',
+				'read_post' => 'read_agenda',
+			),
         );
         // Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'agenda_post_type_defaults', $default_config, $slug );
@@ -70,29 +86,37 @@ if ( ! function_exists('anp_agenda_post_type') ) {
 
 }
 
+/**
+ * Move Admin Menus
+ * Display admin as submenu under Meetings
+ *
+ * @uses `add_submenu_page` with $cap set to `edit_agendas`
+ *
+ * @since 1.0.0
+ */
 if ( ! function_exists( 'anp_agenda_add_to_menu' ) ) {
 
-    function anp_agenda_add_to_menu() { 
+    function anp_agenda_add_to_menu() {
 
         add_submenu_page(
-            'edit.php?post_type=meeting', 
-            __('All Agendas', 'meeting'), 
-            __('All Agendas', 'meeting'), 
-            'manage_options', 
+            'edit.php?post_type=meeting',
+            __('All Agendas', 'meeting'),
+            __('All Agendas', 'meeting'),
+            'edit_meetings',
             'edit.php?post_type=agenda'
-        ); 
+        );
 
         add_submenu_page(
-            'edit.php?post_type=meeting', 
-            __('New Agenda', 'meeting'), 
-            __('New Agenda', 'meeting'), 
-            'manage_options', 
+            'edit.php?post_type=meeting',
+            __('New Agenda', 'meeting'),
+            __('New Agenda', 'meeting'),
+            'edit_meetings',
             'post-new.php?post_type=agenda'
-        ); 
+        );
 
     }
 
-    add_action('admin_menu', 'anp_agenda_add_to_menu'); 
+    add_action('admin_menu', 'anp_agenda_add_to_menu');
 
 }
 
