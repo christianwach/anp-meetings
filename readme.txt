@@ -3,7 +3,7 @@ Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.0.7
+Stable tag: 1.0.7.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Useage ==
 
 == Revisions ==
+
+= 1.0.7.1 - Aug 15, 2016 =
+* Added dashicons for agenda, proposal and summary post types.
 
 = 1.0.7 - Aug 15, 2016 =
 * [Feature #859]

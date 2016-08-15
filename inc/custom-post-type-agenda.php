@@ -55,6 +55,7 @@ if ( ! function_exists('anp_agenda_post_type') ) {
             'show_ui'             => true,
             'show_in_menu'        => false,
             'menu_position'       => 5,
+            'menu_icon'             => 'dashicons-editor-ol',
             'show_in_admin_bar'   => true,
             'show_in_nav_menus'   => true,
             'can_export'          => true,
