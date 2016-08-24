@@ -15,12 +15,12 @@
   *
   * @since 1.0.0
   */
-if ( ! function_exists('anp_agenda_post_type') ) {
+if ( ! function_exists( 'anp_agenda_post_type' ) ) {
 
     // Register Custom Post Type
     function anp_agenda_post_type() {
 
-        $slug = 'agenda';
+        $slug = apply_filters( 'anp_agenda_post_type', 'agenda' );
 
         $labels = array(
             'name'                => _x( 'Agendas', 'Post Type General Name', 'meeting' ),
@@ -62,10 +62,13 @@ if ( ! function_exists('anp_agenda_post_type') ) {
             'has_archive'         => 'agendas',
             'exclude_from_search' => false,
             'publicly_queryable'  => true,
-            'query_var'           => 'agenda',
+            'query_var'           => $slug,
             'rewrite'             => $rewrite,
+            'show_in_rest'        => true,
+	  		'rest_base'           => $slug,
+	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
             'capability_type'     => array( 'post', 'meeting' ),
-			'map_meta_cap'			=> true,
+			'map_meta_cap'		  => true,
 			'capabilities' => array(
 				'publish_posts' => 'publish_agendas',
 				'edit_posts' => 'edit_agendas',

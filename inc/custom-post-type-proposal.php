@@ -20,7 +20,7 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
     // Register Custom Post Type
     function anp_proposals_post_type() {
 
-        $slug = 'proposal';
+        $slug = apply_filters( 'anp_proposal_post_type', 'proposal' );
 
         $labels = array(
             'name'                => _x( 'Proposals', 'Post Type General Name', 'anp_meeting' ),
@@ -65,10 +65,13 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'has_archive'         => 'proposals',
             'exclude_from_search' => false,
             'publicly_queryable'  => true,
-            'query_var'           => 'proposal',
+            'query_var'           => $slug,
             'rewrite'             => $rewrite,
+            'show_in_rest'        => true,
+	  		'rest_base'           => $slug,
+	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
             'capability_type'     => array( 'post', 'meeting' ),
-			'map_meta_cap'			=> true,
+			'map_meta_cap'		  => true,
 			'capabilities' => array(
 				'publish_posts' => 'publish_proposals',
 				'edit_posts' => 'edit_proposals',
@@ -101,10 +104,12 @@ if ( ! function_exists( 'anp_proposals_status_taxonomy' ) ) {
     // Register Custom Taxonomy
     function anp_proposals_status_taxonomy() {
 
+        $slug = apply_filters( 'anp_proposal_status_taxonomy', 'proposal_status' );
+
         $labels = array(
             'name'                       => _x( 'Proposal Statuses', 'Taxonomy General Name', 'anp_meeting' ),
             'singular_name'              => _x( 'Proposal Status', 'Taxonomy Singular Name', 'anp_meeting' ),
-            'menu_name'                  => __( 'Proposal Statuses', 'anp_meeting' ),
+            'menu_name'                  => __( 'Statuses', 'anp_meeting' ),
             'all_items'                  => __( 'All Proposal Statuses', 'anp_meeting' ),
             'parent_item'                => __( 'Parent Proposal Status', 'anp_meeting' ),
             'parent_item_colon'          => __( 'Parent Proposal Status:', 'anp_meeting' ),
@@ -123,7 +128,6 @@ if ( ! function_exists( 'anp_proposals_status_taxonomy' ) ) {
         $rewrite = array(
             'slug'                       => 'proposal-status',
             'with_front'                 => true,
-            'hierarchical'               => false,
         );
         $args = array(
             'labels'                     => $labels,
@@ -133,7 +137,10 @@ if ( ! function_exists( 'anp_proposals_status_taxonomy' ) ) {
             'show_admin_column'          => true,
             'show_in_nav_menus'          => true,
             'show_tagcloud'              => true,
-            'query_var'                  => 'proposal_status',
+            'query_var'                  => $slug,
+            'show_in_rest'       		 => true,
+            'rest_base'          		 => $slug,
+            'rest_controller_class' 	 => 'WP_REST_Terms_Controller',
             'rewrite'                    => $rewrite,
         );
         register_taxonomy( 'proposal_status', array( 'proposal' ), $args );
@@ -190,8 +197,6 @@ function anp_remove_status_meta() {
 }
 
 add_action( 'admin_menu', 'anp_remove_status_meta' );
-
-
 
 
 ?>

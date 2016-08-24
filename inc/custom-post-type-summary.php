@@ -20,7 +20,7 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 	// Register Custom Post Type
 	function anp_summary_post_type() {
 
-        $slug = 'summary';
+		$slug = apply_filters( 'anp_summary_post_type', 'summary' );
 
 		$labels = array(
 			'name'                => _x( 'Summaries', 'Post Type General Name', 'meeting' ),
@@ -55,17 +55,20 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 			'show_ui'             => true,
 			'show_in_menu'        => false,
 			'menu_position'       => 30,
-			'menu_icon'				=> 'dashicons-list-view',
+			'menu_icon'			  => 'dashicons-list-view',
 			'show_in_admin_bar'   => true,
 			'show_in_nav_menus'   => true,
 			'can_export'          => true,
 			'has_archive'         => 'summaries',
 			'exclude_from_search' => false,
 			'publicly_queryable'  => true,
-			'query_var'           => 'summary',
+			'query_var'           => $slug,
 			'rewrite'             => $rewrite,
+			'show_in_rest'        => true,
+	  		'rest_base'           => $slug,
+	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'capability_type'     => array( 'post', 'meeting' ),
-			'map_meta_cap'			=> true,
+			'map_meta_cap'		  => true,
 			'capabilities' => array(
 				'publish_posts' => 'publish_summaries',
 				'edit_posts' => 'edit_summaries',
