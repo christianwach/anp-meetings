@@ -11,14 +11,14 @@ $post_type = get_post_type( get_the_ID() );
 
 // Meeting Meta
 $meeting_date = ( get_post_meta( get_the_ID(), 'meeting_date', true ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'meeting_date', true ) ) ) : '' ;
-$organization = get_the_term_list( get_the_ID(), 'organization', '<span class="organization tags">', ', ', '</span>' );
-$meeting_type = get_the_term_list( get_the_ID(), 'meeting_type', '<span class="meeting-type tags">', ', ', '</span>' );
-$meeting_tags = get_the_term_list( get_the_ID(), 'meeting_tag', '<span class="meeting-tag tags">', ', ', '</span>' );
+$organization = get_the_term_list( get_the_ID(), 'organization', '<span class="organization tag">', ', ', '</span>' );
+$meeting_type = get_the_term_list( get_the_ID(), 'meeting_type', '<span class="meeting-type tag">', ', ', '</span>' );
+$meeting_tags = get_the_term_list( get_the_ID(), 'meeting_tag', '<span class="meeting-tag tag">', ', ', '</span>' );
 
 // Proposal Meta
 $approval_date = $meeting_date;
 $effective_date = get_post_meta( get_the_ID(), 'proposal_date_effective', true );
-$proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span class="proposal-status tags">', ', ', '</span>' ); ?>
+$proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span class="proposal-status tag">', ', ', '</span>' ); ?>
 
 <div class="meta meeting-meta"><?php echo ( !empty( $meeting_date ) ) ? '<span class="meta-label">' . __( 'Date:','anp-meetings'  ) . '</span> ' . $meeting_date : ''; ?></div>
 <div class="meta meeting-meta"><?php echo ( !empty( $organization ) ) ? '<span class="meta-label">' . __( 'Organization:', 'anp-meetings' ) . '</span> ' . $organization : ''; ?></div>
