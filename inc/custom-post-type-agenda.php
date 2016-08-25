@@ -49,7 +49,10 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'label'               => __( 'Agenda', 'meeting' ),
             'labels'              => $labels,
             'supports'            => array( 'title', 'editor', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
-            'taxonomies'          => array( 'meeting_tag' ),
+            'taxonomies'          => array(
+                'organization',
+                'meeting_tag',
+            ),
             'hierarchical'        => false,
             'public'              => true,
             'show_ui'             => true,

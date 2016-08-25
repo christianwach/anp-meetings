@@ -49,7 +49,10 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 			'label'               => __( 'Summary', 'meeting' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'wpcom-markdown', 'revisions' ),
-			'taxonomies'          => array( 'meeting_tag' ),
+			'taxonomies'          => array(
+				'organization',
+				'meeting_tag',
+			),
 			'hierarchical'        => false,
 			'public'              => true,
 			'show_ui'             => true,

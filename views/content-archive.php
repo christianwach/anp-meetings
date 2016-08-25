@@ -1,6 +1,6 @@
 <?php
 
-/* 
+/*
  * Content Variables - DO NOT REMOVE
  * Variables that can be used in the template
  */
@@ -11,44 +11,44 @@ $post_type = get_post_type( get_the_ID() );
 
 // Meeting Meta
 $meeting_date = ( get_post_meta( get_the_ID(), 'meeting_date', true ) ) ? date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( get_the_ID(), 'meeting_date', true ) ) ) : '' ;
-$meeting_type = get_the_term_list( get_the_ID(), 'meeting_type', '<span class="category">', ', ', '</span>' );
-$meeting_tags = get_the_term_list( get_the_ID(), 'meeting_tag', '<span class="tags">', ', ', '</span>' );
+$organization = get_the_term_list( get_the_ID(), 'organization', '<span class="organization tags">', ', ', '</span>' );
+$meeting_type = get_the_term_list( get_the_ID(), 'meeting_type', '<span class="meeting-type tags">', ', ', '</span>' );
+$meeting_tags = get_the_term_list( get_the_ID(), 'meeting_tag', '<span class="meeting-tag tags">', ', ', '</span>' );
 
 // Proposal Meta
 $approval_date = $meeting_date;
 $effective_date = get_post_meta( get_the_ID(), 'proposal_date_effective', true );
-$proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span class="tags">', ', ', '</span>' );
+$proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span class="proposal-status tags">', ', ', '</span>' ); ?>
 
-// Associated Content
+<div class="meta meeting-meta"><?php echo ( !empty( $meeting_date ) ) ? '<span class="meta-label">' . __( 'Date:','anp-meetings'  ) . '</span> ' . $meeting_date : ''; ?></div>
+<div class="meta meeting-meta"><?php echo ( !empty( $organization ) ) ? '<span class="meta-label">' . __( 'Organization:', 'anp-meetings' ) . '</span> ' . $organization : ''; ?></div>
+<div class="meta meeting-meta"><?php echo ( !empty( $meeting_tags ) ) ? '<span class="meta-label">' . __( 'Tags:', 'anp-meetings'  ) . '</span> ' . $meeting_tags : '' ; ?></div>
 
-/* 
- * Before the_content()
- * Content that appears before the_content()
- */
+<?php
+if( 'meeting' == $post_type ) { ?>
 
-$meeting_pre_content = '';
+    <div class="meta meeting-meta"><?php echo ( !empty( $meeting_type ) ) ? __( 'Type: ', 'anp-meetings'  ) . $meeting_type : '' ; ?></div>
 
-if( 'meeting' == $post_type ) {
-
+    <?php
     $agendas = ( function_exists( 'meeting_get_agenda' ) ) ? meeting_get_agenda( get_the_ID() ) : '';
 
     $summaries = ( function_exists( 'meeting_get_summary' ) ) ? meeting_get_summary( get_the_ID() ) : '';
 
     $proposals = ( function_exists( 'meeting_get_proposal' ) ) ? meeting_get_proposal( get_the_ID() ) : '';
 
+    if( $agendas || $summaries || $proposals ) { ?>
 
-    if( $agendas || $summaries || $proposals ) {
+        <ul class="connected-content">
 
-        $meeting_pre_content .= '<ul class="connected-content">';
+        <?php echo ( $agendas ) ? $agendas : ''; ?>
 
-        $meeting_pre_content .= ( $agendas ) ? $agendas : '';
+        <?php echo ( $summaries ) ? $summaries : ''; ?>
 
-        $meeting_pre_content .= ( $summaries ) ? $summaries : '';
+        <?php echo ( $proposals ) ? $proposals : ''; ?>
 
-        $meeting_pre_content .= ( $proposals ) ? $proposals : '';
+        </ul>
 
-        $meeting_pre_content .= '</ul>';
-
+    <?php
     }
 }
 
@@ -56,14 +56,15 @@ if( 'agenda' == $post_type ) {
 
     $agendas = ( function_exists( 'meeting_get_agenda' ) ) ? meeting_get_agenda( get_the_ID() ) : '';
 
-    if( $agendas ) {
+    if( $agendas ) { ?>
 
-        $meeting_pre_content .= '<ul class="connected-content meeting">';
+        <ul class="connected-content meeting">
 
-        $meeting_pre_content .= ( $agendas ) ? $agendas : '';
+        <?php ( $agendas ) ? $agendas : ''; ?>
 
-        $meeting_pre_content .= '</ul>';
+        </ul>'
 
+    <?php
     }
 
 }
@@ -72,23 +73,17 @@ if( 'summary' == $post_type ) {
 
     $summaries = ( function_exists( 'meeting_get_summary' ) ) ? meeting_get_summary( get_the_ID() ) : '';
 
-    if( $summaries ) {
+    if( $summaries ) { ?>
 
-        $meeting_pre_content .= '<ul class="connected-content meeting">';
+        <ul class="connected-content meeting">
 
-        $meeting_pre_content .= ( $summaries ) ? $summaries : '';
+        <?php echo ( $summaries ) ? $summaries : ''; ?>
 
-        $meeting_pre_content .= '</ul>';
+        </ul>
 
+    <?php
     }
 }
-
-/* 
- * After the_content()
- * Content that appears after the_content()
- */
-
-$meeting_post_content = '';
 
 
 ?>
