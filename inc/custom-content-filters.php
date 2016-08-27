@@ -76,6 +76,7 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             $meeting_title = [];
 
             $post_type_object = get_post_type_object( get_post_type( get_the_ID() ) );
+
             $post_type_name = $post_type_object->labels->singular_name;
 
             $org_terms = wp_get_post_terms( $post->ID, 'organization', array(
@@ -85,10 +86,9 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
 
             $meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( $post->ID, 'meeting_date', true ) ) );
 
-            if( !empty( $org_terms ) ) {
-                return '<span class="post-type">' . $post_type_name . '</span>' . $meeting_date;
+            if( !empty( $post_type_name ) ) {
+                array_push( $meeting_title, '<span class="post-type">' . $post_type_name . '</span>' );
             }
-
             if( !empty( $org_terms ) ) {
                 array_push( $meeting_title, '<span class="organization">' . $org_terms . '</span>' );
             }

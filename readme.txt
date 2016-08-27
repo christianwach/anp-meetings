@@ -3,7 +3,7 @@ Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.4.1
-Stable tag: 1.0.8.1
+Stable tag: 1.0.8.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Usage ==
 
 == Revisions ==
+
+= 1.0.8.2 - Aug 26, 2016 =
+* Fixed issue causing "Agenda" not to appear on agenda archive pages.
 
 = 1.0.8.1 - Aug 24, 2016 =
 *[Feature #1524] Modified views to display new taxonomy.
