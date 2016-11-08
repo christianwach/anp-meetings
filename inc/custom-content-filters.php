@@ -184,7 +184,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_end_clean();
 
-            $body = $post->post_content;
+            $body = wpautop( $post->post_content );
 
             ob_start();
 
