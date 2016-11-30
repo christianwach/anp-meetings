@@ -6,6 +6,7 @@ jQuery(document).ready(function($) {
   console.log( 'LOADED!!' );
 
   $( '#is_meeting' ).change( function( event ) {
+    console.log( this.checked  );
     if( this.checked ) {
       $( '.cmb2-id-organizational-group' ).show();
       $( '.cmb2-id-meeting-type' ).show();
