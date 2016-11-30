@@ -15,13 +15,13 @@
  * @since 1.0.9
  *
  * @uses admin_enqueue_scripts
- * 
+ *
  * @return void
  */
 function anp_meetings_admin_enqueue_scripts() {
     $current_screen = get_current_screen();
     if( 'event' === $current_screen->id ) {
-        wp_enqueue_script( 'anp-meetings-admin',  ANP_MEETINGS_PLUGIN_URL . 'js/admin.js', array( 'jquery' ), null, true );
+        wp_enqueue_script( 'anp-meetings-admin',  ANP_MEETINGS_PLUGIN_URL . 'js/admin.js', array( 'jquery' ), '', true );
     }
     return;
 }
