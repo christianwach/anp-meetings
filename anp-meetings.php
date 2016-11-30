@@ -44,7 +44,9 @@ if ( !defined( 'ANP_MEETINGS_PLUGIN_URL' ) ) {
  * ---------------------------------- */
 
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/cmb2/init.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/cmb2-conditionals/cmb2-conditionals.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/posts-to-posts/posts-to-posts.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'admin/enqueue-scripts.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-meeting.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-agenda.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-summary.php' );

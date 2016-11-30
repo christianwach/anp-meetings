@@ -2,8 +2,8 @@
 Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
-Tested up to: 4.6
-Stable tag: 1.0.8.3
+Tested up to: 4.6.1
+Version: 1.0.9
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,16 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Usage ==
 
 == Revisions ==
+
+= 1.0.9 - Nov 29, 2016 =
+* # Feature #1632 - Associate meeting post types with Events
+   * Replaced `meeting_tag` with `event-tag`
+   * Registered `event-tag` for agenda, summary and proposal
+   * Removed `meeting_tag`
+   * Modified connections from events to agenda, events to summary and events to proposals
+   * Added `is_meeting` custom field
+   * Made meeting taxonomy fields conditional based on `is_meeting` field
+   * Added JS to show and hide meeting fields based on `is_meeting` field
 
 = 1.0.8.3 - Nov 8, 2016 =
 * Bug #1642 - Fixed issue with meetings post types' content not preserving line breaks.

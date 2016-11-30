@@ -23,21 +23,21 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 		$slug = apply_filters( 'anp_meeting_post_type', 'meeting' );
 
 		$labels = array(
-			'name'                => _x( 'Meetings', 'Post Type General Name', 'anp-meeting' ),
-			'singular_name'       => _x( 'Meeting', 'Post Type Singular Name', 'anp-meeting' ),
-			'menu_name'           => __( 'Meetings', 'anp-meeting' ),
-			'name_admin_bar'      => __( 'Meetings', 'anp-meeting' ),
-			'parent_item_colon'   => __( 'Parent Meeting:', 'anp-meeting' ),
-			'all_items'           => __( 'All Meetings', 'anp-meeting' ),
-			'add_new_item'        => __( 'Add New Meeting', 'anp-meeting' ),
-			'add_new'             => __( 'New Meeting', 'anp-meeting' ),
-			'new_item'            => __( 'New Meeting', 'anp-meeting' ),
-			'edit_item'           => __( 'Edit Meeting', 'anp-meeting' ),
-			'update_item'         => __( 'Update Meeting', 'anp-meeting' ),
-			'view_item'           => __( 'View Meeting', 'anp-meeting' ),
-			'search_items'        => __( 'Search Meeting', 'anp-meeting' ),
-			'not_found'           => __( 'Not found', 'anp-meeting' ),
-			'not_found_in_trash'  => __( 'Not found in Trash', 'anp-meeting' ),
+			'name'                => _x( 'Meetings', 'Post Type General Name', 'meeting' ),
+			'singular_name'       => _x( 'Meeting', 'Post Type Singular Name', 'meeting' ),
+			'menu_name'           => __( 'Meetings', 'meeting' ),
+			'name_admin_bar'      => __( 'Meetings', 'meeting' ),
+			'parent_item_colon'   => __( 'Parent Meeting:', 'meeting' ),
+			'all_items'           => __( 'All Meetings', 'meeting' ),
+			'add_new_item'        => __( 'Add New Meeting', 'meeting' ),
+			'add_new'             => __( 'New Meeting', 'meeting' ),
+			'new_item'            => __( 'New Meeting', 'meeting' ),
+			'edit_item'           => __( 'Edit Meeting', 'meeting' ),
+			'update_item'         => __( 'Update Meeting', 'meeting' ),
+			'view_item'           => __( 'View Meeting', 'meeting' ),
+			'search_items'        => __( 'Search Meeting', 'meeting' ),
+			'not_found'           => __( 'Not found', 'meeting' ),
+			'not_found_in_trash'  => __( 'Not found in Trash', 'meeting' ),
 		);
 		$rewrite = array(
 			'slug'                => $slug,
@@ -46,14 +46,13 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 			'feeds'               => true,
 		);
 		$default_config = array(
-			'label'               => __( 'Meetings', 'anp-meeting' ),
-			'description'         => __( 'Custom post type for meeting agendas and notes', 'anp-meeting' ),
+			'label'               => __( 'Meetings', 'meeting' ),
+			'description'         => __( 'Custom post type for meeting agendas and notes', 'meeting' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
 			'taxonomies'          => array(
 				'organization',
-				'meeting_type',
-				'meeting_tag',
+				'meeting_type'
 			),
 			'hierarchical'        => false,
 			'public'              => true,
@@ -112,23 +111,23 @@ if ( ! function_exists( 'anp_organization_taxonomy' ) ) {
 		$slug = apply_filters( 'anp_organization_taxonomy', 'organization' );
 
 		$labels = array(
-			'name'                       => _x( 'Organizational Group', 'Taxonomy General Name', 'anp-meeting' ),
-			'singular_name'              => _x( 'Organizational Group', 'Taxonomy Singular Name', 'anp-meeting' ),
-			'menu_name'                  => __( 'Organizations', 'anp-meeting' ),
-			'all_items'                  => __( 'All Organizational Groups', 'anp-meeting' ),
-			'parent_item'                => __( 'Parent Organizational Group', 'anp-meeting' ),
-			'parent_item_colon'          => __( 'Parent Organizational Group:', 'anp-meeting' ),
-			'new_item_name'              => __( 'New Organizational Group Name', 'anp-meeting' ),
-			'add_new_item'               => __( 'Add New Organizational Group', 'anp-meeting' ),
-			'edit_item'                  => __( 'Edit Organizational Group', 'anp-meeting' ),
-			'update_item'                => __( 'Update Organizational Group', 'anp-meeting' ),
-			'view_item'                  => __( 'View Organizational Group', 'anp-meeting' ),
-			'separate_items_with_commas' => __( 'Separate organizational groups with commas', 'anp-meeting' ),
-			'add_or_remove_items'        => __( 'Add or remove organizational groups', 'anp-meeting' ),
-			'choose_from_most_used'      => __( 'Choose from the most used', 'anp-meeting' ),
-			'popular_items'              => __( 'Popular Organizational Groups', 'anp-meeting' ),
-			'search_items'               => __( 'Search Organizational Groups', 'anp-meeting' ),
-			'not_found'                  => __( 'Not Found', 'anp-meeting' ),
+			'name'                       => _x( 'Organizational Group', 'Taxonomy General Name', 'meeting' ),
+			'singular_name'              => _x( 'Organizational Group', 'Taxonomy Singular Name', 'meeting' ),
+			'menu_name'                  => __( 'Organizations', 'meeting' ),
+			'all_items'                  => __( 'All Organizational Groups', 'meeting' ),
+			'parent_item'                => __( 'Parent Organizational Group', 'meeting' ),
+			'parent_item_colon'          => __( 'Parent Organizational Group:', 'meeting' ),
+			'new_item_name'              => __( 'New Organizational Group Name', 'meeting' ),
+			'add_new_item'               => __( 'Add New Organizational Group', 'meeting' ),
+			'edit_item'                  => __( 'Edit Organizational Group', 'meeting' ),
+			'update_item'                => __( 'Update Organizational Group', 'meeting' ),
+			'view_item'                  => __( 'View Organizational Group', 'meeting' ),
+			'separate_items_with_commas' => __( 'Separate organizational groups with commas', 'meeting' ),
+			'add_or_remove_items'        => __( 'Add or remove organizational groups', 'meeting' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'meeting' ),
+			'popular_items'              => __( 'Popular Organizational Groups', 'meeting' ),
+			'search_items'               => __( 'Search Organizational Groups', 'meeting' ),
+			'not_found'                  => __( 'Not Found', 'meeting' ),
 		);
 		$rewrite = array(
 			'slug'                       => $slug,
@@ -148,7 +147,7 @@ if ( ! function_exists( 'anp_organization_taxonomy' ) ) {
 	  		'rest_controller_class' 	 => 'WP_REST_Terms_Controller',
 			'rewrite'                    => $rewrite,
 		);
-		register_taxonomy( 'organization', array( 'meeting', 'agenda', 'summary', 'proposal' ), $args );
+		register_taxonomy( 'organization', array( 'event', 'meeting', 'agenda', 'summary', 'proposal' ), $args );
 
 	}
 
@@ -170,23 +169,23 @@ if ( ! function_exists( 'anp_meetings_type' ) ) {
 		$slug = apply_filters( 'anp_meeting_type_taxonomy', 'meeting_type' );
 
 		$labels = array(
-			'name'                       => _x( 'Meeting Type', 'Taxonomy General Name', 'anp-meeting' ),
-			'singular_name'              => _x( 'Meeting Type', 'Taxonomy Singular Name', 'anp-meeting' ),
-			'menu_name'                  => __( 'Types', 'anp-meeting' ),
-			'all_items'                  => __( 'All Meeting Types', 'anp-meeting' ),
-			'parent_item'                => __( 'Parent Meeting Type', 'anp-meeting' ),
-			'parent_item_colon'          => __( 'Parent Meeting Type:', 'anp-meeting' ),
-			'new_item_name'              => __( 'New Meeting Type Name', 'anp-meeting' ),
-			'add_new_item'               => __( 'Add New Meeting Type', 'anp-meeting' ),
-			'edit_item'                  => __( 'Edit Meeting Type', 'anp-meeting' ),
-			'update_item'                => __( 'Update Meeting Type', 'anp-meeting' ),
-			'view_item'                  => __( 'View Meeting Type', 'anp-meeting' ),
-			'separate_items_with_commas' => __( 'Separate meeting types with commas', 'anp-meeting' ),
-			'add_or_remove_items'        => __( 'Add or remove meeting types', 'anp-meeting' ),
-			'choose_from_most_used'      => __( 'Choose from the most used', 'anp-meeting' ),
-			'popular_items'              => __( 'Popular Meeting Types', 'anp-meeting' ),
-			'search_items'               => __( 'Search Meeting Types', 'anp-meeting' ),
-			'not_found'                  => __( 'Not Found', 'anp-meeting' ),
+			'name'                       => _x( 'Meeting Type', 'Taxonomy General Name', 'meeting' ),
+			'singular_name'              => _x( 'Meeting Type', 'Taxonomy Singular Name', 'meeting' ),
+			'menu_name'                  => __( 'Types', 'meeting' ),
+			'all_items'                  => __( 'All Meeting Types', 'meeting' ),
+			'parent_item'                => __( 'Parent Meeting Type', 'meeting' ),
+			'parent_item_colon'          => __( 'Parent Meeting Type:', 'meeting' ),
+			'new_item_name'              => __( 'New Meeting Type Name', 'meeting' ),
+			'add_new_item'               => __( 'Add New Meeting Type', 'meeting' ),
+			'edit_item'                  => __( 'Edit Meeting Type', 'meeting' ),
+			'update_item'                => __( 'Update Meeting Type', 'meeting' ),
+			'view_item'                  => __( 'View Meeting Type', 'meeting' ),
+			'separate_items_with_commas' => __( 'Separate meeting types with commas', 'meeting' ),
+			'add_or_remove_items'        => __( 'Add or remove meeting types', 'meeting' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'meeting' ),
+			'popular_items'              => __( 'Popular Meeting Types', 'meeting' ),
+			'search_items'               => __( 'Search Meeting Types', 'meeting' ),
+			'not_found'                  => __( 'Not Found', 'meeting' ),
 		);
 		$rewrite = array(
 			'slug'                       => $slug,
@@ -206,7 +205,7 @@ if ( ! function_exists( 'anp_meetings_type' ) ) {
 	  		'rest_controller_class' 	 => 'WP_REST_Terms_Controller',
 			'rewrite'                    => $rewrite,
 		);
-		register_taxonomy( 'meeting_type', array( 'meeting' ), $args );
+		register_taxonomy( 'meeting_type', array( 'event', 'meeting' ), $args );
 
 	}
 
@@ -228,23 +227,23 @@ if ( ! function_exists( 'anp_meetings_tag' ) ) {
 		$slug = apply_filters( 'anp_meetings_tag_taxonomy', 'meeting_tag' );
 
 		$labels = array(
-			'name'                       => _x( 'Meeting Tags', 'Taxonomy General Name', 'anp-meeting' ),
-			'singular_name'              => _x( 'Meeting Tag', 'Taxonomy Singular Name', 'anp-meeting' ),
-			'menu_name'                  => __( 'Tags', 'anp-meeting' ),
-			'all_items'                  => __( 'All Tags', 'anp-meeting' ),
-			'parent_item'                => __( 'Parent Tag', 'anp-meeting' ),
-			'parent_item_colon'          => __( 'Parent Tag:', 'anp-meeting' ),
-			'new_item_name'              => __( 'New Tag Name', 'anp-meeting' ),
-			'add_new_item'               => __( 'Add New Tag', 'anp-meeting' ),
-			'edit_item'                  => __( 'Edit Tag', 'anp-meeting' ),
-			'update_item'                => __( 'Update Tag', 'anp-meeting' ),
-			'view_item'                  => __( 'View Tag', 'anp-meeting' ),
-			'separate_items_with_commas' => __( 'Separate tags with commas', 'anp-meeting' ),
-			'add_or_remove_items'        => __( 'Add or remove tags', 'anp-meeting' ),
-			'choose_from_most_used'      => __( 'Choose from the most used', 'anp-meeting' ),
-			'popular_items'              => __( 'Popular Tags', 'anp-meeting' ),
-			'search_items'               => __( 'Search Tags', 'anp-meeting' ),
-			'not_found'                  => __( 'Not Found', 'anp-meeting' ),
+			'name'                       => _x( 'Meeting Tags', 'Taxonomy General Name', 'meeting' ),
+			'singular_name'              => _x( 'Meeting Tag', 'Taxonomy Singular Name', 'meeting' ),
+			'menu_name'                  => __( 'Tags', 'meeting' ),
+			'all_items'                  => __( 'All Tags', 'meeting' ),
+			'parent_item'                => __( 'Parent Tag', 'meeting' ),
+			'parent_item_colon'          => __( 'Parent Tag:', 'meeting' ),
+			'new_item_name'              => __( 'New Tag Name', 'meeting' ),
+			'add_new_item'               => __( 'Add New Tag', 'meeting' ),
+			'edit_item'                  => __( 'Edit Tag', 'meeting' ),
+			'update_item'                => __( 'Update Tag', 'meeting' ),
+			'view_item'                  => __( 'View Tag', 'meeting' ),
+			'separate_items_with_commas' => __( 'Separate tags with commas', 'meeting' ),
+			'add_or_remove_items'        => __( 'Add or remove tags', 'meeting' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'meeting' ),
+			'popular_items'              => __( 'Popular Tags', 'meeting' ),
+			'search_items'               => __( 'Search Tags', 'meeting' ),
+			'not_found'                  => __( 'Not Found', 'meeting' ),
 		);
 		$rewrite = array(
 			'slug'                       => $slug,
@@ -265,15 +264,14 @@ if ( ! function_exists( 'anp_meetings_tag' ) ) {
 	  		'rest_controller_class' 	 => 'WP_REST_Terms_Controller',
 			'rewrite'                    => $rewrite,
 		);
-		register_taxonomy( 'meeting_tag', array( 'meeting', 'agenda', 'summary', 'proposal' ), $args );
+		register_taxonomy( 'meeting_tag', array( 'event', 'meeting', 'agenda', 'summary', 'proposal' ), $args );
 
 	}
 
 	// Hook into the 'init' action
-	add_action( 'init', 'anp_meetings_tag', 0 );
+	//add_action( 'init', 'anp_meetings_tag', 0 );
 
 }
-
 
 /**
  * Add Custom Admin Columns
@@ -322,5 +320,21 @@ function meetings_remove_custom_fields_metabox() {
 }
 
 add_action( 'admin_menu', 'meetings_remove_custom_fields_metabox' );
+
+/**
+ * Change `event-tag` Args
+ * Change display name of `event-tag` to "Tags"
+ *
+ * @since 1.0.9
+ *
+ * @uses eventorganiser_register_taxonomy_event-tag filter
+ *
+ * @param  array $event_tag_args
+ * @return array $event_tag_args modified
+ */
+function anp_meetings_change_event_tag_args( $event_tag_args ) {
+	return $event_tag_args['labels']['name'] = __( 'Tags', 'meeting' );
+}
+add_filter( 'eventorganiser_register_taxonomy_event-tag', 'anp_meetings_change_event_tag_args');
 
 ?>

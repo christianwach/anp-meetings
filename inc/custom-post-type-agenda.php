@@ -127,4 +127,21 @@ if ( ! function_exists( 'anp_agenda_add_to_menu' ) ) {
 
 }
 
+/**
+ * Register `event-tag` Taxonomy
+ * Add event-tag to meeting post types
+ *
+ * @since 1.0.9
+ *
+ * @uses register_taxonomy_for_object_type()
+ *
+ * @link https://codex.wordpress.org/Function_Reference/register_taxonomy_for_object_type
+ */
+function anp_meeting_add_taxonomy_event_tag() {
+    register_taxonomy_for_object_type( 'event-tag', 'agenda' );
+    register_taxonomy_for_object_type( 'event-tag', 'summary' );
+    register_taxonomy_for_object_type( 'event-tag', 'proposal' );
+}
+add_action( 'init', 'anp_meeting_add_taxonomy_event_tag' );
+
 ?>
