@@ -3,6 +3,8 @@
  */
 jQuery(document).ready(function($) {
 
+  console.log( 'LOADED!!' );
+
   $( '#is_meeting' ).change( function( event ) {
     if( this.checked ) {
       $( '.cmb2-id-organizational-group' ).show();
