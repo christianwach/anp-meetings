@@ -43,6 +43,7 @@ function anp_meetings_add_meeting_metabox() {
         'description'   => __( 'Is this event a meeting?', 'meeting' ),
         'id'            => 'is_meeting',
         'type'          => 'checkbox',
+        'default'       => false,
         'attributes'    => array()
     ) );
 
@@ -51,7 +52,7 @@ function anp_meetings_add_meeting_metabox() {
         'id'             => 'organizational_group',
         'taxonomy'       => 'organization',
         'type'           => 'taxonomy_multicheck',
-        'show_on_cb'     => 'anp_meeting_is_event_meeting',
+        // 'show_on_cb'     => 'anp_meeting_is_event_meeting',
         'text'           => array(
             'no_terms_text' => __( 'Sorry, no organizational groups could be found.', 'meeting' )
         ),
@@ -63,7 +64,7 @@ function anp_meetings_add_meeting_metabox() {
         'id'             => 'meeting_type',
         'taxonomy'       => 'meeting_type',
         'type'           => 'taxonomy_multicheck',
-        'show_on_cb'     => 'anp_meeting_is_event_meeting',
+        // 'show_on_cb'     => 'anp_meeting_is_event_meeting',
         'text'           => array(
             'no_terms_text' => __( 'Sorry, no meeting types could be found.', 'meeting' )
         ),

@@ -3,10 +3,15 @@
  */
 jQuery(document).ready(function($) {
 
-  console.log( 'LOADED!!' );
+  if( $( '#is_meeting' ).prop( 'checked', false ) ) {
+    $( '.cmb2-id-organizational-group' ).hide();
+    $( '.cmb2-id-meeting-type' ).hide();
+    $( '#p2p-from-event_to_agenda' ).hide();
+    $( '#p2p-from-event_to_summary' ).hide();
+    $( '#p2p-from-event_to_proposal' ).hide();
+  }
 
   $( '#is_meeting' ).change( function( event ) {
-    console.log( this.checked  );
     if( this.checked ) {
       $( '.cmb2-id-organizational-group' ).show();
       $( '.cmb2-id-meeting-type' ).show();
