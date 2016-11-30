@@ -1,5 +1,6 @@
 {
     "name": "glocalcoop/anp-meetings",
+    "type": "wordpress-plugin",
     "authors": [
         {
             "name": "Pea, Glocal",
@@ -13,8 +14,8 @@
         }
     ],
     "require": {
-        "wpackagist-plugin/cmb2": ">=2.2.2.1",
-        "wpackagist-plugin/posts-to-posts": ">=1.6.5"
+        "wpackagist-plugin/cmb2": "^2.2.2.1",
+        "wpackagist-plugin/posts-to-posts": "^1.6.5"
     },
     "require-dev": {},
     "extra": {
