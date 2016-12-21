@@ -157,5 +157,3 @@ function anp_meetings_change_event_tag_args( $event_tag_args ) {
 	return $event_tag_args['labels']['name'] = __( 'Tags', 'meetings' );
 }
 add_filter( 'eventorganiser_register_taxonomy_event-tag', 'anp_meetings_change_event_tag_args');
-
-?>

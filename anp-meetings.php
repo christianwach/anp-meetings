@@ -16,9 +16,9 @@ Plugin URI: https://plan.glocal.coop/projects/anp-meetings/
 Description: Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display meeting notes/minutes, agendas, proposals and summaries.
 Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 1.0.8.3
+Version: 1.0.10
 License: GPLv3
-Text Domain: meeting
+Text Domain: meetings
 */
 
 // If this file is called directly, abort.
@@ -44,19 +44,74 @@ if ( !defined( 'ANP_MEETINGS_PLUGIN_URL' ) ) {
  * ---------------------------------- */
 
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/cmb2/init.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/cmb2-conditionals/cmb2-conditionals.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/posts-to-posts/posts-to-posts.php' );
+
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'admin/enqueue-scripts.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-meeting.php' );
+
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-agenda.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-summary.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-proposal.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-fields.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/post-type-connections.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-content-filters.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-pre-get-filters.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'anp-meetings-render.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/pre-get-filters.php' );
+
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'public/content-filters.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'public/render-functions.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'public/search-filters.php' );
 
 
-?>
+/**
+ * Add Custom Capabilities
+ *
+ * @since 0.1.11
+ *
+ * @uses get_role()
+ * @uses has_cap()
+ * @uses add_cap()
+ *
+ * @return void
+ *
+ */
+function anp_meetings_add_capabilities() {
+    global $wp_roles;
+    $roles = $wp_roles->roles;
+    $form_role = 'edit_meetings';
+
+    foreach( $roles as $role_name => $display_name ) {
+      $role = $wp_roles->get_role( $role_name );
+      if ( $role->has_cap( 'publish_posts' ) ) {
+        $role->add_cap( $form_role );
+      }
+    }
+}
+add_action( 'anp_meetings_activate', 'anp_meetings_add_capabilities' );
+
+/**
+ * [anp_meetings_add_category description]
+ */
+function anp_meetings_add_category() {
+	wp_insert_term( __( 'Meeting', 'meetings' ), 'event-category' );
+	if( !term_exists( 'meeting', 'event-category' ) ) {
+		wp_insert_term(
+		  __( 'Meeting', 'meetings' ),
+		  'event-category',
+		  array(
+			'slug'            => 'meeting',
+		  )
+		);
+	}
+}
+add_action( 'anp_meetings_activate', 'anp_meetings_add_category' );
+
+/**
+ * Add Activation Hook
+ *
+ * @since 0.1.11
+ *
+ * @link https://codex.wordpress.org/Function_Reference/register_activation_hook#Process_Flow
+ */
+function anp_meetings_activate() {
+    anp_meetings_add_capabilities();
+    anp_meetings_add_category();
+}
+register_activation_hook( __FILE__, 'anp_meetings_activate' );

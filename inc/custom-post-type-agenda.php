@@ -22,6 +22,18 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
 
         $slug = apply_filters( 'anp_agenda_post_type', 'agenda' );
 
+        $capabilities = array(
+            'publish_posts'         => 'publish_meetings',
+            'edit_posts'            => 'edit_meetings',
+            'edit_others_posts'     => 'edit_others_meetings',
+            'delete_posts'          => 'delete_meetings',
+            'delete_others_posts'   => 'delete_others_meetings',
+            'read_private_posts'    => 'read_private_meetings',
+            'edit_post'             => 'edit_meeting',
+            'delete_post'           => 'delete_meeting',
+            'read_post'             => 'read_meeting',
+        );
+
         $labels = array(
             'name'                => _x( 'Agendas', 'Post Type General Name', 'meetings' ),
             'singular_name'       => _x( 'Agenda', 'Post Type Singular Name', 'meetings' ),
@@ -67,7 +79,7 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'show_ui'             => true,
             'show_in_menu'        => false,
             'menu_position'       => 5,
-            'menu_icon'             => 'dashicons-editor-ol',
+            'menu_icon'           => 'dashicons-editor-ol',
             'show_in_admin_bar'   => true,
             'show_in_nav_menus'   => true,
             'can_export'          => true,
@@ -79,19 +91,9 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'show_in_rest'        => true,
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-            'capability_type'     => array( 'post', 'event' ),
+            'capability_type'     => array( 'post' ),
 			'map_meta_cap'		  => true,
-			'capabilities' => array(
-				'publish_posts' => 'publish_agendas',
-				'edit_posts' => 'edit_agendas',
-				'edit_others_posts' => 'edit_others_agendas',
-				'delete_posts' => 'delete_agendas',
-				'delete_others_posts' => 'delete_others_agendas',
-				'read_private_posts' => 'read_private_agendas',
-				'edit_post' => 'edit_agenda',
-				'delete_post' => 'delete_agenda',
-				'read_post' => 'read_agenda',
-			),
+			'capabilities'        => apply_filters( 'anp_meetings_agenda_capabilities', $capabilities )
         );
         // Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'agenda_post_type_defaults', $default_config, $slug );

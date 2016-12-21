@@ -22,6 +22,18 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 
 		$slug = apply_filters( 'anp_summary_post_type', 'summary' );
 
+		$capabilities = array(
+			'publish_posts'         => 'publish_meetings',
+            'edit_posts'            => 'edit_meetings',
+            'edit_others_posts'     => 'edit_others_meetings',
+            'delete_posts'          => 'delete_meetings',
+            'delete_others_posts'   => 'delete_others_meetings',
+            'read_private_posts'    => 'read_private_meetings',
+            'edit_post'             => 'edit_meeting',
+            'delete_post'           => 'delete_meeting',
+            'read_post'             => 'read_meeting',
+		);
+
 		$labels = array(
 			'name'                => _x( 'Summaries', 'Post Type General Name', 'meetings' ),
 			'singular_name'       => _x( 'Summary', 'Post Type Singular Name', 'meetings' ),
@@ -80,19 +92,9 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 			'show_in_rest'        => true,
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'capability_type'     => array( 'post', 'event' ),
+			'capability_type'     => array( 'post' ),
 			'map_meta_cap'		  => true,
-			'capabilities' => array(
-				'publish_posts' => 'publish_summaries',
-				'edit_posts' => 'edit_summaries',
-				'edit_others_posts' => 'edit_others_summaries',
-				'delete_posts' => 'delete_summaries',
-				'delete_others_posts' => 'delete_others_summaries',
-				'read_private_posts' => 'read_private_summaries',
-				'edit_post' => 'edit_summary',
-				'delete_post' => 'delete_summary',
-				'read_post' => 'read_summary',
-			),
+			'capabilities' 		  => apply_filters( 'anp_meetings_summary_capabilities', $capabilities )
 		);
 		// Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'summary_post_type_defaults', $default_config, $slug );

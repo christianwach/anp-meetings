@@ -22,6 +22,18 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
 
         $slug = apply_filters( 'anp_proposal_post_type', 'proposal' );
 
+        $capabilities = array(
+            'publish_posts'         => 'publish_meetings',
+            'edit_posts'            => 'edit_meetings',
+            'edit_others_posts'     => 'edit_others_meetings',
+            'delete_posts'          => 'delete_meetings',
+            'delete_others_posts'   => 'delete_others_meetings',
+            'read_private_posts'    => 'read_private_meetings',
+            'edit_post'             => 'edit_meeting',
+            'delete_post'           => 'delete_meeting',
+            'read_post'             => 'read_meeting',
+        );
+
         $labels = array(
             'name'                => _x( 'Proposals', 'Post Type General Name', 'meetings' ),
             'singular_name'       => _x( 'Proposal', 'Post Type Singular Name', 'meetings' ),
@@ -82,19 +94,9 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'show_in_rest'        => true,
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-            'capability_type'     => array( 'post', 'event' ),
+            'capability_type'     => array( 'post' ),
 			'map_meta_cap'		  => true,
-			'capabilities' => array(
-				'publish_posts' => 'publish_proposals',
-				'edit_posts' => 'edit_proposals',
-				'edit_others_posts' => 'edit_others_proposals',
-				'delete_posts' => 'delete_proposals',
-				'delete_others_posts' => 'delete_others_proposals',
-				'read_private_posts' => 'read_private_proposals',
-				'edit_post' => 'edit_proposal',
-				'delete_post' => 'delete_proposal',
-				'read_post' => 'read_proposal',
-			),
+			'capabilities'        => apply_filters( 'anp_meetings_proposal_capabilities', $capabilities )
         );
         // Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'proposal_post_type_defaults', $default_config, $slug );
