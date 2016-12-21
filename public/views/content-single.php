@@ -42,37 +42,37 @@ $connected_proposal = get_posts( array(
   'suppress_filters' => false
 ) ); ?>
 
-<?php if( 'meeting' == $post_type ) : ?>
+<?php if( 'meetings' == $post_type ) : ?>
 
     <?php if( $meeting_date ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date:', 'anp-meeting' ); ?></span> <?php echo $meeting_date; ?></p>
+        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date:', 'meetings' ); ?></span> <?php echo $meeting_date; ?></p>
     <?php endif; ?>
     <?php if( $meeting_type ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Type:', 'anp-meeting' ); ?></span> <?php echo $meeting_type; ?></p>
+        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Type:', 'meetings' ); ?></span> <?php echo $meeting_type; ?></p>
     <?php endif; ?>
 
 <?php endif; ?>
 
 <?php if( $organization ) : ?>
-    <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Organization:', 'anp-meeting' ); ?></span> <?php echo $organization; ?></p>
+    <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Organization:', 'meetings' ); ?></span> <?php echo $organization; ?></p>
 <?php endif; ?>
 
 <?php if( $meeting_tags ) : ?>
-    <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Tags:', 'anp-meeting' ); ?></span> <?php echo $meeting_tags; ?></p>
+    <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Tags:', 'meetings' ); ?></span> <?php echo $meeting_tags; ?></p>
 <?php endif; ?>
 
 <?php if( 'proposal' == $post_type ) : ?>
 
     <?php if( $proposal_status ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Status:', 'anp-meeting' ); ?></span> <?php echo $proposal_status; ?></p>
+        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Status:', 'meetings' ); ?></span> <?php echo $proposal_status; ?></p>
     <?php endif; ?>
 
     <?php if( $meeting_date ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Appoved:', 'anp-meeting' ); ?></span> <?php echo $meeting_date; ?></p>
+        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Appoved:', 'meetings' ); ?></span> <?php echo $meeting_date; ?></p>
     <?php endif; ?>
 
     <?php if( $effective_date) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Effective:', 'anp-meeting' ); ?></span> <?php echo $effective_date; ?></p>
+        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Effective:', 'meetings' ); ?></span> <?php echo $effective_date; ?></p>
     <?php endif; ?>
 
 <?php endif; ?>
@@ -105,15 +105,15 @@ $connected_proposal = get_posts( array(
           <?php foreach( $connected_proposal as $proposal ) : ?>
               <?php $post_type_obj = get_post_type_object( get_post_type( $proposal->ID ) ); ?>
               <li class="meeting-link">
-                  <a href="<?php echo get_post_permalink( $proposal->ID ); ?>"> <?php _e( 'Meeting', 'anp-meeting' ); ?></a>
+                  <a href="<?php echo get_post_permalink( $proposal->ID ); ?>"> <?php _e( 'meetings', 'meetings' ); ?></a>
               </li>
           <?php endforeach; ?>
 
         <?php endif; ?>
 
-        <?php if( 'meeting' == get_post_type() && count( $connected_proposal ) > 0 ) : ?>
+        <?php if( 'meetings' == get_post_type() && count( $connected_proposal ) > 0 ) : ?>
 
-            <li class="proposal-link"><a href="#proposals"><?php _e( 'Proposal(s)', 'anp-meeting' ); ?></a></li>
+            <li class="proposal-link"><a href="#proposals"><?php _e( 'Proposal(s)', 'meetings' ); ?></a></li>
 
         <?php endif; ?>
 

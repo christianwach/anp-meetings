@@ -25,7 +25,7 @@ $proposal_status = get_the_term_list( get_the_ID(), 'proposal_status', '<span cl
 <div class="meta meeting-meta"><?php echo ( !empty( $meeting_tags ) ) ? '<span class="meta-label">' . __( 'Tags:', 'anp-meetings'  ) . '</span> ' . $meeting_tags : '' ; ?></div>
 
 <?php
-if( 'meeting' == $post_type ) { ?>
+if( 'meetings' == $post_type ) { ?>
 
     <div class="meta meeting-meta"><?php echo ( !empty( $meeting_type ) ) ? __( 'Type: ', 'anp-meetings'  ) . $meeting_type : '' ; ?></div>
 

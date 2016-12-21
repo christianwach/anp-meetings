@@ -11,7 +11,7 @@
  */
 
 
-/* 
+/*
  * Enqueue JS
  */
 
@@ -22,7 +22,7 @@ if(! function_exists( 'anp_meetings_enqueue_scripts' )  ) {
         wp_enqueue_script( 'anp-meeting-script', ANP_MEETINGS_PLUGIN_URL . '/js/searchFilters.js', array( 'jquery' ), '', true );
 
     }
-    
+
     add_action( 'wp_enqueue_scripts', 'anp_meetings_enqueue_scripts' );
 }
 
@@ -44,7 +44,7 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
 
             switch( $post_type ) {
 
-                case 'meeting':
+                case 'meetings':
                     $taxonomy = 'meeting_type';
                     $query_var = get_taxonomy( $taxonomy )->query_var;
                     break;
@@ -52,7 +52,7 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
                     $taxonomy = 'proposal_status';
                     $query_var = get_taxonomy( $taxonomy )->query_var;
                     break;
-                default: 
+                default:
                     // $taxonomy = 'meeting_tag';
                     // $query_var = get_taxonomy( $taxonomy )->query_var;
                     return;
@@ -89,7 +89,7 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
                               )
                           )
                       );
-                
+
                     $terms_with_posts = get_posts( $term_args );
 
                     if( $terms_with_posts ) {
@@ -113,7 +113,7 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
 
         return;
 
-    } 
+    }
 
 }
 

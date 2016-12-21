@@ -1,47 +1,31 @@
 <?php
-
-/* ADMIN CONNECTION 
- * Order posts alphabetically in the P2P connections box
- *
- */
-
-if(! function_exists( 'anp_connection_box_order' ) ) {
-
-    function anp_connection_box_order( $args, $ctype, $post_id ) {
-        if ( ( 'meeting_to_agenda' == $ctype->name || 'meeting_to_summary' == $ctype->name || 'meeting_to_proposal' == $ctype->name ) ) {
-            $args['orderby'] = 'title';
-            $args['order'] = 'asc';
-        }
-
-        return $args;
-    }
-
-    add_filter( 'p2p_connectable_args', 'anp_connection_box_order', 10, 3 );
-
-}
-
-
 /**
- * CONNECTION RENDERING
+ * ANP Meetings Admin Functions
+ *
+ * @author    Pea, Glocal
+ * @license   GPL-2.0+
+ * @link      http://glocal.coop
+ * @since     1.0.0
+ * @package   ANP_Meetings
  */
+
 
 /**
  * Agenda
  * Render agenda associated with content
  */
-
 if(! function_exists( 'meeting_get_agenda' ) ) {
 
     function meeting_get_agenda( $post_id ) {
-     
+
         $query_args = array(
-            'connected_type' => 'meeting_to_agenda',
-            'connected_items' => intval( $post_id ),        
+            'connected_type' => 'event_to_agenda',
+            'connected_items' => intval( $post_id ),
             'nopaging' => true
         );
-         
+
         $agendas = get_posts( $query_args );
-        
+
         $content = '';
 
         if( count( $agendas ) > 0 ) {
@@ -54,13 +38,13 @@ if(! function_exists( 'meeting_get_agenda' ) ) {
                 $content .= '<li class="agenda-link"><a href="' . get_post_permalink( $post->ID ) . '">';
                 $content .= ( $post_type_name ) ? $post_type_name : $post->post_title;
                 $content .= '</a></li>';
-            }         
+            }
 
         }
 
         // Filter added to allow content be overriden
         return apply_filters( 'meeting_get_agenda_content', $content, $post_id );
-    }  
+    }
 
 }
 
@@ -68,19 +52,18 @@ if(! function_exists( 'meeting_get_agenda' ) ) {
  * Summary
  * Render summary associated with content
  */
-
 if(! function_exists( 'meeting_get_summary' ) ) {
 
     function meeting_get_summary( $post_id ) {
-     
+
         $query_args = array(
-            'connected_type' => 'meeting_to_summary',
-            'connected_items' => intval( $post_id ),        
+            'connected_type' => 'event_to_summary',
+            'connected_items' => intval( $post_id ),
             'nopaging' => true
         );
-         
+
         $summaries = get_posts( $query_args );
-        
+
         $content = '';
 
         if( count( $summaries ) > 0 ) {
@@ -93,94 +76,71 @@ if(! function_exists( 'meeting_get_summary' ) ) {
                 $content .= '<li class="summary-link"><a href="' . get_post_permalink( $post->ID ) . '">';
                 $content .= ( $post_type_name ) ? $post_type_name : $post->post_title;
                 $content .= '</a></li>';
-            }         
+            }
 
         }
 
         // Filter added to allow content be overriden
         return apply_filters( 'meeting_get_summary_content', $content, $post_id );
-    }  
-      
+    }
+
 }
 
 /**
  * Proposal
  * Render proposal associated with content
  */
-
 if(! function_exists( 'meeting_get_proposal' ) ) {
 
     function meeting_get_proposal( $post_id ) {
-     
+
         $query_args = array(
-            'connected_type' => 'meeting_to_proposal',
-            'connected_items' => intval( $post_id ),        
+            'connected_type' => 'event_to_proposal',
+            'connected_items' => intval( $post_id ),
             'nopaging' => true
         );
-         
+
         $proposals = get_posts( $query_args );
 
-        $url = array( 
-            'connected_type' => 'meeting_to_proposal', 
+        $url = array(
+            'connected_type' => 'event_to_proposal',
             'connected_items' => intval( $post_id ),
             'connected_direction' => 'from'
         );
-        
+
         $content = '';
 
         if( count( $proposals ) > 0 ) {
 
             $content .= '<li class="proposal-link"><a href="' . esc_url( add_query_arg( $url ) ) . '">';
-            $content .= ( 1 == count( $proposals ) ) ? __( 'Proposal', 'meeting' ) : __( 'Proposals', 'meeting' );
-            $content .= '</a></li>';                   
+            $content .= ( 1 == count( $proposals ) ) ? __( 'Proposal', 'meetings' ) : __( 'Proposals', 'meetings' );
+            $content .= '</a></li>';
 
         }
 
         // Filter added to allow content be overriden
         return apply_filters( 'meeting_get_proposal_content', $content, $post_id );
-    }  
-      
-}
-
-/* 
- * Add markdown support for custom post types
- */
-
-if(! function_exists( 'meeting_markdown_support' )  ) {
-
-    function meeting_markdown_support() {
-        add_post_type_support( 'meeting', 'wpcom-markdown' );
-        add_post_type_support( 'proposal', 'wpcom-markdown' );
-        add_post_type_support( 'summary', 'wpcom-markdown' );
-        add_post_type_support( 'agenda', 'wpcom-markdown' );
     }
 
-    add_action( 'init', 'meeting_markdown_support' );
-
 }
 
-
-/* 
+/*
  * TEMPLATE LOCATION
- * Templates can be overwritten by putting a template file of the same name in 
- * plugins/anp-meeting/ folder of your active theme 
+ * Templates can be overwritten by putting a template file of the same name in
+ * plugins/anp-meeting/ folder of your active theme
  */
-
-
 if(! function_exists( 'include_meeting_templates' ) ) {
 
     function include_meeting_templates( $template_path ) {
 
         $post_types = array(
-            'meeting', 
-            'proposal', 
-            'summary', 
+            'proposal',
+            'summary',
             'agenda'
         );
 
         $post_tax = array(
             'meeting_type',
-            'meeting_tag',
             'proposal_status',
         );
 
@@ -204,7 +164,3 @@ if(! function_exists( 'include_meeting_templates' ) ) {
     //add_filter( 'template_include', 'include_meeting_templates', 1 );
 
 }
-
-
-
-?>
