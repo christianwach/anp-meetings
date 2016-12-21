@@ -3,27 +3,30 @@
  */
 jQuery(document).ready(function($) {
 
-  if( $( '#is_meeting' ).prop( 'checked', false ) ) {
-    $( '.cmb2-id-organizational-group' ).hide();
-    $( '.cmb2-id-meeting-type' ).hide();
-    $( '#p2p-from-event_to_agenda' ).hide();
-    $( '#p2p-from-event_to_summary' ).hide();
-    $( '#p2p-from-event_to_proposal' ).hide();
+  $eventCategoryEl = $( '#taxonomy-event-category #in-event-category-22' );
+  metaBoxes = [
+    $( '#organizationdiv' ),
+    $( '#meeting_typediv' ),
+    $( '#p2p-from-event_to_agenda' ),
+    $( '#p2p-from-event_to_summary' ),
+    $( '#p2p-from-event_to_proposal' )
+  ];
+
+  if( false == $( $eventCategoryEl ).prop( 'checked' ) ) {
+    $( metaBoxes ).each( function(item) {
+       $(this).hide();
+    });
   }
 
-  $( '#is_meeting' ).change( function( event ) {
+  $( $eventCategoryEl ).change( function( event ) {
     if( this.checked ) {
-      $( '.cmb2-id-organizational-group' ).show();
-      $( '.cmb2-id-meeting-type' ).show();
-      $( '#p2p-from-event_to_agenda' ).show();
-      $( '#p2p-from-event_to_summary' ).show();
-      $( '#p2p-from-event_to_proposal' ).show();
+      $( metaBoxes ).each( function(item) {
+         $(this).show();
+      });
     } else {
-      $( '.cmb2-id-organizational-group' ).hide();
-      $( '.cmb2-id-meeting-type' ).hide();
-      $( '#p2p-from-event_to_agenda' ).hide();
-      $( '#p2p-from-event_to_summary' ).hide();
-      $( '#p2p-from-event_to_proposal' ).hide();
+      $( metaBoxes ).each( function(item) {
+         $(this).hide();
+      });
     }
   });
 
