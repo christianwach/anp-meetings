@@ -13,12 +13,12 @@
           
             <?php } elseif ( is_tax( 'meeting_type' ) ) { ?>
                 <h1 class="archive-title h2">
-					<span><?php _e( 'Meeting Type: ', 'meeting' ); ?></span> <?php single_term_title(); ?>
+					<span><?php _e( 'Meeting Type: ', 'meetings' ); ?></span> <?php single_term_title(); ?>
 				</h1>
             
             <?php } elseif ( is_tax( 'meeting_tag' ) ) { ?>
                 <h1 class="archive-title h2">
-					<span><?php _e( 'Meeting Tags: ', 'meeting' ); ?></span> <?php single_term_title(); ?>
+					<span><?php _e( 'Meeting Tags: ', 'meetings' ); ?></span> <?php single_term_title(); ?>
 				</h1>
 
             <?php } ?>
@@ -69,7 +69,7 @@
 
                         foreach ( $post->agendas as $post ) : setup_postdata( $post ); ?>
 
-                            <span class="tags agenda"><a href="<?php the_permalink( $post->ID ); ?>"><?php _e( 'Agenda', 'meeting' ) ?></a></span>
+                            <span class="tags agenda"><a href="<?php the_permalink( $post->ID ); ?>"><?php _e( 'Agenda', 'meetings' ) ?></a></span>
                                                     
                         <?php
                         endforeach;
@@ -84,7 +84,7 @@
 
                         foreach ( $post->summaries as $post ) : setup_postdata( $post ); ?>
 
-                            <span class="tags summary"><a href="<?php the_permalink( $post->ID ); ?>"><?php _e( 'Summary', 'meeting' ) ?></a></span>
+                            <span class="tags summary"><a href="<?php the_permalink( $post->ID ); ?>"><?php _e( 'Summary', 'meetings' ) ?></a></span>
                                                     
                         <?php
                         endforeach;
@@ -111,8 +111,8 @@
           
             <nav class="wp-prev-next">
                 <ul class="clearfix">
-                    <li class="prev-link"><?php next_posts_link( __( '&laquo; Older Entries', 'meeting' )) ?></li>
-                    <li class="next-link"><?php previous_posts_link( __( 'Newer Entries &raquo;', 'meeting' )) ?></li>
+                    <li class="prev-link"><?php next_posts_link( __( '&laquo; Older Entries', 'meetings' )) ?></li>
+                    <li class="next-link"><?php previous_posts_link( __( 'Newer Entries &raquo;', 'meetings' )) ?></li>
                 </ul>
             </nav>
 
@@ -120,13 +120,13 @@
 
 					<article id="post-not-found" class="hentry">
 						<header class="article-header">
-							<h1><?php _e( 'Oops, Post Not Found!', 'meeting' ); ?></h1>
+							<h1><?php _e( 'Oops, Post Not Found!', 'meetings' ); ?></h1>
 						</header>
 						<section class="entry-content">
-							<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'meeting' ); ?></p>
+							<p><?php _e( 'Uh Oh. Something is missing. Try double checking things.', 'meetings' ); ?></p>
 						</section>
 						<footer class="article-footer">
-								<p><?php _e( 'This is the error message in the archive.php template.', 'meeting' ); ?></p>
+								<p><?php _e( 'This is the error message in the archive.php template.', 'meetings' ); ?></p>
 						</footer>
 					</article>
 
