@@ -75,7 +75,7 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'public/search-filters.php' );
 function anp_meetings_add_capabilities() {
     global $wp_roles;
     $roles = $wp_roles->roles;
-    $form_role = 'edit_meetings';
+    $form_role = 'publish_meetings';
 
     foreach( $roles as $role_name => $display_name ) {
       $role = $wp_roles->get_role( $role_name );
