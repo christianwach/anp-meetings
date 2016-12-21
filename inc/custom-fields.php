@@ -28,50 +28,7 @@ function anp_meeting_is_event_meeting( $cmb ) {
  *
  * @uses cmb2_init
  */
-function anp_meetings_add_meeting_metabox() {
-
-    $cmb = new_cmb2_box( array(
-        'id'           => 'event_type',
-        'title'        => __( 'Event Type', 'meeting' ),
-        'object_types' => array( 'event' ),
-        'context'      => 'side',
-        'priority'     => 'high',
-    ) );
-
-    $cmb->add_field( array(
-        'name'          => __( 'Meeting Event', 'meeting' ),
-        'description'   => __( 'Is this event a meeting?', 'meeting' ),
-        'id'            => 'is_meeting',
-        'type'          => 'checkbox',
-        'default'       => false,
-        'attributes'    => array()
-    ) );
-
-    $cmb->add_field( array(
-        'name'           => __( 'Organizational Group', 'meeting' ),
-        'id'             => 'organizational_group',
-        'taxonomy'       => 'organization',
-        'type'           => 'taxonomy_multicheck',
-        // 'show_on_cb'     => 'anp_meeting_is_event_meeting',
-        'text'           => array(
-            'no_terms_text' => __( 'Sorry, no organizational groups could be found.', 'meeting' )
-        ),
-        'remove_default' => 'true'
-    ) );
-
-    $cmb->add_field( array(
-        'name'           => __( 'Meeting Type', 'meeting' ),
-        'id'             => 'meeting_type',
-        'taxonomy'       => 'meeting_type',
-        'type'           => 'taxonomy_multicheck',
-        // 'show_on_cb'     => 'anp_meeting_is_event_meeting',
-        'text'           => array(
-            'no_terms_text' => __( 'Sorry, no meeting types could be found.', 'meeting' )
-        ),
-        'remove_default' => 'true'
-    ) );
-
-}
+function anp_meetings_add_meeting_metabox() {}
 
 add_action( 'cmb2_init', 'anp_meetings_add_meeting_metabox' );
 
@@ -82,14 +39,14 @@ function anp_meetings_add_proposal_metabox() {
 
     $cmb = new_cmb2_box( array(
         'id'           => 'proposal-detail-page',
-        'title'        => __( 'Proposal Detail Page', 'meeting' ),
+        'title'        => __( 'Proposal Detail Page', 'meetings' ),
         'object_types' => array( 'proposal' ),
         'context'      => 'side',
         'priority'     => 'high',
     ) );
 
     $cmb->add_field( array(
-        'name' => __( 'Status', 'meeting' ),
+        'name' => __( 'Status', 'meetings' ),
         'id' => 'proposal_status',
         'type' => 'taxonomy_select',
         'taxonomy' => 'proposal_status',
@@ -99,14 +56,14 @@ function anp_meetings_add_proposal_metabox() {
     ) );
 
     $cmb->add_field( array(
-        'name' => __( 'Date Accepted', 'meeting' ),
-        'id' => 'meeting_date',
+        'name' => __( 'Date Accepted', 'meetings' ),
+        'id' => 'date_accepted',
         'type' => 'text_date',
     ) );
 
     $cmb->add_field( array(
-        'name' => __( 'Date Effective', 'meeting' ),
-        'id' => 'proposal_date_effective',
+        'name' => __( 'Date Effective', 'meetings' ),
+        'id' => 'date_effective',
         'type' => 'text_date',
     ) );
 
