@@ -24,20 +24,20 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'admin_dropdown' => 'to',
             'sortable' => 'any',
             'title' => array(
-                'from' => __( 'Agenda', 'meeting' ),
-                'to' => __( 'Meeting', 'meeting' )
+                'from' => __( 'Agenda', 'meetings' ),
+                'to' => __( 'Meeting', 'meetings' )
             ),
             'from_labels' => array(
-                'singular_name' => __( 'Meeting Event', 'meeting' ),
-                'search_items' => __( 'Search meeting events', 'meeting' ),
-                'not_found' => __( 'No meetings found.', 'meeting' ),
-                'create' => __( 'Attach a Meeting Event', 'meeting' ),
+                'singular_name' => __( 'Meeting Event', 'meetings' ),
+                'search_items' => __( 'Search meeting events', 'meetings' ),
+                'not_found' => __( 'No meetings found.', 'meetings' ),
+                'create' => __( 'Attach a Meeting Event', 'meetings' ),
             ),
             'to_labels' => array(
-                'singular_name' => __( 'Agenda', 'meeting' ),
-                'search_items' => __( 'Search agendas', 'meeting' ),
-                'not_found' => __( 'No agendas found.', 'meeting' ),
-                'create' => __( 'Attach an Agenda', 'meeting' ),
+                'singular_name' => __( 'Agenda', 'meetings' ),
+                'search_items' => __( 'Search agendas', 'meetings' ),
+                'not_found' => __( 'No agendas found.', 'meetings' ),
+                'create' => __( 'Attach an Agenda', 'meetings' ),
             ),
         ) );
 
@@ -51,20 +51,20 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'admin_dropdown' => 'to',
             'sortable' => 'any',
             'title' => array(
-                'from' => __( 'Notes', 'meeting' ),
-                'to' => __( 'Meeting', 'meeting' )
+                'from' => __( 'Notes', 'meetings' ),
+                'to' => __( 'Meeting', 'meetings' )
             ),
             'from_labels' => array(
-                'singular_name' => __( 'Meeting Event', 'meeting' ),
-                'search_items' => __( 'Search meeting events', 'meeting' ),
-                'not_found' => __( 'No meetings found.', 'meeting' ),
-                'create' => __( 'Attach a Meeting Event', 'meeting' ),
+                'singular_name' => __( 'Meeting Event', 'meetings' ),
+                'search_items' => __( 'Search meeting events', 'meetings' ),
+                'not_found' => __( 'No meetings found.', 'meetings' ),
+                'create' => __( 'Attach a Meeting Event', 'meetings' ),
             ),
             'to_labels' => array(
-                'singular_name' => __( 'Notes', 'meeting' ),
-                'search_items' => __( 'Search notes', 'meeting' ),
-                'not_found' => __( 'No notes found.', 'meeting' ),
-                'create' => __( 'Attach Notes', 'meeting' ),
+                'singular_name' => __( 'Notes', 'meetings' ),
+                'search_items' => __( 'Search notes', 'meetings' ),
+                'not_found' => __( 'No notes found.', 'meetings' ),
+                'create' => __( 'Attach Notes', 'meetings' ),
             ),
         ) );
 
@@ -78,20 +78,20 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'admin_dropdown' => 'any',
             'sortable' => 'any',
             'title' => array(
-                'from' => __( 'Proposals', 'meeting' ),
-                'to' => __( 'Event', 'meeting' )
+                'from' => __( 'Proposals', 'meetings' ),
+                'to' => __( 'Event', 'meetings' )
             ),
             'from_labels' => array(
-                'singular_name' => __( 'Meeting Event', 'meeting' ),
-                'search_items' => __( 'Search meeting events', 'meeting' ),
-                'not_found' => __( 'No meetings found.', 'meeting' ),
-                'create' => __( 'Attach a Meeting Event', 'meeting' ),
+                'singular_name' => __( 'Meeting Event', 'meetings' ),
+                'search_items' => __( 'Search meeting events', 'meetings' ),
+                'not_found' => __( 'No meetings found.', 'meetings' ),
+                'create' => __( 'Attach a Meeting Event', 'meetings' ),
             ),
             'to_labels' => array(
-                'singular_name' => __( 'Proposals', 'meeting' ),
-                'search_items' => __( 'Search proposals', 'meeting' ),
-                'not_found' => __( 'No proposals found.', 'meeting' ),
-                'create' => __( 'Attach a Proposal', 'meeting' ),
+                'singular_name' => __( 'Proposals', 'meetings' ),
+                'search_items' => __( 'Search proposals', 'meetings' ),
+                'not_found' => __( 'No proposals found.', 'meetings' ),
+                'create' => __( 'Attach a Proposal', 'meetings' ),
             ),
         ) );
 

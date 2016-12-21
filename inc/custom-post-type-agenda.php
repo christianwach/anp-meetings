@@ -23,21 +23,21 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
         $slug = apply_filters( 'anp_agenda_post_type', 'agenda' );
 
         $labels = array(
-            'name'                => _x( 'Agendas', 'Post Type General Name', 'meeting' ),
-            'singular_name'       => _x( 'Agenda', 'Post Type Singular Name', 'meeting' ),
-            'menu_name'           => __( 'Agendas', 'meeting' ),
-            'name_admin_bar'      => __( 'Agenda', 'meeting' ),
-            'parent_item_colon'   => __( 'Parent Agenda:', 'meeting' ),
-            'all_items'           => __( 'All Agenda', 'meeting' ),
-            'add_new_item'        => __( 'Add New Agenda', 'meeting' ),
-            'add_new'             => __( 'Add New Agenda', 'meeting' ),
-            'new_item'            => __( 'New Agenda', 'meeting' ),
-            'edit_item'           => __( 'Edit Agenda', 'meeting' ),
-            'update_item'         => __( 'Update Agenda', 'meeting' ),
-            'view_item'           => __( 'View Agenda', 'meeting' ),
-            'search_items'        => __( 'Search Agenda', 'meeting' ),
-            'not_found'           => __( 'Not found', 'meeting' ),
-            'not_found_in_trash'  => __( 'Not found in Trash', 'meeting' ),
+            'name'                => _x( 'Agendas', 'Post Type General Name', 'meetings' ),
+            'singular_name'       => _x( 'Agenda', 'Post Type Singular Name', 'meetings' ),
+            'menu_name'           => __( 'Agendas', 'meetings' ),
+            'name_admin_bar'      => __( 'Agenda', 'meetings' ),
+            'parent_item_colon'   => __( 'Parent Agenda:', 'meetings' ),
+            'all_items'           => __( 'All Agenda', 'meetings' ),
+            'add_new_item'        => __( 'Add New Agenda', 'meetings' ),
+            'add_new'             => __( 'Add New Agenda', 'meetings' ),
+            'new_item'            => __( 'New Agenda', 'meetings' ),
+            'edit_item'           => __( 'Edit Agenda', 'meetings' ),
+            'update_item'         => __( 'Update Agenda', 'meetings' ),
+            'view_item'           => __( 'View Agenda', 'meetings' ),
+            'search_items'        => __( 'Search Agenda', 'meetings' ),
+            'not_found'           => __( 'Not found', 'meetings' ),
+            'not_found_in_trash'  => __( 'Not found in Trash', 'meetings' ),
         );
         $rewrite = array(
             'slug'                => $slug,
@@ -46,12 +46,21 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'feeds'               => true,
         );
         $default_config = array(
-            'label'               => __( 'Agenda', 'meeting' ),
+            'label'               => __( 'Agenda', 'meetings' ),
             'labels'              => $labels,
-            'supports'            => array( 'title', 'editor', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
+            'supports'            => array(
+                'title',
+                'editor',
+                'comments',
+                'custom-fields',
+                'wpcom-markdown',
+                'revisions',
+                'attributes'
+            ),
             'taxonomies'          => array(
                 'organization',
-                'meeting_tag',
+                'meeting_type',
+                'event-tag',
             ),
             'hierarchical'        => false,
             'public'              => true,
@@ -70,7 +79,7 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'show_in_rest'        => true,
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-            'capability_type'     => array( 'post', 'meeting' ),
+            'capability_type'     => array( 'post', 'event' ),
 			'map_meta_cap'		  => true,
 			'capabilities' => array(
 				'publish_posts' => 'publish_agendas',
@@ -106,18 +115,18 @@ if ( ! function_exists( 'anp_agenda_add_to_menu' ) ) {
     function anp_agenda_add_to_menu() {
 
         add_submenu_page(
-            'edit.php?post_type=meeting',
-            __('All Agendas', 'meeting'),
-            __('All Agendas', 'meeting'),
-            'edit_meetings',
+            'edit.php?post_type=event',
+            __('Agendas', 'meetings'),
+            __('Agendas', 'meetings'),
+            'edit_events',
             'edit.php?post_type=agenda'
         );
 
         add_submenu_page(
-            'edit.php?post_type=meeting',
-            __('New Agenda', 'meeting'),
-            __('New Agenda', 'meeting'),
-            'edit_meetings',
+            'edit.php?post_type=event',
+            __('New Agenda', 'meetings'),
+            __('Add Agenda', 'meetings'),
+            'edit_events',
             'post-new.php?post_type=agenda'
         );
 
