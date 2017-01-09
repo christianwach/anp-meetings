@@ -14,7 +14,7 @@
         }
     ],
     "require": {
-        "wpackagist-plugin/cmb2": "^2.2.2.1",
+        "wpackagist-plugin/cmb2": "^2.2.3.1",
         "wpackagist-plugin/posts-to-posts": "^1.6.5"
     },
     "require-dev": {},
