@@ -3,7 +3,7 @@ Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.7
-Version: 1.0.10
+Version: 1.0.11
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Usage ==
 
 == Revisions ==
+
+= 1.0.11 - January 8, 2017 =
+* Bug #1715 - Updated CMB2 library to latest.
 
 = 1.0.10 - Dec 20, 2016 =
 * Feature #1688 - Enabled users with `publish_posts` capability to publish meetings.
