@@ -6,4 +6,6 @@
 *.tar
 *.gz
 .brackets.json
-vendor
+/vendor
+!libs
+!libs/*
