@@ -15,6 +15,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 
 == Revisions ==
 
+= 1.0.9 - January 17, 2017 =
+* Feature #1654 & Feature #1688 - Upon plugin activation, added capabilities to roles that can `publish_posts` (by default authors).
+
 = 1.0.8.5 - January 17, 2017 =
 * Updated CMB2 and Posts-to-Posts libraries
 

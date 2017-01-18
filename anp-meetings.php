@@ -56,5 +56,52 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-pre-get-filters.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'anp-meetings-render.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
 
+/**
+ * Add Custom Capabilities
+ *
+ * @since 0.1.9
+ *
+ * @uses get_role()
+ * @uses has_cap()
+ * @uses add_cap()
+ *
+ * @return void
+ */
+function anp_meetings_add_capabilities() {
+    global $wp_roles;
+    $roles = $wp_roles->roles;
+    
+    $capabilities = array(
+        'edit_meeting',
+        'read_meeting',
+        'delete_meeting',
+        'edit_meetings',
+        'edit_others_meetings',
+        'publish_meetings',
+        'read_private_meetings',
+    );
 
-?>
+    foreach( $roles as $role_name => $display_name ) {
+      $role = $wp_roles->get_role( $role_name );
+      if ( $role->has_cap( 'publish_posts' ) ) {
+
+          foreach( $capabilities as $capability ) {
+              $role->add_cap( $capability );
+          }
+
+      }
+    }
+}
+add_action( 'anp_meetings_activate', 'anp_meetings_add_capabilities' );
+
+/**
+ * Add Activation Hook
+ *
+ * @since 0.1.9
+ *
+ * @link https://codex.wordpress.org/Function_Reference/register_activation_hook#Process_Flow
+ */
+function anp_meetings_activate() {
+    anp_meetings_add_capabilities();
+}
+register_activation_hook( __FILE__, 'anp_meetings_activate' );

@@ -45,6 +45,7 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'pages'               => true,
             'feeds'               => true,
         );
+
         $default_config = array(
             'label'               => __( 'Agenda', 'meeting' ),
             'labels'              => $labels,
@@ -70,19 +71,9 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'show_in_rest'        => true,
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-            'capability_type'     => array( 'post', 'meeting' ),
-			'map_meta_cap'		  => true,
-			'capabilities' => array(
-				'publish_posts' => 'publish_agendas',
-				'edit_posts' => 'edit_agendas',
-				'edit_others_posts' => 'edit_others_agendas',
-				'delete_posts' => 'delete_agendas',
-				'delete_others_posts' => 'delete_others_agendas',
-				'read_private_posts' => 'read_private_agendas',
-				'edit_post' => 'edit_agenda',
-				'delete_post' => 'delete_agenda',
-				'read_post' => 'read_agenda',
-			),
+            'capability_type'	  => array( 'meeting' ),
+			'capabilities'		  => apply_filters( 'meetings_agenda_capabilities', $capabilities ),
+			'map_meta_cap' 		  => true
         );
         // Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'agenda_post_type_defaults', $default_config, $slug );
