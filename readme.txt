@@ -3,7 +3,7 @@ Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.7.1
-Stable tag: 1.0.8.4
+Stable tag:  1.0.8.5
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Usage ==
 
 == Revisions ==
+
+= 1.0.8.5 - January 17, 2017 =
+* Updated CMB2 and Posts-to-Posts libraries
 
 = 1.0.8.4 - January 17, 2017 =
 * Reverted to stable version.
