@@ -16,7 +16,7 @@ Plugin URI: https://plan.glocal.coop/projects/anp-meetings/
 Description: Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display meeting notes/minutes, agendas, proposals and summaries.
 Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 1.0.9.1
+Version: 1.0.9
 License: GPLv3
 Text Domain: meetings
 */
@@ -59,7 +59,7 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
 /**
  * Plugin Capabilities
  *
- * @since 1.0.9.1
+ * @since 1.0.9
  */
 function anp_meetings_capabilities() {
     $capabilities = array(
@@ -119,7 +119,7 @@ add_action( 'anp_meetings_activate', 'anp_meetings_add_capabilities' );
 /**
  * Add Activation Hook
  *
- * @since 1.0.9.1
+ * @since 1.0.9
  *
  * @link https://codex.wordpress.org/Function_Reference/register_activation_hook#Process_Flow
  */
