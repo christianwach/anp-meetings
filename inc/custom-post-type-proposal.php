@@ -39,6 +39,9 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'not_found'           => __( 'Not found', 'meetings' ),
             'not_found_in_trash'  => __( 'Not found in Trash', 'meetings' ),
         );
+
+        $capabilities = anp_meetings_capabilities();
+
         $rewrite = array(
             'slug'                => $slug,
             'with_front'          => false,
@@ -181,18 +184,15 @@ if ( ! function_exists( 'anp_proposals_add_to_menu' ) ) {
             'post-new.php?post_type=proposal'
         );
 
-        if( current_user_can( 'manage_categories' ) ) {
-            add_submenu_page(
-                'edit.php?post_type=meeting',
-                __('Proposal Statuses', 'meetings'),
-                __('Proposal Statuses', 'meetings'),
-                'edit_meetings',
-                'edit-tags.php?taxonomy=proposal_status&post_type=proposal'
-            );
-        }
+        add_submenu_page(
+            'edit.php?post_type=meeting',
+            __('Proposal Statuses', 'meetings'),
+            __('Proposal Statuses', 'meetings'),
+            apply_filters( 'anp_meetings_proposal_status_menu_capability', 'manage_categories' ),
+            'edit-tags.php?taxonomy=proposal_status&post_type=proposal'
+        );
 
     }
-
     add_action('admin_menu', 'anp_proposals_add_to_menu');
 
 }

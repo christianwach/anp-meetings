@@ -16,7 +16,7 @@ Plugin URI: https://plan.glocal.coop/projects/anp-meetings/
 Description: Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display meeting notes/minutes, agendas, proposals and summaries.
 Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 1.0.8.5
+Version: 1.0.9.1
 License: GPLv3
 Text Domain: meetings
 */
@@ -57,6 +57,26 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'anp-meetings-render.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
 
 /**
+ * Plugin Capabilities
+ *
+ * @since 1.0.9.1
+ */
+function anp_meetings_capabilities() {
+    $capabilities = array(
+        'publish_posts'         => 'publish_meetings',
+        'edit_posts'            => 'edit_meetings',
+        'edit_others_posts'     => 'edit_others_meetings',
+        'delete_posts'          => 'delete_meetings',
+        'delete_others_posts'   => 'delete_others_meetings',
+        'read_private_posts'    => 'read_private_meetings',
+        'edit_post'             => 'edit_meeting',
+        'delete_post'           => 'delete_meeting',
+        'read_post'             => 'read_meeting',
+    );
+    return apply_filters( 'meetings_globabl_capabilities', $capabilities );
+}
+
+/**
  * Add Custom Capabilities
  *
  * @since 0.1.9
@@ -70,7 +90,7 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
 function anp_meetings_add_capabilities() {
     global $wp_roles;
     $roles = $wp_roles->roles;
-    
+
     $capabilities = array(
         'edit_meeting',
         'read_meeting',
@@ -80,6 +100,8 @@ function anp_meetings_add_capabilities() {
         'publish_meetings',
         'read_private_meetings',
     );
+
+    $capabilities = apply_filters( 'anp_meetings_add_capabilities', $capabilities );
 
     foreach( $roles as $role_name => $display_name ) {
       $role = $wp_roles->get_role( $role_name );
@@ -97,7 +119,7 @@ add_action( 'anp_meetings_activate', 'anp_meetings_add_capabilities' );
 /**
  * Add Activation Hook
  *
- * @since 0.1.9
+ * @since 1.0.9.1
  *
  * @link https://codex.wordpress.org/Function_Reference/register_activation_hook#Process_Flow
  */

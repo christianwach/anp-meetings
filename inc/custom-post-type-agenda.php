@@ -39,6 +39,9 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
             'not_found'           => __( 'Not found', 'meeting' ),
             'not_found_in_trash'  => __( 'Not found in Trash', 'meeting' ),
         );
+
+        $capabilities = anp_meetings_capabilities();
+        
         $rewrite = array(
             'slug'                => $slug,
             'with_front'          => false,

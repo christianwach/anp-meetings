@@ -40,15 +40,7 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 			'not_found_in_trash'  => __( 'Not found in Trash', 'meetings' ),
 		);
 
-		$capabilities = array(
-			'edit_post'             => 'edit_meeting',
-			'read_post'             => 'read_meeting',
-			'delete_post'           => 'delete_meeting',
-			'edit_posts'            => 'edit_meetings',
-			'edit_others_posts'     => 'edit_others_meetings',
-			'publish_posts'         => 'publish_meetings',
-			'read_private_posts'    => 'read_private_meetings',
-		);
+		$capabilities = anp_meetings_capabilities();
 
 		$rewrite = array(
 			'slug'                => $slug,
