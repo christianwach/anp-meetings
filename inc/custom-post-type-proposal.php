@@ -23,31 +23,35 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
         $slug = apply_filters( 'anp_proposal_post_type', 'proposal' );
 
         $labels = array(
-            'name'                => _x( 'Proposals', 'Post Type General Name', 'anp-meeting' ),
-            'singular_name'       => _x( 'Proposal', 'Post Type Singular Name', 'anp-meeting' ),
-            'menu_name'           => __( 'Proposals', 'anp-meeting' ),
-            'name_admin_bar'      => __( 'Proposals', 'anp-meeting' ),
-            'parent_item_colon'   => __( 'Parent Proposal:', 'anp-meeting' ),
-            'all_items'           => __( 'All Proposals', 'anp-meeting' ),
-            'add_new_item'        => __( 'Add New Proposal', 'anp-meeting' ),
-            'add_new'             => __( 'Add Proposal', 'anp-meeting' ),
-            'new_item'            => __( 'New Proposal', 'anp-meeting' ),
-            'edit_item'           => __( 'Edit Proposal', 'anp-meeting' ),
-            'update_item'         => __( 'Update Proposal', 'anp-meeting' ),
-            'view_item'           => __( 'View Proposal', 'anp-meeting' ),
-            'search_items'        => __( 'Search Proposal', 'anp-meeting' ),
-            'not_found'           => __( 'Not found', 'anp-meeting' ),
-            'not_found_in_trash'  => __( 'Not found in Trash', 'anp-meeting' ),
+            'name'                => _x( 'Proposals', 'Post Type General Name', 'meetings' ),
+            'singular_name'       => _x( 'Proposal', 'Post Type Singular Name', 'meetings' ),
+            'menu_name'           => __( 'Proposals', 'meetings' ),
+            'name_admin_bar'      => __( 'Proposals', 'meetings' ),
+            'parent_item_colon'   => __( 'Parent Proposal:', 'meetings' ),
+            'all_items'           => __( 'All Proposals', 'meetings' ),
+            'add_new_item'        => __( 'Add New Proposal', 'meetings' ),
+            'add_new'             => __( 'Add Proposal', 'meetings' ),
+            'new_item'            => __( 'New Proposal', 'meetings' ),
+            'edit_item'           => __( 'Edit Proposal', 'meetings' ),
+            'update_item'         => __( 'Update Proposal', 'meetings' ),
+            'view_item'           => __( 'View Proposal', 'meetings' ),
+            'search_items'        => __( 'Search Proposal', 'meetings' ),
+            'not_found'           => __( 'Not found', 'meetings' ),
+            'not_found_in_trash'  => __( 'Not found in Trash', 'meetings' ),
         );
+
+        $capabilities = anp_meetings_capabilities();
+
         $rewrite = array(
             'slug'                => $slug,
             'with_front'          => false,
             'pages'               => true,
             'feeds'               => true,
         );
+
         $default_config = array(
-            'label'               => __( 'Proposal', 'anp-meeting' ),
-            'description'         => __( '', 'anp-meeting' ),
+            'label'               => __( 'Proposal', 'meetings' ),
+            'description'         => __( '', 'meetings' ),
             'labels'              => $labels,
             'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
             'taxonomies'          => array(
@@ -72,19 +76,9 @@ if ( ! function_exists( 'anp_proposals_post_type' ) ) {
             'show_in_rest'        => true,
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-            'capability_type'     => array( 'post', 'meeting' ),
-			'map_meta_cap'		  => true,
-			'capabilities' => array(
-				'publish_posts' => 'publish_proposals',
-				'edit_posts' => 'edit_proposals',
-				'edit_others_posts' => 'edit_others_proposals',
-				'delete_posts' => 'delete_proposals',
-				'delete_others_posts' => 'delete_others_proposals',
-				'read_private_posts' => 'read_private_proposals',
-				'edit_post' => 'edit_proposal',
-				'delete_post' => 'delete_proposal',
-				'read_post' => 'read_proposal',
-			),
+            'capability_type'	  => array( 'meeting' ),
+			'capabilities'		  => apply_filters( 'meetings_proposal_capabilities', $capabilities ),
+			'map_meta_cap' 		  => true
         );
         // Allow customization of the default post type configuration via filter.
         $config = apply_filters( 'proposal_post_type_defaults', $default_config, $slug );
@@ -109,28 +103,37 @@ if ( ! function_exists( 'anp_proposals_status_taxonomy' ) ) {
         $slug = apply_filters( 'anp_proposal_status_taxonomy', 'proposal_status' );
 
         $labels = array(
-            'name'                       => _x( 'Proposal Statuses', 'Taxonomy General Name', 'anp-meeting' ),
-            'singular_name'              => _x( 'Proposal Status', 'Taxonomy Singular Name', 'anp-meeting' ),
-            'menu_name'                  => __( 'Statuses', 'anp-meeting' ),
-            'all_items'                  => __( 'All Proposal Statuses', 'anp-meeting' ),
-            'parent_item'                => __( 'Parent Proposal Status', 'anp-meeting' ),
-            'parent_item_colon'          => __( 'Parent Proposal Status:', 'anp-meeting' ),
-            'new_item_name'              => __( 'New Proposal Status Name', 'anp-meeting' ),
-            'add_new_item'               => __( 'Add New Proposal Status', 'anp-meeting' ),
-            'edit_item'                  => __( 'Edit Proposal Status', 'anp-meeting' ),
-            'update_item'                => __( 'Update Proposal Status', 'anp-meeting' ),
-            'view_item'                  => __( 'View Proposal Status', 'anp-meeting' ),
-            'separate_items_with_commas' => __( 'Separate proposal status with commas', 'anp-meeting' ),
-            'add_or_remove_items'        => __( 'Add or remove proposal status', 'anp-meeting' ),
-            'choose_from_most_used'      => __( 'Choose from the most used', 'anp-meeting' ),
-            'popular_items'              => __( 'Popular Proposal Statuses', 'anp-meeting' ),
-            'search_items'               => __( 'Search Proposal Status', 'anp-meeting' ),
-            'not_found'                  => __( 'Not Found', 'anp-meeting' ),
+            'name'                       => _x( 'Proposal Statuses', 'Taxonomy General Name', 'meetings' ),
+            'singular_name'              => _x( 'Proposal Status', 'Taxonomy Singular Name', 'meetings' ),
+            'menu_name'                  => __( 'Statuses', 'meetings' ),
+            'all_items'                  => __( 'All Proposal Statuses', 'meetings' ),
+            'parent_item'                => __( 'Parent Proposal Status', 'meetings' ),
+            'parent_item_colon'          => __( 'Parent Proposal Status:', 'meetings' ),
+            'new_item_name'              => __( 'New Proposal Status Name', 'meetings' ),
+            'add_new_item'               => __( 'Add New Proposal Status', 'meetings' ),
+            'edit_item'                  => __( 'Edit Proposal Status', 'meetings' ),
+            'update_item'                => __( 'Update Proposal Status', 'meetings' ),
+            'view_item'                  => __( 'View Proposal Status', 'meetings' ),
+            'separate_items_with_commas' => __( 'Separate proposal status with commas', 'meetings' ),
+            'add_or_remove_items'        => __( 'Add or remove proposal status', 'meetings' ),
+            'choose_from_most_used'      => __( 'Choose from the most used', 'meetings' ),
+            'popular_items'              => __( 'Popular Proposal Statuses', 'meetings' ),
+            'search_items'               => __( 'Search Proposal Status', 'meetings' ),
+            'not_found'                  => __( 'Not Found', 'meetings' ),
         );
+
         $rewrite = array(
             'slug'                       => 'proposal-status',
             'with_front'                 => true,
         );
+
+        $capabilities = array(
+			'manage_terms'               => 'manage_categories',
+			'edit_terms'                 => 'manage_categories',
+			'delete_terms'               => 'manage_categories',
+			'assign_terms'               => 'edit_meetings',
+		);
+
         $args = array(
             'labels'                     => $labels,
             'hierarchical'               => true,
@@ -144,6 +147,7 @@ if ( ! function_exists( 'anp_proposals_status_taxonomy' ) ) {
             'rest_base'          		 => $slug,
             'rest_controller_class' 	 => 'WP_REST_Terms_Controller',
             'rewrite'                    => $rewrite,
+            'capabilities'          	 => apply_filters( 'meetings_proposal_status_tax_capabilities', $capabilities ),
         );
         register_taxonomy( 'proposal_status', array( 'proposal' ), $args );
 
@@ -166,30 +170,29 @@ if ( ! function_exists( 'anp_proposals_add_to_menu' ) ) {
 
         add_submenu_page(
             'edit.php?post_type=meeting',
-            __('All Proposals', 'anp-meeting'),
-            __('All Proposals', 'anp-meeting'),
+            __('All Proposals', 'meetings'),
+            __('All Proposals', 'meetings'),
             'edit_meetings',
             'edit.php?post_type=proposal'
         );
 
         add_submenu_page(
             'edit.php?post_type=meeting',
-            __('New Proposal', 'anp-meeting'),
-            __('New Proposal', 'anp-meeting'),
+            __('New Proposal', 'meetings'),
+            __('New Proposal', 'meetings'),
             'edit_meetings',
             'post-new.php?post_type=proposal'
         );
 
         add_submenu_page(
             'edit.php?post_type=meeting',
-            __('Proposal Statuses', 'anp-meeting'),
-            __('Proposal Statuses', 'anp-meeting'),
-            'edit_meetings',
+            __('Proposal Statuses', 'meetings'),
+            __('Proposal Statuses', 'meetings'),
+            apply_filters( 'anp_meetings_proposal_status_menu_capability', 'manage_categories' ),
             'edit-tags.php?taxonomy=proposal_status&post_type=proposal'
         );
 
     }
-
     add_action('admin_menu', 'anp_proposals_add_to_menu');
 
 }
@@ -197,8 +200,4 @@ if ( ! function_exists( 'anp_proposals_add_to_menu' ) ) {
 function anp_remove_status_meta() {
     remove_meta_box( 'proposal_statusdiv' , 'proposal' , 'side' );
 }
-
 add_action( 'admin_menu', 'anp_remove_status_meta' );
-
-
-?>
