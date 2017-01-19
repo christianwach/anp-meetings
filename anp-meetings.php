@@ -55,6 +55,7 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-content-filters.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-pre-get-filters.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'anp-meetings-render.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-rewrite.php' );
 
 /**
  * Plugin Capabilities
@@ -124,6 +125,27 @@ add_action( 'anp_meetings_activate', 'anp_meetings_add_capabilities' );
  * @link https://codex.wordpress.org/Function_Reference/register_activation_hook#Process_Flow
  */
 function anp_meetings_activate() {
+    anp_organization_taxonomy();
+    anp_meetings_type();
+    anp_meetings_tag();
+    anp_proposals_status_taxonomy();
+    anp_meetings_post_type();
+    anp_agenda_post_type();
+    anp_proposals_post_type();
+    anp_summary_post_type();
     anp_meetings_add_capabilities();
+    flush_rewrite_rules();
 }
 register_activation_hook( __FILE__, 'anp_meetings_activate' );
+
+/**
+ * Add De-activation Hook
+ *
+ * @since 1.0.9
+ *
+ * @link https://codex.wordpress.org/Function_Reference/register_deactivation_hook
+ */
+function anp_meetings_deactivate() {
+    flush_rewrite_rules();
+}
+register_activation_hook( __FILE__, 'anp_meetings_deactivate' );

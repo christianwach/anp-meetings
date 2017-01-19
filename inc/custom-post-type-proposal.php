@@ -200,8 +200,4 @@ if ( ! function_exists( 'anp_proposals_add_to_menu' ) ) {
 function anp_remove_status_meta() {
     remove_meta_box( 'proposal_statusdiv' , 'proposal' , 'side' );
 }
-
 add_action( 'admin_menu', 'anp_remove_status_meta' );
-
-
-?>

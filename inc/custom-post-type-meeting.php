@@ -345,7 +345,4 @@ function meetings_remove_custom_fields_metabox() {
 	remove_meta_box( 'postcustom', 'summary', 'side' );
 	remove_meta_box( 'postcustom', 'proposal', 'side' );
 }
-
 add_action( 'admin_menu', 'meetings_remove_custom_fields_metabox' );
-
-?>

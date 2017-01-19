@@ -41,7 +41,7 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
         );
 
         $capabilities = anp_meetings_capabilities();
-        
+
         $rewrite = array(
             'slug'                => $slug,
             'with_front'          => false,
@@ -118,7 +118,4 @@ if ( ! function_exists( 'anp_agenda_add_to_menu' ) ) {
     }
 
     add_action('admin_menu', 'anp_agenda_add_to_menu');
-
 }
-
-?>
