@@ -41,7 +41,7 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 		);
 
 		$capabilities = anp_meetings_capabilities();
-		
+
 		$rewrite = array(
 			'slug'                => $slug,
 			'with_front'          => false,

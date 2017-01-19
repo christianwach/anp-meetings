@@ -19,7 +19,10 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 * Feature #1654 & Feature #1688 - Upon plugin activation, added capabilities to roles that can `publish_posts` (by default authors).
 * Set capabilities function to return capabilities
 * Added filters that can be used to modify capabilities
-* Bug #1729 - Added filters rewrite rules for custom post types and taxonomies, and added `flush_rewrite_rules` on activation
+* Bug #1729
+   * Added filters rewrite rules for custom post types and taxonomies.
+   * Added `flush_rewrite_rules` on activation
+   * Added `flush_rewrite_rules` on custom taxonomy change
 
 = 1.0.8.5 - January 17, 2017 =
 * Updated CMB2 and Posts-to-Posts libraries
