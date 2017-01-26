@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * ANP Meetings Posts 2 Posts Connections
@@ -11,7 +11,7 @@
  */
 
 if(! function_exists( 'anp_meetings_connection_types' ) ) {
-    
+
     function anp_meetings_connection_types() {
         p2p_register_connection_type( array(
             'name' => 'meeting_to_agenda',
@@ -21,7 +21,6 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'cardinality' => 'one-to-one',
             'admin_column' => true,
             'admin_dropdown' => 'to',
-            'sortable' => 'any',
             'title' => array( 'from' => __( 'Agenda', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
         ) );
 
@@ -33,7 +32,6 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'cardinality' => 'one-to-one',
             'admin_column' => true,
             'admin_dropdown' => 'to',
-            'sortable' => 'any',
             'title' => array( 'from' => __( 'Summary', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
         ) );
 
@@ -49,10 +47,30 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'title' => array( 'from' => __( 'Proposals', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
         ) );
 
+        /**
+         * Register Connection Between Meeting and Event Post types
+         *
+         * @since 0.0.9.1
+         *
+         * @uses post_type_exists()
+         * @uses p2p_register_connection_type()
+         * @link https://github.com/scribu/wp-posts-to-posts/wiki/p2p_register_connection_type
+         */
+        if( post_type_exists( 'event' ) ) {
+          p2p_register_connection_type( array(
+              'name' => 'meeting_to_event',
+              'from' => 'meeting',
+              'to' => 'event',
+              'reciprocal' => true,
+              'cardinality' => 'one-to-many',
+              'admin_column' => true,
+              'admin_dropdown' => 'any',
+              'sortable' => 'any',
+              'title' => array( 'from' => __( 'Event', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
+          ) );
+        }
+
     }
     add_action( 'p2p_init', 'anp_meetings_connection_types' );
 
 }
-
-
-?>

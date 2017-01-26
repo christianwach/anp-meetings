@@ -1,6 +1,7 @@
 {
     "name": "glocalcoop/anp-meetings",
     "type": "wordpress-plugin",
+    "version": "1.0.9.1",
     "authors": [
         {
             "name": "Pea, Glocal",
