@@ -3,7 +3,7 @@ Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.7.1
-Stable tag:  1.0.9
+Stable tag:  1.0.9.1
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Usage ==
 
 == Revisions ==
+
+= 1.0.9.1 - January 26, 2017 =
+* #1632 - Add connection from Meeting to Event, if Event post type exists
 
 = 1.0.9 - January 17, 2017 =
 * Feature #1654 & Feature #1688 - Upon plugin activation, added capabilities to roles that can `publish_posts` (by default authors).
