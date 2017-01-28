@@ -150,7 +150,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/content-archive.php' );
+            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
 
             $content = ob_get_contents();
 
@@ -164,7 +164,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/content-archive.php' );
+            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
 
             $content = ob_get_contents();
 
@@ -178,7 +178,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/content-single.php' );
+            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-single.php' );
 
             $header = ob_get_contents();
 
@@ -188,7 +188,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/single-footer.php' );
+            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/single-footer.php' );
 
             $footer = ob_get_contents();
 
