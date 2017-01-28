@@ -42,9 +42,14 @@ if ( !defined( 'ANP_MEETINGS_PLUGIN_URL' ) ) {
 /* ---------------------------------- *
  * Required Files
  * ---------------------------------- */
+if( !class_exists( 'CMB2' ) ) {
+  include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/cmb2/init.php' );
+}
 
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/cmb2/init.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/posts-to-posts/posts-to-posts.php' );
+if( !function_exists( '_p2p_load' ) ) {
+  include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/posts-to-posts/posts-to-posts.php' );
+}
+
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-meeting.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-agenda.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-summary.php' );
@@ -53,7 +58,7 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-fields.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/post-type-connections.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-content-filters.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-pre-get-filters.php' );
-include_once( ANP_MEETINGS_PLUGIN_DIR . 'anp-meetings-render.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/render-functions.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-rewrite.php' );
 
