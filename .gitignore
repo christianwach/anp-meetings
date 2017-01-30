@@ -6,6 +6,6 @@
 *.tar
 *.gz
 .brackets.json
-/vendor
+node_modules
 !libs
 !libs/*

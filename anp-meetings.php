@@ -30,7 +30,6 @@ if ( ! defined( 'WPINC' ) ) {
 /* ---------------------------------- *
  * Constants
  * ---------------------------------- */
-
 if ( !defined( 'ANP_MEETINGS_PLUGIN_DIR' ) ) {
     define( 'ANP_MEETINGS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }
@@ -43,11 +42,15 @@ if ( !defined( 'ANP_MEETINGS_PLUGIN_URL' ) ) {
  * Required Files
  * ---------------------------------- */
 if( !class_exists( 'CMB2' ) ) {
-  include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/cmb2/init.php' );
+  include_once( ANP_MEETINGS_PLUGIN_DIR . 'vendor/cmb2/init.php' );
 }
 
 if( !function_exists( '_p2p_load' ) ) {
-  include_once( ANP_MEETINGS_PLUGIN_DIR . 'libs/posts-to-posts/posts-to-posts.php' );
+  include_once( ANP_MEETINGS_PLUGIN_DIR . 'vendor/posts-to-posts/posts-to-posts.php' );
+}
+
+if( !class_exists( 'Gamajo_Template_Loader' ) ) {
+  include_once( ANP_MEETINGS_PLUGIN_DIR . 'vendor/gamajo/template-loader/class-gamajo-template-loader.php' );
 }
 
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-meeting.php' );

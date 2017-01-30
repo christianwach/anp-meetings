@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d6bf0aea8bb2ee3773833ae888d0384f",
-    "content-hash": "7a820e893da7baa53b342ed68031165f",
+    "content-hash": "1a2ae102c55320b96d831c3612d2179d",
     "packages": [
         {
             "name": "composer/installers",
@@ -112,7 +111,50 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-08-13 20:53:52"
+            "time": "2016-08-13T20:53:52+00:00"
+        },
+        {
+            "name": "gamajo/template-loader",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/GaryJones/Gamajo-Template-Loader.git",
+                "reference": "0cb9515f60cc96d36e2bc208dc518310e59bec21"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/GaryJones/Gamajo-Template-Loader/zipball/0cb9515f60cc96d36e2bc208dc518310e59bec21",
+                "reference": "0cb9515f60cc96d36e2bc208dc518310e59bec21",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2.4"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "class-gamajo-template-loader.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Gary Jones",
+                    "email": "gamajo@gamajo.com",
+                    "homepage": "http://gamajo.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A class for your WordPress plugin, to allow loading template parts with fallback through the child theme > parent theme > plugin",
+            "homepage": "http://github.com/GaryJones/Gamajo-Template-Loader",
+            "keywords": [
+                "templates",
+                "wordpress"
+            ],
+            "time": "2016-03-26T07:43:03+00:00"
         },
         {
             "name": "wpackagist-plugin/cmb2",
@@ -158,7 +200,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "gamajo/template-loader": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
