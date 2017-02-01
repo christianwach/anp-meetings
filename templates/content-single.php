@@ -55,35 +55,35 @@ $connected_event = get_posts( array(
 <?php if( 'meeting' == $post_type ) : ?>
 
     <?php if( $meeting_date ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date:', 'meetings' ); ?></span> <?php echo $meeting_date; ?></p>
+        <div class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date:', 'meetings' ); ?></span> <?php echo $meeting_date; ?></div>
     <?php endif; ?>
 
     <?php if( $meeting_type ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Type:', 'meetings' ); ?></span> <?php echo $meeting_type; ?></p>
+        <div class="meta meeting-meta"><span class="meta-label"><?php _e( 'Type:', 'meetings' ); ?></span> <?php echo $meeting_type; ?></div>
     <?php endif; ?>
 
 <?php endif; ?>
 
 <?php if( $organization ) : ?>
-    <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Organization:', 'meetings' ); ?></span> <?php echo $organization; ?></p>
+    <div class="meta meeting-meta"><span class="meta-label"><?php _e( 'Organization:', 'meetings' ); ?></span> <?php echo $organization; ?></div>
 <?php endif; ?>
 
 <?php if( $meeting_tags ) : ?>
-    <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Tags:', 'meetings' ); ?></span> <?php echo $meeting_tags; ?></p>
+    <div class="meta meeting-meta"><span class="meta-label"><?php _e( 'Tags:', 'meetings' ); ?></span> <?php echo $meeting_tags; ?></div>
 <?php endif; ?>
 
 <?php if( 'proposal' == $post_type ) : ?>
 
     <?php if( $proposal_status ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Status:', 'meetings' ); ?></span> <?php echo $proposal_status; ?></p>
+        <div class="meta meeting-meta"><span class="meta-label"><?php _e( 'Status:', 'meetings' ); ?></span> <?php echo $proposal_status; ?></div>
     <?php endif; ?>
 
     <?php if( $meeting_date ) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Appoved:', 'meetings' ); ?></span> <?php echo $meeting_date; ?></p>
+        <div class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Appoved:', 'meetings' ); ?></span> <?php echo $meeting_date; ?></div>
     <?php endif; ?>
 
     <?php if( $effective_date) : ?>
-        <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Effective:', 'meetings' ); ?></span> <?php echo $effective_date; ?></p>
+        <div class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date Effective:', 'meetings' ); ?></span> <?php echo $effective_date; ?></div>
     <?php endif; ?>
 
 <?php endif; ?>
@@ -93,6 +93,17 @@ $connected_event = get_posts( array(
     <div class="meta meeting-meta">
 
         <ul class="connected-content">
+
+        <?php if( !empty( $connected_event ) ) : ?>
+          <?php foreach( $connected_event as $event ) : ?>
+              <?php $post_type_obj = get_post_type_object( get_post_type( $event->ID ) ); ?>
+              <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              <li class="event-link"><a href="<?php echo get_post_permalink( $event->ID ); ?>">
+              <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              </a></li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+
 
         <?php if( !empty( $connected_agenda ) ) : ?>
           <?php foreach( $connected_agenda as $agenda ) : ?>
@@ -113,17 +124,6 @@ $connected_event = get_posts( array(
               </a></li>
           <?php endforeach; ?>
         <?php endif; ?>
-
-        <?php if( !empty( $connected_event ) ) : ?>
-          <?php foreach( $connected_event as $event ) : ?>
-              <?php $post_type_obj = get_post_type_object( get_post_type( $event->ID ) ); ?>
-              <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
-              <li class="event-link"><a href="<?php echo get_post_permalink( $event->ID ); ?>">
-              <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
-              </a></li>
-          <?php endforeach; ?>
-        <?php endif; ?>
-
 
         <?php if( 'proposal' == get_post_type() && !empty( $connected_proposal ) ) : ?>
           <?php foreach( $connected_proposal as $proposal ) : ?>
