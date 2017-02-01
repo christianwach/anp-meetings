@@ -39,7 +39,7 @@ $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class=
 <?php
 if( 'meeting' == $post_type ) : ?>
 
-    <div class="meta meeting-meta"><?php echo ( !empty( $meeting_type ) ) ? __( 'Type: ', 'anp-meetings'  ) . $meeting_type : '' ; ?></div>
+    <div class="meta meeting-meta"><?php echo ( !empty( $meeting_type ) ) ? __( 'Type: ', 'meetings'  ) . $meeting_type : '' ; ?></div>
 
     <?php
     $agendas = ( function_exists( 'meeting_get_agenda' ) ) ? meeting_get_agenda( $post_id ) : '';
