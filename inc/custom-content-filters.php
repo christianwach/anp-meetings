@@ -61,9 +61,6 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             if( !empty( $type_terms ) ) {
                 array_push( $meeting_title, '<span class="type">' . $type_terms . '</span>' );
             }
-            if( !empty( $meeting_date ) ) {
-                array_push( $meeting_title, '<time>' . $meeting_date . '</time>' );
-            }
 
             return implode( ' - ', $meeting_title );
 
@@ -75,7 +72,7 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             global $post;
             $meeting_title = [];
 
-            $post_type_object = get_post_type_object( get_post_type( get_the_ID() ) );
+            $post_type_object = get_post_type_object( get_post_type( $post->ID ) );
 
             $post_type_name = $post_type_object->labels->singular_name;
 
@@ -94,9 +91,6 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             }
             if( !empty( $type_terms ) ) {
                 array_push( $meeting_title, '<span class="type">' . $type_terms . '</span>' );
-            }
-            if( !empty( $meeting_date ) ) {
-                array_push( $meeting_title, '<time>' . $meeting_date . '</time>' );
             }
 
             return implode( ' - ', $meeting_title );
@@ -205,6 +199,3 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
     add_filter( 'the_content', 'anp_meetings_content_filter' );
 
 }
-
-
-?>
