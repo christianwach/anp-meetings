@@ -202,7 +202,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
 /**
  * Modify Event Arhive Meta Content
- * @since 1.0.0
+ * @since 1.1.0
  *
  * @return string $content
  */
