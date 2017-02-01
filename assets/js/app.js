@@ -1,8 +1,8 @@
 /**
- * 
+ *
  * Search Filter
- * 
- * 
+ *
+ *
  **/
 jQuery( document ).ready( function( $ ) {
 
@@ -19,7 +19,7 @@ jQuery( document ).ready( function( $ ) {
         } else {
             return false;
         }
-        
+
         for ( var i = 0; i < hash.length; i++ ) {
             params=hash[i].split( '=' );
             vars[params[0]] = params[1];

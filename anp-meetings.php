@@ -61,6 +61,7 @@ include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-fields.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/post-type-connections.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-content-filters.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-pre-get-filters.php' );
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/enqueue.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/render-functions.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
 include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/custom-rewrite.php' );
