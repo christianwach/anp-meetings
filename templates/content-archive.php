@@ -45,11 +45,13 @@ if( 'meeting' == $post_type ) : ?>
     $agendas = ( function_exists( 'meeting_get_agenda' ) ) ? meeting_get_agenda( $post_id ) : '';
     $summaries = ( function_exists( 'meeting_get_summary' ) ) ? meeting_get_summary( $post_id ) : '';
     $proposals = ( function_exists( 'meeting_get_proposal' ) ) ? meeting_get_proposal( $post_id ) : '';
+    $events =  (function_exists( 'meeting_get_event' ) ) ? meeting_get_event( $post_id ) : '';
 
-    if( $agendas || $summaries || $proposals ) : ?>
+    if( $agendas || $summaries || $proposals || $events ) : ?>
 
         <ul class="connected-content">
 
+          <?php echo ( $events ) ? $events : ''; ?>
           <?php echo ( $agendas ) ? $agendas : ''; ?>
           <?php echo ( $summaries ) ? $summaries : ''; ?>
           <?php echo ( $proposals ) ? $proposals : ''; ?>
