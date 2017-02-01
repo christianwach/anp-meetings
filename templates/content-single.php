@@ -90,7 +90,7 @@ $connected_event = get_posts( array(
 
 <?php if( !empty( $connected_agenda ) || !empty( $connected_summary ) || !empty( $connected_proposal ) || !empty( $connected_event ) ) : ?>
 
-    <div class="meta meeting-meta">
+    <nav class="connected-content-nav" role="navigation">
 
         <ul class="connected-content">
 
@@ -98,8 +98,9 @@ $connected_event = get_posts( array(
           <?php foreach( $connected_event as $event ) : ?>
               <?php $post_type_obj = get_post_type_object( get_post_type( $event->ID ) ); ?>
               <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
-              <li class="event-link"><a href="<?php echo get_post_permalink( $event->ID ); ?>">
-              <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              <?php $post_class = $post_type_obj->name; ?>
+              <li class="<?php echo ( $post_class ) ? $post_class : '' ?>-link"><a href="<?php echo get_post_permalink( $event->ID ); ?>" title="View <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>" rel="bookmark">
+                <span class="link-text"><?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?></span>
               </a></li>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -109,8 +110,9 @@ $connected_event = get_posts( array(
           <?php foreach( $connected_agenda as $agenda ) : ?>
               <?php $post_type_obj = get_post_type_object( get_post_type( $agenda->ID ) ); ?>
               <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
-              <li class="agenda-link">
-                  <a href="<?php echo get_post_permalink( $agenda->ID ); ?>"> <?php echo ( $post_type_name ) ? $post_type_name : $agenda->post_title; ?></a>
+              <?php $post_class = $post_type_obj->name; ?>
+              <li class="<?php echo ( $post_class ) ? $post_class : '' ?>-link">
+                  <a href="<?php echo get_post_permalink( $agenda->ID ); ?>" rel="bookmark" title="View <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>"><span class="link-text"><?php echo ( $post_type_name ) ? $post_type_name : $agenda->post_title; ?></span></a>
               </li>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -119,8 +121,9 @@ $connected_event = get_posts( array(
           <?php foreach( $connected_summary as $summary ) : ?>
               <?php $post_type_obj = get_post_type_object( get_post_type( $summary->ID ) ); ?>
               <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
-              <li class="summary-link"><a href="<?php echo get_post_permalink( $summary->ID ); ?>">
-              <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              <?php $post_class = $post_type_obj->name; ?>
+              <li class="<?php echo ( $post_class ) ? $post_class : '' ?>-link"><a href="<?php echo get_post_permalink( $summary->ID ); ?>" title="View <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>" rel="bookmark">
+                <span class="link-text"><?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?></span>
               </a></li>
           <?php endforeach; ?>
         <?php endif; ?>
@@ -128,19 +131,16 @@ $connected_event = get_posts( array(
         <?php if( 'proposal' == get_post_type() && !empty( $connected_proposal ) ) : ?>
           <?php foreach( $connected_proposal as $proposal ) : ?>
               <?php $post_type_obj = get_post_type_object( get_post_type( $proposal->ID ) ); ?>
-              <li class="proposal-link">
-                  <a href="<?php echo get_post_permalink( $proposal->ID ); ?>"> <?php _e( 'Meeting', 'meetings' ); ?></a>
+              <?php $post_class = $post_type_obj->name; ?>
+              <li class="<?php echo ( $post_class ) ? $post_class : '' ?>-link">
+                  <a href="<?php echo get_post_permalink( $proposal->ID ); ?>" title="View <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>" rel="bookmark">
+                    <span class="link-text"><?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?></span>
+                  </a>
               </li>
           <?php endforeach; ?>
         <?php endif; ?>
 
-        <?php if( 'meeting' == get_post_type() && !empty( $connected_proposal ) ) : ?>
-
-            <li class="proposal-link"><a href="#proposals"><?php _e( 'Proposal(s)', 'meetings' ); ?></a></li>
-
-        <?php endif; ?>
-
         </ul>
-    </div>
+    </nav>
 
 <?php endif; ?>

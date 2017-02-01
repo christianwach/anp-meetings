@@ -68,11 +68,15 @@ if( 'meeting' == $post_type ) : ?>
 
     <?php if( $agendas ) : ?>
 
+      <nav class="connected-content-nav" role="navigation">
+
         <ul class="connected-content meeting">
 
         <?php ( $agendas ) ? $agendas : ''; ?>
 
         </ul>
+
+      </nav>
 
     <?php endif; ?>
 

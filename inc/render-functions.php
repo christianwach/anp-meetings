@@ -46,8 +46,9 @@ if(! function_exists( 'meeting_get_agenda' ) ) {
         $post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
         $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
 
-        $content = sprintf( '<li class="agenda-link"><a href="%s" rel="bookmark"><span class="link-text">%s</span></a></li>',
+        $content = sprintf( '<li class="agenda-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
           get_post_permalink( $post->ID ),
+          ( $post_type_name ) ? $post_type_name : $post->post_title,
           ( $post_type_name ) ? $post_type_name : $post->post_title
         );
 
@@ -82,8 +83,9 @@ if(! function_exists( 'meeting_get_summary' ) ) {
         $post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
         $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
 
-        $content = sprintf( '<li class="summary-link"><a href="%s" rel="bookmark"><span class="link-text">%s</span></a></li>',
+        $content = sprintf( '<li class="summary-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
           get_post_permalink( $post->ID ),
+          ( $post_type_name ) ? $post_type_name : $post->post_title,
           ( $post_type_name ) ? $post_type_name : $post->post_title
         );
 
@@ -119,8 +121,9 @@ if(! function_exists( 'meeting_get_proposal' ) ) {
             'connected_direction' => 'from'
         );
 
-        $content = sprintf( '<li class="proposal-link"><a href="%s" rel="bookmark"><span class="link-text">%s</span></a></li>',
+        $content = sprintf( '<li class="proposal-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
           esc_url( add_query_arg( $url ) ),
+          ( 1 == count( $proposals ) ) ? __( 'Proposal', 'meeting' ) : __( 'Proposals', 'meeting' ),
           ( 1 == count( $proposals ) ) ? __( 'Proposal', 'meeting' ) : __( 'Proposals', 'meeting' )
         );
 
@@ -160,8 +163,9 @@ if(! function_exists( 'meeting_get_proposal' ) ) {
          $post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
          $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
 
-         $content = sprintf( '<li class="event-link"><a href="%s" rel="bookmark"><span class="link-text">%s</span></a></li>',
+         $content = sprintf( '<li class="event-link"><a href="%s" rel="bookmark" Title="View %s"><span class="link-text">%s</span></a></li>',
            get_post_permalink( $post->ID ),
+           ( $post_type_name ) ? $post_type_name : $post->post_title,
            ( $post_type_name ) ? $post_type_name : $post->post_title
          );
 
