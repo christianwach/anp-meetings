@@ -1,12 +1,5 @@
 <footer class="entry-footer">
 
-<?php if( !empty( $meeting_tags ) ) : ?>
-
-    <p class="tags meta"><span class="meta-label"><?php _e( 'Tags:', 'meeting' ) ?></span> <?php echo $meeting_tags; ?>
-    </p>
-
-<?php endif; ?>
-
 <?php if( !empty( $connected_proposal ) ) : ?>
 
     <h3 id="proposals"><?php _e( 'Proposals', 'anp-meeting' ); ?></h3>
@@ -28,7 +21,7 @@
                     <?php echo $status; ?>
                 </span>
             <?php endif; ?>
-            
+
         </li>
 
     <?php endforeach; ?>
