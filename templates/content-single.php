@@ -21,33 +21,43 @@ $effective_date = get_post_meta( $post_id, 'proposal_date_effective', true );
 $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class="proposal-status tag">', ', ', '</span>' );
 
 // Associated Content
+$queried_obj = get_queried_object();
+
 $connected_agenda = get_posts( array(
   'connected_type' => 'meeting_to_agenda',
-  'connected_items' => get_queried_object(),
+  'connected_items' => $queried_obj,
   'nopaging' => true,
   'suppress_filters' => false
 ) );
 
 $connected_summary = get_posts( array(
   'connected_type' => 'meeting_to_summary',
-  'connected_items' => get_queried_object(),
+  'connected_items' => $queried_obj,
   'nopaging' => true,
   'suppress_filters' => false
 ) );
 
 $connected_proposal = get_posts( array(
   'connected_type' => 'meeting_to_proposal',
-  'connected_items' => get_queried_object(),
+  'connected_items' => $queried_obj,
   'nopaging' => true,
   'suppress_filters' => false
-) ); ?>
+) );
+
+$connected_event = get_posts( array(
+  'connected_type' => 'meeting_to_event',
+  'connected_items' => $queried_obj,
+  'nopaging' => true,
+  'suppress_filters' => false
+) );
+?>
 
 <?php if( 'meeting' == $post_type ) : ?>
 
     <?php if( $meeting_date ) : ?>
         <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Date:', 'meetings' ); ?></span> <?php echo $meeting_date; ?></p>
     <?php endif; ?>
-    
+
     <?php if( $meeting_type ) : ?>
         <p class="meta meeting-meta"><span class="meta-label"><?php _e( 'Type:', 'meetings' ); ?></span> <?php echo $meeting_type; ?></p>
     <?php endif; ?>
@@ -78,41 +88,53 @@ $connected_proposal = get_posts( array(
 
 <?php endif; ?>
 
-<?php if( !empty( $connected_agenda ) || !empty( $connected_summary ) || !empty( $connected_proposal ) ) : ?>
+<?php if( !empty( $connected_agenda ) || !empty( $connected_summary ) || !empty( $connected_proposal ) || !empty( $connected_event ) ) : ?>
 
     <div class="meta meeting-meta">
 
         <ul class="connected-content">
 
-        <?php foreach( $connected_agenda as $agenda ) : ?>
-            <?php $post_type_obj = get_post_type_object( get_post_type( $agenda->ID ) ); ?>
-            <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+        <?php if( !empty( $connected_agenda ) ) : ?>
+          <?php foreach( $connected_agenda as $agenda ) : ?>
+              <?php $post_type_obj = get_post_type_object( get_post_type( $agenda->ID ) ); ?>
+              <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              <li class="agenda-link">
+                  <a href="<?php echo get_post_permalink( $agenda->ID ); ?>"> <?php echo ( $post_type_name ) ? $post_type_name : $agenda->post_title; ?></a>
+              </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
 
-            <li class="agenda-link">
-                <a href="<?php echo get_post_permalink( $agenda->ID ); ?>"> <?php echo ( $post_type_name ) ? $post_type_name : $agenda->post_title; ?></a>
-            </li>
-        <?php endforeach; ?>
+        <?php if( !empty( $connected_summary ) ) : ?>
+          <?php foreach( $connected_summary as $summary ) : ?>
+              <?php $post_type_obj = get_post_type_object( get_post_type( $summary->ID ) ); ?>
+              <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              <li class="summary-link"><a href="<?php echo get_post_permalink( $summary->ID ); ?>">
+              <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              </a></li>
+          <?php endforeach; ?>
+        <?php endif; ?>
 
-        <?php foreach( $connected_summary as $summary ) : ?>
-            <?php $post_type_obj = get_post_type_object( get_post_type( $summary->ID ) ); ?>
-            <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
-            <li class="summary-link"><a href="<?php echo get_post_permalink( $summary->ID ); ?>">
-            <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
-            </a></li>
-        <?php endforeach; ?>
+        <?php if( !empty( $connected_event ) ) : ?>
+          <?php foreach( $connected_event as $event ) : ?>
+              <?php $post_type_obj = get_post_type_object( get_post_type( $event->ID ) ); ?>
+              <?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              <li class="event-link"><a href="<?php echo get_post_permalink( $event->ID ); ?>">
+              <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+              </a></li>
+          <?php endforeach; ?>
+        <?php endif; ?>
 
-        <?php if( 'proposal' == get_post_type() ) : ?>
 
+        <?php if( 'proposal' == get_post_type() && !empty( $connected_proposal ) ) : ?>
           <?php foreach( $connected_proposal as $proposal ) : ?>
               <?php $post_type_obj = get_post_type_object( get_post_type( $proposal->ID ) ); ?>
-              <li class="meeting-link">
+              <li class="proposal-link">
                   <a href="<?php echo get_post_permalink( $proposal->ID ); ?>"> <?php _e( 'Meeting', 'meetings' ); ?></a>
               </li>
           <?php endforeach; ?>
-
         <?php endif; ?>
 
-        <?php if( 'meeting' == get_post_type() && count( $connected_proposal ) > 0 ) : ?>
+        <?php if( 'meeting' == get_post_type() && !empty( $connected_proposal ) ) : ?>
 
             <li class="proposal-link"><a href="#proposals"><?php _e( 'Proposal(s)', 'meetings' ); ?></a></li>
 
