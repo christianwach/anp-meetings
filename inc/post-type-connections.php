@@ -21,7 +21,7 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'cardinality' => 'one-to-one',
             'admin_column' => true,
             'admin_dropdown' => 'to',
-            'title' => array( 'from' => __( 'Agenda', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
+            'title' => array( 'from' => __( 'Agenda', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
         ) );
 
         p2p_register_connection_type( array(
@@ -32,7 +32,7 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'cardinality' => 'one-to-one',
             'admin_column' => true,
             'admin_dropdown' => 'to',
-            'title' => array( 'from' => __( 'Summary', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
+            'title' => array( 'from' => __( 'Summary', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
         ) );
 
         p2p_register_connection_type( array(
@@ -44,13 +44,13 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
             'admin_column' => true,
             'admin_dropdown' => 'any',
             'sortable' => 'any',
-            'title' => array( 'from' => __( 'Proposals', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
+            'title' => array( 'from' => __( 'Proposals', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
         ) );
 
         /**
          * Register Connection Between Meeting and Event Post types
          *
-         * @since 0.0.9.1
+         * @since 0.9.1
          *
          * @uses post_type_exists()
          * @uses p2p_register_connection_type()
@@ -66,7 +66,7 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
               'admin_column' => true,
               'admin_dropdown' => 'any',
               'sortable' => 'any',
-              'title' => array( 'from' => __( 'Event', 'meeting' ), 'to' => __( 'Meeting', 'meeting' ) ),
+              'title' => array( 'from' => __( 'Event', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
           ) );
         }
 
