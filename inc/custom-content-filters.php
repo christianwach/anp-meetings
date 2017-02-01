@@ -127,7 +127,8 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
             'meeting',
             'proposal',
             'summary',
-            'agenda'
+            'agenda',
+            'event'
         );
 
         $post_tax = array(
@@ -137,8 +138,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
             'proposal_status',
         );
 
-
-        if ( ( is_post_type_archive( 'meeting' ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
+        if ( ( is_post_type_archive( array( 'meeting' ) ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
 
             global $post;
 
@@ -199,3 +199,24 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
     add_filter( 'the_content', 'anp_meetings_content_filter' );
 
 }
+
+/**
+ * Modify Event Arhive Meta Content
+ * @since 1.0.0
+ *
+ * @return string $content
+ */
+function anp_meetings_event_meta_content() {
+  global $post;
+
+  ob_start();
+
+  include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-event-meta.php' );
+
+  $content = ob_get_contents();
+
+  return $content;
+
+  ob_end_clean();
+}
+add_action( 'eventorganiser_additional_event_meta', 'anp_meetings_event_meta_content' );
