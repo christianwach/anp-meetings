@@ -62,7 +62,7 @@ if(! function_exists( 'anp_meetings_connection_types' ) ) {
               'from' => 'meeting',
               'to' => 'event',
               'reciprocal' => true,
-              'cardinality' => 'one-to-many',
+              'cardinality' => 'one-to-one',
               'admin_column' => true,
               'admin_dropdown' => 'any',
               'sortable' => 'any',
