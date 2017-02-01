@@ -17,7 +17,7 @@
 
             <?php if( $status ) : ?>
                 <span class="proposal-status">
-                    <label for="proposal-status"><?php _e( 'Status', 'meetings' ); ?></label>
+                    <span class="meta-label"><?php _e( 'Status', 'meetings' ); ?></span>
                     <?php echo $status; ?>
                 </span>
             <?php endif; ?>
