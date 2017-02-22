@@ -10,11 +10,6 @@
  * @package   ANP_Meetings
  */
 
-
-/*
- * CUSTOM CONTENT FILTERS
- */
-
 /**
  * Filter Title
  * Modify the title to display the meeting type and meeting date rather than post title
@@ -32,7 +27,7 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             return $title;
         }
 
-        // If meeting, display as {organization} - {meeting_type} - {meeting_date}
+        // If meeting, display as {organization} - {meeting_type}
         if( is_singular( 'meeting' ) || is_post_type_archive( 'meeting' ) || is_tax( array( 'meeting_type', 'meeting_tag' ) ) ) {
 
             global $post;
@@ -114,7 +109,6 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
  * @param string $content
  * @return string $content
  */
-
 if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
     function anp_meetings_content_filter( $content ) {
@@ -138,19 +132,19 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
             'proposal_status',
         );
 
-        if ( ( is_post_type_archive( array( 'meeting' ) ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
-
-            global $post;
-
-            ob_start();
-
-            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
-
-            $content = ob_get_contents();
-
-            ob_end_clean();
-
-        }
+        // if ( ( is_post_type_archive( array( 'meeting' ) ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
+        //
+        //     global $post;
+        //
+        //     ob_start();
+        //
+        //     include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
+        //
+        //     $content = ob_get_contents();
+        //
+        //     ob_end_clean();
+        //
+        // }
 
         if ( ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) && in_the_loop() ) {
 
@@ -195,7 +189,6 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
         return $content;
 
     }
-
     add_filter( 'the_content', 'anp_meetings_content_filter' );
 
 }

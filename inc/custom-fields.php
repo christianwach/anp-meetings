@@ -10,9 +10,10 @@
  * @package   ANP_Meetings
  */
 
-
-/************* CUSTOM FIELDS *****************/
-
+/**
+ * Meeting Metabox
+ *
+ */
 function anp_meetings_add_meeting_metabox() {
 
     $cmb = new_cmb2_box( array(
@@ -33,10 +34,11 @@ function anp_meetings_add_meeting_metabox() {
     ) );
 
 }
-
 add_action( 'cmb2_init', 'anp_meetings_add_meeting_metabox' );
 
-
+/**
+ * Proposal Metabox
+ */
 function anp_meetings_add_proposal_metabox() {
 
     $cmb = new_cmb2_box( array(
@@ -70,8 +72,4 @@ function anp_meetings_add_proposal_metabox() {
     ) );
 
 }
-
 add_action( 'cmb2_init', 'anp_meetings_add_proposal_metabox' );
-
-
-?>
