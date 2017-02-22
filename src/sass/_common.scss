@@ -1,0 +1,82 @@
+body {
+  background-color: $color__white;
+  color: $color__text-primary;
+}
+
+a {
+  text-decoration: none;
+  &:hover,
+  &:focus {
+    text-decoration: none;
+  }
+}
+
+.entry-content {
+  ul.connected-content {
+    @include no-bullets;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: .5em;
+    border-top: 1px solid $color__gray-light;
+    border-bottom: 1px solid $color__gray-light;
+    border-radius: 2px;
+
+    li {
+      margin-left: 0;
+      padding: .5em .5em .25em 0;
+    }
+
+    a,
+    a:hover,
+    a:focus,
+    a:visited {
+      color: $color__gray-dark;
+    }
+
+    .link-text {
+      @include visually-hidden;
+    }
+    .event-link {
+      a {
+        @extend %calendar;
+      }
+    }
+    .summary-link {
+      a {
+        @extend %summary;
+      }
+    }
+    .agenda-link {
+      a {
+        @extend %agenda;
+      }
+    }
+    .meeting-link {
+      a {
+        @extend %meeting;
+      }
+    }
+    .proposal-link {
+      a {
+        @extend %proposal;
+      }
+    }
+  }
+
+  ul.proposal-links {
+    list-style-position: inside;
+    margin-left: 0;
+  }
+
+}
+
+article.post.type-meeting {
+  footer {
+    float: none;
+    width: 100%;
+
+    li {
+      margin-left: 0;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+%icon {
+  font-family: $font__icon;
+  font-size: 180%;
+}
+
+%calendar {
+  &:before {
+    @extend %icon;
+    content: "\f508";
+  }
+}
+
+%meeting {
+  &:before {
+    @extend %icon;
+    content: "\f307";
+  }
+}
+
+%proposal {
+  &:before {
+    @extend %icon;
+    content: "\f339";
+  }
+}
+
+%summary {
+  &:before {
+    @extend %icon;
+    content: "\f163";
+  }
+}
+
+%agenda {
+  &:before {
+    @extend %icon;
+    content: "\f204";
+  }
+}

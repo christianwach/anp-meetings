@@ -10,11 +10,6 @@
  * @package   ANP_Meetings
  */
 
-
-/*
- * CUSTOM CONTENT FILTERS
- */
-
 /**
  * Filter Title
  * Modify the title to display the meeting type and meeting date rather than post title
@@ -32,7 +27,7 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             return $title;
         }
 
-        // If meeting, display as {organization} - {meeting_type} - {meeting_date}
+        // If meeting, display as {organization} - {meeting_type}
         if( is_singular( 'meeting' ) || is_post_type_archive( 'meeting' ) || is_tax( array( 'meeting_type', 'meeting_tag' ) ) ) {
 
             global $post;
@@ -61,9 +56,6 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             if( !empty( $type_terms ) ) {
                 array_push( $meeting_title, '<span class="type">' . $type_terms . '</span>' );
             }
-            if( !empty( $meeting_date ) ) {
-                array_push( $meeting_title, '<time>' . $meeting_date . '</time>' );
-            }
 
             return implode( ' - ', $meeting_title );
 
@@ -75,7 +67,7 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             global $post;
             $meeting_title = [];
 
-            $post_type_object = get_post_type_object( get_post_type( get_the_ID() ) );
+            $post_type_object = get_post_type_object( get_post_type( $post->ID ) );
 
             $post_type_name = $post_type_object->labels->singular_name;
 
@@ -94,9 +86,6 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
             }
             if( !empty( $type_terms ) ) {
                 array_push( $meeting_title, '<span class="type">' . $type_terms . '</span>' );
-            }
-            if( !empty( $meeting_date ) ) {
-                array_push( $meeting_title, '<time>' . $meeting_date . '</time>' );
             }
 
             return implode( ' - ', $meeting_title );
@@ -120,7 +109,6 @@ if(! function_exists( 'anp_meetings_title_filter' ) ) {
  * @param string $content
  * @return string $content
  */
-
 if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
     function anp_meetings_content_filter( $content ) {
@@ -133,7 +121,8 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
             'meeting',
             'proposal',
             'summary',
-            'agenda'
+            'agenda',
+            'event'
         );
 
         $post_tax = array(
@@ -143,20 +132,19 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
             'proposal_status',
         );
 
-
-        if ( ( is_post_type_archive( 'meeting' ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
-
-            global $post;
-
-            ob_start();
-
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/content-archive.php' );
-
-            $content = ob_get_contents();
-
-            ob_end_clean();
-
-        }
+        // if ( ( is_post_type_archive( array( 'meeting' ) ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
+        //
+        //     global $post;
+        //
+        //     ob_start();
+        //
+        //     include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
+        //
+        //     $content = ob_get_contents();
+        //
+        //     ob_end_clean();
+        //
+        // }
 
         if ( ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) && in_the_loop() ) {
 
@@ -164,7 +152,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/content-archive.php' );
+            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
 
             $content = ob_get_contents();
 
@@ -178,7 +166,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/content-single.php' );
+            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-single.php' );
 
             $header = ob_get_contents();
 
@@ -188,7 +176,7 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( ANP_MEETINGS_PLUGIN_DIR . 'views/single-footer.php' );
+            include( ANP_MEETINGS_PLUGIN_DIR . 'templates/single-footer.php' );
 
             $footer = ob_get_contents();
 
@@ -201,10 +189,27 @@ if( !function_exists( 'anp_meetings_content_filter' ) ) {
         return $content;
 
     }
-
     add_filter( 'the_content', 'anp_meetings_content_filter' );
 
 }
 
+/**
+ * Modify Event Arhive Meta Content
+ * @since 1.1.0
+ *
+ * @return string $content
+ */
+function anp_meetings_event_meta_content() {
+  global $post;
 
-?>
+  ob_start();
+
+  include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-event-meta.php' );
+
+  $content = ob_get_contents();
+
+  return $content;
+
+  ob_end_clean();
+}
+add_action( 'eventorganiser_additional_event_meta', 'anp_meetings_event_meta_content' );

@@ -1,13 +1,16 @@
 {
     "name": "glocalcoop/anp-meetings",
     "type": "wordpress-plugin",
-    "version": "1.0.9.1",
+    "version": "1.1.0",
     "authors": [
         {
             "name": "Pea, Glocal",
             "email": "pea@misfist.com"
         }
     ],
+    "config": {
+      "preferred-install": "dist"
+    },
     "repositories": [
         {
             "type": "composer",
@@ -15,13 +18,12 @@
         }
     ],
     "require": {
-        "wpackagist-plugin/cmb2": "^2.2.2.1",
-        "wpackagist-plugin/posts-to-posts": "^1.6.5"
+        "gamajo/template-loader": "dev-master"
     },
     "require-dev": {},
     "extra": {
         "installer-paths": {
-            "./libs/{$name}/": ["type:wordpress-plugin"]
+            "./vendor/{$name}/": ["type:wordpress-plugin"]
         }
     }
 }

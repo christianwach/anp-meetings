@@ -2,8 +2,8 @@
 Contributors: Pea, Glocal
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
-Tested up to: 4.7.1
-Stable tag:  1.0.9.1
+Tested up to: 4.7.2
+Version:  1.2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -14,6 +14,15 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 == Usage ==
 
 == Revisions ==
+
+= 1.2.0 - February 22, 2017 =
+* Replace included CMB2 and Posts-to-Posts libraries with standalone plugins
+* Added tmg-plugin-activation library
+
+= 1.1.0 - January 31, 2017 =
+* #1639 - Display event link on meetings archive and single meeting
+* Display meeting link on single event
+* Added styling and Dashicons
 
 = 1.0.9.1 - January 26, 2017 =
 * #1632 - Add connection from Meeting to Event, if Event post type exists
