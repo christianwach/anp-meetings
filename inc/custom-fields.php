@@ -12,7 +12,6 @@
 
 /**
  * Meeting Metabox
- *
  */
 function anp_meetings_add_meeting_metabox() {
 
@@ -34,7 +33,6 @@ function anp_meetings_add_meeting_metabox() {
     ) );
 
 }
-add_action( 'cmb2_init', 'anp_meetings_add_meeting_metabox' );
 
 /**
  * Proposal Metabox
@@ -70,6 +68,6 @@ function anp_meetings_add_proposal_metabox() {
         'id' => 'proposal_date_effective',
         'type' => 'text_date',
     ) );
-
 }
+add_action( 'cmb2_init', 'anp_meetings_add_meeting_metabox' );
 add_action( 'cmb2_init', 'anp_meetings_add_proposal_metabox' );

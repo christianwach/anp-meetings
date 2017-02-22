@@ -24,7 +24,6 @@ if(! function_exists( 'anp_connection_box_order' ) ) {
  * Agenda
  * Render agenda associated with content
  */
-
 if(! function_exists( 'meeting_get_agenda' ) ) {
 
     function meeting_get_agenda( $post_id ) {
@@ -175,10 +174,9 @@ if(! function_exists( 'meeting_get_proposal' ) ) {
 
  }
 
-/*
+/**
  * Add markdown support for custom post types
  */
-
 if(! function_exists( 'meeting_markdown_support' )  ) {
 
     function meeting_markdown_support() {
@@ -193,7 +191,7 @@ if(! function_exists( 'meeting_markdown_support' )  ) {
 }
 
 
-/*
+/**
  * TEMPLATE LOCATION
  * Templates can be overwritten by putting a template file of the same name in
  * plugins/anp-meeting/ folder of your active theme
@@ -235,7 +233,3 @@ if(! function_exists( 'include_meeting_templates' ) ) {
     //add_filter( 'template_include', 'include_meeting_templates', 1 );
 
 }
-
-
-
-?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * ANP Meetings Init
  *
@@ -16,7 +15,7 @@ Plugin URI: https://plan.glocal.coop/projects/anp-meetings/
 Description: Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display meeting notes/minutes, agendas, proposals and summaries.
 Author: Pea, Glocal
 Author URI: http://glocal.coop
-Version: 1.1.0
+Version: 1.2.0
 License: GPLv3
 Text Domain: meetings
 */
@@ -41,13 +40,9 @@ if ( !defined( 'ANP_MEETINGS_PLUGIN_URL' ) ) {
 /* ---------------------------------- *
  * Required Files
  * ---------------------------------- */
-if( !class_exists( 'CMB2' ) ) {
-  include_once( ANP_MEETINGS_PLUGIN_DIR . 'vendor/cmb2/init.php' );
-}
 
-if( !function_exists( '_p2p_load' ) ) {
-  include_once( ANP_MEETINGS_PLUGIN_DIR . 'vendor/posts-to-posts/posts-to-posts.php' );
-}
+include_once( ANP_MEETINGS_PLUGIN_DIR . 'inc/required-plugins.php' );
+
 
 if( !class_exists( 'Gamajo_Template_Loader' ) ) {
   include_once( ANP_MEETINGS_PLUGIN_DIR . 'vendor/gamajo/template-loader/class-gamajo-template-loader.php' );
@@ -83,7 +78,7 @@ function anp_meetings_capabilities() {
         'delete_post'           => 'delete_meeting',
         'read_post'             => 'read_meeting',
     );
-    return apply_filters( 'meetings_globabl_capabilities', $capabilities );
+    return apply_filters( 'meetings_global_capabilities', $capabilities );
 }
 
 /**
@@ -125,6 +120,24 @@ function anp_meetings_add_capabilities() {
     }
 }
 add_action( 'anp_meetings_activate', 'anp_meetings_add_capabilities' );
+
+/**
+ * Actions After Plugins are Loaded
+ * Make sure the plugins we're looking for are loaded before checking for the functions/classes
+ *
+ * @since 1.2.0
+ *
+ * @uses plugins_loaded hook
+ * @link https://developer.wordpress.org/reference/hooks/plugins_loaded/
+ *
+ * @return void
+ */
+function anp_meetings_init() {
+  if( function_exists( 'p2p_register_connection_type' ) ) {
+    add_action( 'p2p_init', 'anp_meetings_connection_types' );
+  }
+}
+add_action( 'plugins_loaded', 'anp_meetings_init' );
 
 /**
  * Add Activation Hook
