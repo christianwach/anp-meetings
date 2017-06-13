@@ -80,7 +80,6 @@
  		add_action( 'cmb2_admin_init', array( $this, 'add_options_page_metabox' ) );
  	}
 
-
  	/**
  	 * Register our setting to WP
  	 * @since  1.3.0

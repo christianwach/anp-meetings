@@ -11,19 +11,49 @@ a {
   }
 }
 
-.entry-content {
+.meetings-archive {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+
+  &> .hentry,
+  &> .post,
+  &> .archive-heading {
+      display: table-row;
+      border-bottom: 1px solid $color__gray-light;
+
+    &> div,
+    h3 {
+      display: table-cell;
+      padding: .5em .25em;
+    }
+
+  }
+
+  .archive-heading {
+    font-weight: bold;
+  }
+
+  .meta-label {
+    @include visually-hidden;
+  }
+
+}
+
+.type-meeting,
+.type-summary,
+.type-agenda,
+.type-proposal {
   ul.connected-content {
     @include no-bullets;
     display: flex;
     flex-wrap: wrap;
-    margin-top: .5em;
-    border-top: 1px solid $color__gray-light;
-    border-bottom: 1px solid $color__gray-light;
-    border-radius: 2px;
 
     li {
       margin-left: 0;
-      padding: .5em .5em .25em 0;
+      flex: 0 1 auto;
+      padding: 0 .25em;
     }
 
     a,
@@ -36,31 +66,7 @@ a {
     .link-text {
       @include visually-hidden;
     }
-    .event-link {
-      a {
-        @extend %calendar;
-      }
-    }
-    .summary-link {
-      a {
-        @extend %summary;
-      }
-    }
-    .agenda-link {
-      a {
-        @extend %agenda;
-      }
-    }
-    .meeting-link {
-      a {
-        @extend %meeting;
-      }
-    }
-    .proposal-link {
-      a {
-        @extend %proposal;
-      }
-    }
+
   }
 
   ul.proposal-links {
@@ -68,6 +74,45 @@ a {
     margin-left: 0;
   }
 
+  .event-link {
+    a {
+      @extend %calendar;
+    }
+  }
+  .proposal-link {
+    a {
+      @extend %proposal;
+    }
+  }
+  .agenda-link {
+    a {
+      @extend %agenda;
+    }
+  }
+  .meeting-link {
+    a {
+      @extend %meeting;
+    }
+  }
+  .summary-link {
+    a {
+      @extend %summary;
+    }
+  }
+
+}
+
+/*html body.archive.tax-organization.term-outreach-committee.term-46.logged-in.admin-bar.group-blog.css3-animations.no-touch.responsive.page-layout-default.page-layout-menu-default.no-active-sidebar.sticky-menu.no-topbar.wc-columns-3.debug-bar-maximized.customize-support.topbar-out div#page.hfeed.site div#content.site-content div.container div.wrap div#primary.content-area main#main.site-main.meetings-archive article#post-403.entry.post-403.summary.type-summary.status-publish.hentry.organization-outreach-committee.post ul.connected-content.summaries li.summary-link a*/
+
+.type-summary,
+.type-agenda,
+.type-proposal {
+  //This is actually the meeting link
+  .summary-link {
+    a:before {
+      content: "\f307" !important;
+    }
+  }
 }
 
 article.post.type-meeting {
