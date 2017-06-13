@@ -84,7 +84,7 @@ if(! function_exists( 'meeting_get_summary' ) ) {
 
         $content = sprintf( '<li class="summary-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
           get_post_permalink( $post->ID ),
-          ( $post_type_name ) ? $post_type_name : $post->post_title,
+          ( $post_type_name ) ? esc_attr( $post_type_name ) : esc_attr( $post->post_title ),
           ( $post_type_name ) ? $post_type_name : $post->post_title
         );
 
@@ -211,25 +211,28 @@ if(! function_exists( 'include_meeting_templates' ) ) {
             'meeting_type',
             'meeting_tag',
             'proposal_status',
+            'organization'
         );
 
-        if ( is_singular( $post_types ) ) {
-            // checks if the file exists in the theme first,
-            // otherwise serve the file from the plugin
-            if ( $theme_file = locate_template( array ( 'plugins/anp-meeting/single.php' ) ) ) {
-                $template_path = $theme_file;
-            } else {
-                $template_path = ANP_MEETINGS_PLUGIN_DIR . 'templates/single.php';
-            }
-        } elseif ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) {
-            if ( $theme_file = locate_template( array('plugins/anp-meeting/archive.php') ) ) {
+        if ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) {
+            if ( $theme_file = locate_template( array( 'plugins/anp-meeting/archive.php' ) ) ) {
                 $template_path = $theme_file;
             } else {
                 $template_path = ANP_MEETINGS_PLUGIN_DIR . 'templates/archive.php';
             }
         }
+
+        // elseif ( is_singular( $post_types ) ) {
+        //     // checks if the file exists in the theme first,
+        //     // otherwise serve the file from the plugin
+        //     if ( $theme_file = locate_template( array ( 'plugins/anp-meeting/single.php' ) ) ) {
+        //         $template_path = $theme_file;
+        //     } else {
+        //         $template_path = ANP_MEETINGS_PLUGIN_DIR . 'templates/single.php';
+        //     }
+        // }
         return $template_path;
     }
-    //add_filter( 'template_include', 'include_meeting_templates', 1 );
+    add_filter( 'template_include', 'include_meeting_templates', 1 );
 
 }
