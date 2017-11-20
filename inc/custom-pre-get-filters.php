@@ -1,28 +1,29 @@
 <?php
 
 /**
- * ANP Meetings Query Filters
+ * WordPress Meetings Query Filters
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
 
-/* CUSTOM POST TYPE QUERY
- * Modify query parameters for meeting post archive, meeting_tag archive or meeting_type archive
+/**
+ * CUSTOM POST TYPE QUERY.
+ *
+ * Modify query parameters for meeting post archive, meeting_tag archive or meeting_type archive.
  *
  * Commented out @since 1.0.9
- *
  */
-if(! function_exists( 'anp_meetings_pre_get_posts' ) ) {
+if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
 
-    function anp_meetings_pre_get_posts( $query ) {
+    function wordpress_meetings_pre_get_posts( $query ) {
 
         // Do not modify queries in the admin or other queries (like nav)
-        if( is_admin() || !$query->is_main_query() ) {
+        if ( is_admin() || ! $query->is_main_query() ) {
             return;
         }
 
@@ -39,6 +40,8 @@ if(! function_exists( 'anp_meetings_pre_get_posts' ) ) {
 
     }
 
-    //add_action( 'pre_get_posts', 'anp_meetings_pre_get_posts' );
+    //add_action( 'pre_get_posts', 'wordpress_meetings_pre_get_posts' );
 
 }
+
+

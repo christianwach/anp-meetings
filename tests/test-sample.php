@@ -1,8 +1,8 @@
 <?php
 /**
- * Class SampleTest
+ * Class SampleTest.
  *
- * @package Anp_Meetings
+ * @package WordPress_Meetings
  */
 
 /**

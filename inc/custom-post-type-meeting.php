@@ -1,46 +1,48 @@
 <?php
 
 /**
- * ANP Meetings Meeting Post Type
+ * WordPress Meetings Meeting Post Type.
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
+
+
 /**
- * Add Custom Post Type
+ * Add Custom Post Type.
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'anp_meetings_post_type' ) ) {
+if ( ! function_exists( 'wordpress_meetings_post_type' ) ) {
 
 	// Register Custom Post Type - Meeting
-	function anp_meetings_post_type() {
+	function wordpress_meetings_post_type() {
 
-		$slug = apply_filters( 'anp_meeting_post_type', 'meeting' );
+		$slug = apply_filters( 'wordpress_meeting_post_type', 'meeting' );
 
 		$labels = array(
-			'name'                => _x( 'Meetings', 'Post Type General Name', 'meetings' ),
-			'singular_name'       => _x( 'Meeting', 'Post Type Singular Name', 'meetings' ),
-			'menu_name'           => __( 'Meetings', 'meetings' ),
-			'name_admin_bar'      => __( 'Meetings', 'meetings' ),
-			'parent_item_colon'   => __( 'Parent Meeting:', 'meetings' ),
-			'all_items'           => __( 'All Meetings', 'meetings' ),
-			'add_new_item'        => __( 'Add New Meeting', 'meetings' ),
-			'add_new'             => __( 'New Meeting', 'meetings' ),
-			'new_item'            => __( 'New Meeting', 'meetings' ),
-			'edit_item'           => __( 'Edit Meeting', 'meetings' ),
-			'update_item'         => __( 'Update Meeting', 'meetings' ),
-			'view_item'           => __( 'View Meeting', 'meetings' ),
-			'search_items'        => __( 'Search Meeting', 'meetings' ),
-			'not_found'           => __( 'Not found', 'meetings' ),
-			'not_found_in_trash'  => __( 'Not found in Trash', 'meetings' ),
+			'name'                => _x( 'Meetings', 'Post Type General Name', 'wordpress-meetings' ),
+			'singular_name'       => _x( 'Meeting', 'Post Type Singular Name', 'wordpress-meetings' ),
+			'menu_name'           => __( 'Meetings', 'wordpress-meetings' ),
+			'name_admin_bar'      => __( 'Meetings', 'wordpress-meetings' ),
+			'parent_item_colon'   => __( 'Parent Meeting:', 'wordpress-meetings' ),
+			'all_items'           => __( 'All Meetings', 'wordpress-meetings' ),
+			'add_new_item'        => __( 'Add New Meeting', 'wordpress-meetings' ),
+			'add_new'             => __( 'New Meeting', 'wordpress-meetings' ),
+			'new_item'            => __( 'New Meeting', 'wordpress-meetings' ),
+			'edit_item'           => __( 'Edit Meeting', 'wordpress-meetings' ),
+			'update_item'         => __( 'Update Meeting', 'wordpress-meetings' ),
+			'view_item'           => __( 'View Meeting', 'wordpress-meetings' ),
+			'search_items'        => __( 'Search Meeting', 'wordpress-meetings' ),
+			'not_found'           => __( 'Not found', 'wordpress-meetings' ),
+			'not_found_in_trash'  => __( 'Not found in Trash', 'wordpress-meetings' ),
 		);
 
-		$capabilities = anp_meetings_capabilities();
+		$capabilities = wordpress_meetings_capabilities();
 
 		$rewrite = array(
 			'slug'                => $slug,
@@ -50,8 +52,8 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 		);
 
 		$default_config = array(
-			'label'               => __( 'Meetings', 'meetings' ),
-			'description'         => __( 'Custom post type for meeting agendas and notes', 'meetings' ),
+			'label'               => __( 'Meetings', 'wordpress-meetings' ),
+			'description'         => __( 'Custom post type for meeting agendas and notes', 'wordpress-meetings' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
 			'taxonomies'          => array(
@@ -77,7 +79,7 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
 			'capability_type'	  => 'meeting',
-			'capabilities'		  => apply_filters( 'meetings_meeting_capabilities', $capabilities ),
+			'capabilities'		  => apply_filters( 'wordpress_meetings_meeting_capabilities', $capabilities ),
 			'map_meta_cap' 		  => true
 		);
 
@@ -89,40 +91,42 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 	}
 
 	// Hook into the 'init' action
-	add_action( 'init', 'anp_meetings_post_type', 0 );
+	add_action( 'init', 'wordpress_meetings_post_type', 0 );
 
 }
 
+
+
 /**
- * Add Custom Taxonomy for Organization
+ * Add Custom Taxonomy for Organization.
  *
  * @since 1.0.8
  */
-if ( ! function_exists( 'anp_organization_taxonomy' ) ) {
+if ( ! function_exists( 'wordpress_organization_taxonomy' ) ) {
 
 	// Register Custom Taxonomy
-	function anp_organization_taxonomy() {
+	function wordpress_organization_taxonomy() {
 
-		$slug = apply_filters( 'anp_organization_taxonomy', 'organization' );
+		$slug = apply_filters( 'wordpress_organization_taxonomy', 'organization' );
 
 		$labels = array(
-			'name'                       => _x( 'Organizational Group', 'Taxonomy General Name', 'meetings' ),
-			'singular_name'              => _x( 'Organizational Group', 'Taxonomy Singular Name', 'meetings' ),
-			'menu_name'                  => __( 'Organizations', 'meetings' ),
-			'all_items'                  => __( 'All Organizational Groups', 'meetings' ),
-			'parent_item'                => __( 'Parent Organizational Group', 'meetings' ),
-			'parent_item_colon'          => __( 'Parent Organizational Group:', 'meetings' ),
-			'new_item_name'              => __( 'New Organizational Group Name', 'meetings' ),
-			'add_new_item'               => __( 'Add New Organizational Group', 'meetings' ),
-			'edit_item'                  => __( 'Edit Organizational Group', 'meetings' ),
-			'update_item'                => __( 'Update Organizational Group', 'meetings' ),
-			'view_item'                  => __( 'View Organizational Group', 'meetings' ),
-			'separate_items_with_commas' => __( 'Separate organizational groups with commas', 'meetings' ),
-			'add_or_remove_items'        => __( 'Add or remove organizational groups', 'meetings' ),
-			'choose_from_most_used'      => __( 'Choose from the most used', 'meetings' ),
-			'popular_items'              => __( 'Popular Organizational Groups', 'meetings' ),
-			'search_items'               => __( 'Search Organizational Groups', 'meetings' ),
-			'not_found'                  => __( 'Not Found', 'meetings' ),
+			'name'                       => _x( 'Organizational Group', 'Taxonomy General Name', 'wordpress-meetings' ),
+			'singular_name'              => _x( 'Organizational Group', 'Taxonomy Singular Name', 'wordpress-meetings' ),
+			'menu_name'                  => __( 'Organizations', 'wordpress-meetings' ),
+			'all_items'                  => __( 'All Organizational Groups', 'wordpress-meetings' ),
+			'parent_item'                => __( 'Parent Organizational Group', 'wordpress-meetings' ),
+			'parent_item_colon'          => __( 'Parent Organizational Group:', 'wordpress-meetings' ),
+			'new_item_name'              => __( 'New Organizational Group Name', 'wordpress-meetings' ),
+			'add_new_item'               => __( 'Add New Organizational Group', 'wordpress-meetings' ),
+			'edit_item'                  => __( 'Edit Organizational Group', 'wordpress-meetings' ),
+			'update_item'                => __( 'Update Organizational Group', 'wordpress-meetings' ),
+			'view_item'                  => __( 'View Organizational Group', 'wordpress-meetings' ),
+			'separate_items_with_commas' => __( 'Separate organizational groups with commas', 'wordpress-meetings' ),
+			'add_or_remove_items'        => __( 'Add or remove organizational groups', 'wordpress-meetings' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'wordpress-meetings' ),
+			'popular_items'              => __( 'Popular Organizational Groups', 'wordpress-meetings' ),
+			'search_items'               => __( 'Search Organizational Groups', 'wordpress-meetings' ),
+			'not_found'                  => __( 'Not Found', 'wordpress-meetings' ),
 		);
 
 		$capabilities = array(
@@ -157,40 +161,42 @@ if ( ! function_exists( 'anp_organization_taxonomy' ) ) {
 	}
 
 	// Hook into the 'init' action
-	add_action( 'init', 'anp_organization_taxonomy', 0 );
+	add_action( 'init', 'wordpress_organization_taxonomy', 0 );
 
 }
 
+
+
 /**
- * Add Custom Taxonomy
+ * Add Custom Taxonomy.
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'anp_meetings_type' ) ) {
+if ( ! function_exists( 'wordpress_meetings_type' ) ) {
 
 	// Register Custom Taxonomy
-	function anp_meetings_type() {
+	function wordpress_meetings_type() {
 
-		$slug = apply_filters( 'anp_meeting_type_taxonomy', 'meeting_type' );
+		$slug = apply_filters( 'wordpress_meeting_type_taxonomy', 'meeting_type' );
 
 		$labels = array(
-			'name'                       => _x( 'Meeting Type', 'Taxonomy General Name', 'meetings' ),
-			'singular_name'              => _x( 'Meeting Type', 'Taxonomy Singular Name', 'meetings' ),
-			'menu_name'                  => __( 'Types', 'meetings' ),
-			'all_items'                  => __( 'All Meeting Types', 'meetings' ),
-			'parent_item'                => __( 'Parent Meeting Type', 'meetings' ),
-			'parent_item_colon'          => __( 'Parent Meeting Type:', 'meetings' ),
-			'new_item_name'              => __( 'New Meeting Type Name', 'meetings' ),
-			'add_new_item'               => __( 'Add New Meeting Type', 'meetings' ),
-			'edit_item'                  => __( 'Edit Meeting Type', 'meetings' ),
-			'update_item'                => __( 'Update Meeting Type', 'meetings' ),
-			'view_item'                  => __( 'View Meeting Type', 'meetings' ),
-			'separate_items_with_commas' => __( 'Separate meeting types with commas', 'meetings' ),
-			'add_or_remove_items'        => __( 'Add or remove meeting types', 'meetings' ),
-			'choose_from_most_used'      => __( 'Choose from the most used', 'meetings' ),
-			'popular_items'              => __( 'Popular Meeting Types', 'meetings' ),
-			'search_items'               => __( 'Search Meeting Types', 'meetings' ),
-			'not_found'                  => __( 'Not Found', 'meetings' ),
+			'name'                       => _x( 'Meeting Type', 'Taxonomy General Name', 'wordpress-meetings' ),
+			'singular_name'              => _x( 'Meeting Type', 'Taxonomy Singular Name', 'wordpress-meetings' ),
+			'menu_name'                  => __( 'Types', 'wordpress-meetings' ),
+			'all_items'                  => __( 'All Meeting Types', 'wordpress-meetings' ),
+			'parent_item'                => __( 'Parent Meeting Type', 'wordpress-meetings' ),
+			'parent_item_colon'          => __( 'Parent Meeting Type:', 'wordpress-meetings' ),
+			'new_item_name'              => __( 'New Meeting Type Name', 'wordpress-meetings' ),
+			'add_new_item'               => __( 'Add New Meeting Type', 'wordpress-meetings' ),
+			'edit_item'                  => __( 'Edit Meeting Type', 'wordpress-meetings' ),
+			'update_item'                => __( 'Update Meeting Type', 'wordpress-meetings' ),
+			'view_item'                  => __( 'View Meeting Type', 'wordpress-meetings' ),
+			'separate_items_with_commas' => __( 'Separate meeting types with commas', 'wordpress-meetings' ),
+			'add_or_remove_items'        => __( 'Add or remove meeting types', 'wordpress-meetings' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'wordpress-meetings' ),
+			'popular_items'              => __( 'Popular Meeting Types', 'wordpress-meetings' ),
+			'search_items'               => __( 'Search Meeting Types', 'wordpress-meetings' ),
+			'not_found'                  => __( 'Not Found', 'wordpress-meetings' ),
 		);
 
 		$capabilities = array(
@@ -225,40 +231,42 @@ if ( ! function_exists( 'anp_meetings_type' ) ) {
 	}
 
 	// Hook into the 'init' action
-	add_action( 'init', 'anp_meetings_type', 0 );
+	add_action( 'init', 'wordpress_meetings_type', 0 );
 
 }
 
+
+
 /**
- * Add Custom Taxonomy
+ * Add Custom Taxonomy.
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'anp_meetings_tag' ) ) {
+if ( ! function_exists( 'wordpress_meetings_tag' ) ) {
 
 	// Register Custom Taxonomy
-	function anp_meetings_tag() {
+	function wordpress_meetings_tag() {
 
-		$slug = apply_filters( 'anp_meetings_tag_taxonomy', 'meeting_tag' );
+		$slug = apply_filters( 'wordpress_meetings_tag_taxonomy', 'meeting_tag' );
 
 		$labels = array(
-			'name'                       => _x( 'Meeting Tags', 'Taxonomy General Name', 'meetings' ),
-			'singular_name'              => _x( 'Meeting Tag', 'Taxonomy Singular Name', 'meetings' ),
-			'menu_name'                  => __( 'Tags', 'meetings' ),
-			'all_items'                  => __( 'All Tags', 'meetings' ),
-			'parent_item'                => __( 'Parent Tag', 'meetings' ),
-			'parent_item_colon'          => __( 'Parent Tag:', 'meetings' ),
-			'new_item_name'              => __( 'New Tag Name', 'meetings' ),
-			'add_new_item'               => __( 'Add New Tag', 'meetings' ),
-			'edit_item'                  => __( 'Edit Tag', 'meetings' ),
-			'update_item'                => __( 'Update Tag', 'meetings' ),
-			'view_item'                  => __( 'View Tag', 'meetings' ),
-			'separate_items_with_commas' => __( 'Separate tags with commas', 'meetings' ),
-			'add_or_remove_items'        => __( 'Add or remove tags', 'meetings' ),
-			'choose_from_most_used'      => __( 'Choose from the most used', 'meetings' ),
-			'popular_items'              => __( 'Popular Tags', 'meetings' ),
-			'search_items'               => __( 'Search Tags', 'meetings' ),
-			'not_found'                  => __( 'Not Found', 'meetings' ),
+			'name'                       => _x( 'Meeting Tags', 'Taxonomy General Name', 'wordpress-meetings' ),
+			'singular_name'              => _x( 'Meeting Tag', 'Taxonomy Singular Name', 'wordpress-meetings' ),
+			'menu_name'                  => __( 'Tags', 'wordpress-meetings' ),
+			'all_items'                  => __( 'All Tags', 'wordpress-meetings' ),
+			'parent_item'                => __( 'Parent Tag', 'wordpress-meetings' ),
+			'parent_item_colon'          => __( 'Parent Tag:', 'wordpress-meetings' ),
+			'new_item_name'              => __( 'New Tag Name', 'wordpress-meetings' ),
+			'add_new_item'               => __( 'Add New Tag', 'wordpress-meetings' ),
+			'edit_item'                  => __( 'Edit Tag', 'wordpress-meetings' ),
+			'update_item'                => __( 'Update Tag', 'wordpress-meetings' ),
+			'view_item'                  => __( 'View Tag', 'wordpress-meetings' ),
+			'separate_items_with_commas' => __( 'Separate tags with commas', 'wordpress-meetings' ),
+			'add_or_remove_items'        => __( 'Add or remove tags', 'wordpress-meetings' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'wordpress-meetings' ),
+			'popular_items'              => __( 'Popular Tags', 'wordpress-meetings' ),
+			'search_items'               => __( 'Search Tags', 'wordpress-meetings' ),
+			'not_found'                  => __( 'Not Found', 'wordpress-meetings' ),
 		);
 
 		$capabilities = array(
@@ -295,19 +303,20 @@ if ( ! function_exists( 'anp_meetings_tag' ) ) {
 	}
 
 	// Hook into the 'init' action
-	add_action( 'init', 'anp_meetings_tag', 0 );
+	add_action( 'init', 'wordpress_meetings_tag', 0 );
 
 }
 
 
+
 /**
- * Add Custom Admin Columns
+ * Add Custom Admin Columns.
  *
  * @since 1.0.0
  */
-if(! function_exists( 'anp_meetings_columns' ) ) {
+if ( ! function_exists( 'wordpress_meetings_columns' ) ) {
 
-	function anp_meetings_columns( $columns ) {
+	function wordpress_meetings_columns( $columns ) {
 	    $columns['meeting_date'] = 'Date';
 	    unset( $columns['comments'] );
 	    unset( $columns['glocal_post_thumb'] );
@@ -316,33 +325,44 @@ if(! function_exists( 'anp_meetings_columns' ) ) {
 	    return $columns;
 	}
 
-	add_filter( 'manage_edit-meeting_columns', 'anp_meetings_columns' ) ;
+	add_filter( 'manage_edit-meeting_columns', 'wordpress_meetings_columns' ) ;
 
 }
 
-if(! function_exists( '' ) ) {
-	function anp_meetings_populate_columns( $column ) {
+
+
+/**
+ * Populate Custom Admin Columns.
+ *
+ * @since 1.0.0
+ */
+if ( ! function_exists( 'wordpress_meetings_populate_columns' ) ) {
+	function wordpress_meetings_populate_columns( $column ) {
 	    if ( 'meeting_date' == $column ) {
 	        $meeting_date = esc_html( get_post_meta( get_the_ID(), 'meeting_date', true ) );
 	        echo $meeting_date;
 	    }
 	}
 
-	add_action( 'manage_posts_custom_column', 'anp_meetings_populate_columns' );
+	add_action( 'manage_posts_custom_column', 'wordpress_meetings_populate_columns' );
 
 }
 
+
+
 /**
- * Hide custom fields metabox
+ * Hide custom fields metabox.
  *
  * @since 1.0.3
  *
  * @link https://codex.wordpress.org/Function_Reference/remove_meta_box
  */
-function meetings_remove_custom_fields_metabox() {
+function wordpress_meetings_remove_custom_fields_metabox() {
 	remove_meta_box( 'postcustom', 'meeting', 'side' );
 	remove_meta_box( 'postcustom', 'agenda', 'side' );
 	remove_meta_box( 'postcustom', 'summary', 'side' );
 	remove_meta_box( 'postcustom', 'proposal', 'side' );
 }
-add_action( 'admin_menu', 'meetings_remove_custom_fields_metabox' );
+add_action( 'admin_menu', 'wordpress_meetings_remove_custom_fields_metabox' );
+
+

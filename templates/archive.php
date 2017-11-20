@@ -4,7 +4,7 @@
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
- * @package   ANP_Meetings
+ * @package WordPress_Meetings
  * @since 1.3.0
  * @version 0.1.0
  */
@@ -26,8 +26,8 @@ get_header(); ?>
 		<main id="main" class="site-main meetings-archive" role="main">
 
       <div class="archive-heading">
-        <div class="heading-title" role="heading"><?php __( 'Title', 'meetings' ); ?></div>
-        <div class="heading-date" role="heading"><?php __( 'Details', 'meetings' ); ?></div>
+        <div class="heading-title" role="heading"><?php __( 'Title', 'wordpress-meetings' ); ?></div>
+        <div class="heading-date" role="heading"><?php __( 'Details', 'wordpress-meetings' ); ?></div>
       </div>
 
 		<?php
@@ -36,15 +36,15 @@ get_header(); ?>
 			/* Start the Loop */
 			while ( have_posts() ) : the_post();
 
-				include( ANP_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
+				include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
 				//get_template_part( 'templates/content', 'archive' );
 
 			endwhile;
 
 			the_posts_pagination( array(
-				'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'meetings' ) . '</span>',
-				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'meetings' ) . '</span>',
-				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'meetings' ) . ' </span>',
+				'prev_text' => '<span class="screen-reader-text">' . __( 'Previous page', 'wordpress-meetings' ) . '</span>',
+				'next_text' => '<span class="screen-reader-text">' . __( 'Next page', 'wordpress-meetings' ) . '</span>',
+				'before_page_number' => '<span class="meta-nav screen-reader-text">' . __( 'Page', 'wordpress-meetings' ) . ' </span>',
 			) );
 
 		endif; ?>

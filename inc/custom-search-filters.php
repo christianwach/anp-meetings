@@ -1,46 +1,52 @@
 <?php
 
 /**
- * ANP Meetings Content Filters
+ * WordPress Meetings Content Filters.
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
 
-/* 
- * Enqueue JS
+/**
+ * Enqueue JS.
  */
+if ( ! function_exists( 'wordpress_meetings_enqueue_scripts' )  ) {
 
-if(! function_exists( 'anp_meetings_enqueue_scripts' )  ) {
+    function wordpress_meetings_enqueue_scripts()  {
 
-    function anp_meetings_enqueue_scripts()  {
-
-        wp_enqueue_script( 'anp-meeting-script', ANP_MEETINGS_PLUGIN_URL . '/js/searchFilters.js', array( 'jquery' ), '', true );
+        wp_enqueue_script(
+        	'wordpress-meeting-script',
+        	WORDPRESS_MEETINGS_PLUGIN_URL . '/js/searchFilters.js',
+        	array( 'jquery' ),
+        	'',
+        	true
+        );
 
     }
-    
-    add_action( 'wp_enqueue_scripts', 'anp_meetings_enqueue_scripts' );
+
+    add_action( 'wp_enqueue_scripts', 'wordpress_meetings_enqueue_scripts' );
 }
 
 
 /**
- * Taxonomy filter
- * Renders taxonomy links based on post_type, excludes empty
+ * Taxonomy filter.
+ *
+ * Renders taxonomy links based on post_type, excludes empty.
+ *
  * @return echo string
  */
+if ( ! function_exists( 'wordpress_meetings_taxonomy_filter' ) ) {
 
-if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
-
-    function anp_meetings_taxonomy_filter() {
+    function wordpress_meetings_taxonomy_filter() {
 
         $post_type = get_post_type( get_the_ID() );
         $post_type_obj = get_post_type_object( $post_type );
 
-        if( $post_type ) {
+        if ( $post_type ) {
 
             switch( $post_type ) {
 
@@ -52,7 +58,7 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
                     $taxonomy = 'proposal_status';
                     $query_var = get_taxonomy( $taxonomy )->query_var;
                     break;
-                default: 
+                default:
                     // $taxonomy = 'meeting_tag';
                     // $query_var = get_taxonomy( $taxonomy )->query_var;
                     return;
@@ -61,7 +67,7 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
 
             $terms = get_terms( $taxonomy );
 
-            if( count( $terms ) > 0 ) {
+            if ( count( $terms ) > 0 ) {
 
                 $term_obj = get_taxonomy( $taxonomy );
 
@@ -89,10 +95,10 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
                               )
                           )
                       );
-                
+
                     $terms_with_posts = get_posts( $term_args );
 
-                    if( $terms_with_posts ) {
+                    if ( $terms_with_posts ) {
 
                         echo '<li data-filter="' . $term->slug . '">';
 
@@ -113,9 +119,9 @@ if(! function_exists( 'anp_meetings_taxonomy_filter' ) ) {
 
         return;
 
-    } 
+    }
 
 }
 
 
-?>
+

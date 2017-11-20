@@ -1,3 +1,4 @@
+
 <phpunit
 	bootstrap="tests/bootstrap.php"
 	backupGlobals="false"

@@ -1,26 +1,28 @@
 <?php
 
 /**
- * ANP Meetings Posts 2 Posts Connections
+ * WordPress Meetings Posts 2 Posts Connections
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
+
+
 /**
- * Add Post-2-Post Connection Types
- * The action is tied to the anp_meetings_init() function
+ * Add Post-2-Post Connection Types.
+ *
+ * The action is tied to the wordpress_meetings_init() function.
  *
  * @since 0.1.0
  *
  * @uses p2p_register_connection_type()
- *
- * @return void
  */
-function anp_meetings_connection_types() {
+function wordpress_meetings_connection_types() {
+
     p2p_register_connection_type( array(
         'name' => 'meeting_to_agenda',
         'from' => 'meeting',
@@ -29,7 +31,7 @@ function anp_meetings_connection_types() {
         'cardinality' => 'one-to-one',
         'admin_column' => true,
         'admin_dropdown' => 'to',
-        'title' => array( 'from' => __( 'Agenda', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
+        'title' => array( 'from' => __( 'Agenda', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
     ) );
 
     p2p_register_connection_type( array(
@@ -40,7 +42,7 @@ function anp_meetings_connection_types() {
         'cardinality' => 'one-to-one',
         'admin_column' => true,
         'admin_dropdown' => 'to',
-        'title' => array( 'from' => __( 'Summary', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
+        'title' => array( 'from' => __( 'Summary', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
     ) );
 
     p2p_register_connection_type( array(
@@ -52,11 +54,11 @@ function anp_meetings_connection_types() {
         'admin_column' => true,
         'admin_dropdown' => 'any',
         'sortable' => 'any',
-        'title' => array( 'from' => __( 'Proposals', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
+        'title' => array( 'from' => __( 'Proposals', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
     ) );
 
-    /**
-     * Register Connection Between Meeting and Event Post types
+    /*
+     * Register Connection Between Meeting and Event Post types.
      *
      * @since 0.9.1
      *
@@ -64,7 +66,7 @@ function anp_meetings_connection_types() {
      * @uses p2p_register_connection_type()
      * @link https://github.com/scribu/wp-posts-to-posts/wiki/p2p_register_connection_type
      */
-    if( post_type_exists( 'event' ) ) {
+    if ( post_type_exists( 'event' ) ) {
       p2p_register_connection_type( array(
           'name' => 'meeting_to_event',
           'from' => 'meeting',
@@ -74,8 +76,10 @@ function anp_meetings_connection_types() {
           'admin_column' => true,
           'admin_dropdown' => 'any',
           'sortable' => 'any',
-          'title' => array( 'from' => __( 'Event', 'meetings' ), 'to' => __( 'Meeting', 'meetings' ) ),
+          'title' => array( 'from' => __( 'Event', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
       ) );
     }
 
 }
+
+

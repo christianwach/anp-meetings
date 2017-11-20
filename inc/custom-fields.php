@@ -1,29 +1,31 @@
 <?php
 /**
- * ANP Meetings Custom Fields
+ * WordPress Meetings Custom Fields.
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
+
+
 /**
- * Meeting Metabox
+ * Meeting Metabox.
  */
-function anp_meetings_add_meeting_metabox() {
+function wordpress_meetings_add_meeting_metabox() {
 
     $cmb = new_cmb2_box( array(
         'id'           => 'meeting_info',
-        'title'        => __( 'Meeting Information', 'meeting' ),
+        'title'        => __( 'Meeting Information', 'wordpress-meetings' ),
         'object_types' => array( 'meeting', 'agenda', 'summary' ),
         'context'      => 'side',
         'priority'     => 'high',
     ) );
 
     $cmb->add_field( array(
-        'name' => __( 'Meeting Date*', 'meeting' ),
+        'name' => __( 'Meeting Date*', 'wordpress-meetings' ),
         'id' => 'meeting_date',
         'type' => 'text_date',
         'attributes' => array(
@@ -33,21 +35,23 @@ function anp_meetings_add_meeting_metabox() {
 
 }
 
+
+
 /**
- * Proposal Metabox
+ * Proposal Metabox.
  */
-function anp_meetings_add_proposal_metabox() {
+function wordpress_meetings_add_proposal_metabox() {
 
     $cmb = new_cmb2_box( array(
         'id'           => 'proposal-detail-page',
-        'title'        => __( 'Proposal Detail Page', 'meeting' ),
+        'title'        => __( 'Proposal Detail Page', 'wordpress-meetings' ),
         'object_types' => array( 'proposal' ),
         'context'      => 'side',
         'priority'     => 'high',
     ) );
 
     $cmb->add_field( array(
-        'name' => __( 'Status', 'meeting' ),
+        'name' => __( 'Status', 'wordpress-meetings' ),
         'id' => 'proposal_status',
         'type' => 'taxonomy_select',
         'taxonomy' => 'proposal_status',
@@ -57,16 +61,18 @@ function anp_meetings_add_proposal_metabox() {
     ) );
 
     $cmb->add_field( array(
-        'name' => __( 'Date Accepted', 'meeting' ),
+        'name' => __( 'Date Accepted', 'wordpress-meetings' ),
         'id' => 'meeting_date',
         'type' => 'text_date',
     ) );
 
     $cmb->add_field( array(
-        'name' => __( 'Date Effective', 'meeting' ),
+        'name' => __( 'Date Effective', 'wordpress-meetings' ),
         'id' => 'proposal_date_effective',
         'type' => 'text_date',
     ) );
 }
-add_action( 'cmb2_init', 'anp_meetings_add_meeting_metabox' );
-add_action( 'cmb2_init', 'anp_meetings_add_proposal_metabox' );
+add_action( 'cmb2_init', 'wordpress_meetings_add_meeting_metabox' );
+add_action( 'cmb2_init', 'wordpress_meetings_add_proposal_metabox' );
+
+

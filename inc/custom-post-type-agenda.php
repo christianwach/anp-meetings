@@ -1,46 +1,48 @@
 <?php
 
 /**
- * ANP Meetings Agenda Post Type
+ * WordPress Meetings Agenda Post Type.
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
+
+
  /**
-  * Add Custom Post Type
+  * Add Custom Post Type.
   *
   * @since 1.0.0
   */
-if ( ! function_exists( 'anp_agenda_post_type' ) ) {
+if ( ! function_exists( 'wordpress_meetings_agenda_post_type' ) ) {
 
     // Register Custom Post Type
-    function anp_agenda_post_type() {
+    function wordpress_meetings_agenda_post_type() {
 
-        $slug = apply_filters( 'anp_agenda_post_type', 'agenda' );
+        $slug = apply_filters( 'wordpress_meetings_agenda_post_type', 'agenda' );
 
         $labels = array(
-            'name'                => _x( 'Agendas', 'Post Type General Name', 'meeting' ),
-            'singular_name'       => _x( 'Agenda', 'Post Type Singular Name', 'meeting' ),
-            'menu_name'           => __( 'Agendas', 'meeting' ),
-            'name_admin_bar'      => __( 'Agenda', 'meeting' ),
-            'parent_item_colon'   => __( 'Parent Agenda:', 'meeting' ),
-            'all_items'           => __( 'All Agenda', 'meeting' ),
-            'add_new_item'        => __( 'Add New Agenda', 'meeting' ),
-            'add_new'             => __( 'Add New Agenda', 'meeting' ),
-            'new_item'            => __( 'New Agenda', 'meeting' ),
-            'edit_item'           => __( 'Edit Agenda', 'meeting' ),
-            'update_item'         => __( 'Update Agenda', 'meeting' ),
-            'view_item'           => __( 'View Agenda', 'meeting' ),
-            'search_items'        => __( 'Search Agenda', 'meeting' ),
-            'not_found'           => __( 'Not found', 'meeting' ),
-            'not_found_in_trash'  => __( 'Not found in Trash', 'meeting' ),
+            'name'                => _x( 'Agendas', 'Post Type General Name', 'wordpress-meetings' ),
+            'singular_name'       => _x( 'Agenda', 'Post Type Singular Name', 'wordpress-meetings' ),
+            'menu_name'           => __( 'Agendas', 'wordpress-meetings' ),
+            'name_admin_bar'      => __( 'Agenda', 'wordpress-meetings' ),
+            'parent_item_colon'   => __( 'Parent Agenda:', 'wordpress-meetings' ),
+            'all_items'           => __( 'All Agenda', 'wordpress-meetings' ),
+            'add_new_item'        => __( 'Add New Agenda', 'wordpress-meetings' ),
+            'add_new'             => __( 'Add New Agenda', 'wordpress-meetings' ),
+            'new_item'            => __( 'New Agenda', 'wordpress-meetings' ),
+            'edit_item'           => __( 'Edit Agenda', 'wordpress-meetings' ),
+            'update_item'         => __( 'Update Agenda', 'wordpress-meetings' ),
+            'view_item'           => __( 'View Agenda', 'wordpress-meetings' ),
+            'search_items'        => __( 'Search Agenda', 'wordpress-meetings' ),
+            'not_found'           => __( 'Not found', 'wordpress-meetings' ),
+            'not_found_in_trash'  => __( 'Not found in Trash', 'wordpress-meetings' ),
         );
 
-        $capabilities = anp_meetings_capabilities();
+        $capabilities = wordpress_meetings_capabilities();
 
         $rewrite = array(
             'slug'                => $slug,
@@ -50,7 +52,7 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
         );
 
         $default_config = array(
-            'label'               => __( 'Agenda', 'meeting' ),
+            'label'               => __( 'Agenda', 'wordpress-meetings' ),
             'labels'              => $labels,
             'supports'            => array( 'title', 'editor', 'comments', 'custom-fields', 'wpcom-markdown', 'revisions' ),
             'taxonomies'          => array(
@@ -83,39 +85,44 @@ if ( ! function_exists( 'anp_agenda_post_type' ) ) {
 
         register_post_type( $slug, $config );
     }
-    add_action( 'init', 'anp_agenda_post_type', 0 );
+    add_action( 'init', 'wordpress_meetings_agenda_post_type', 0 );
 
 }
 
+
+
 /**
- * Move Admin Menus
- * Display admin as submenu under Meetings
+ * Move Admin Menus.
+ *
+ * Display admin as submenu under Meetings.
  *
  * @uses `add_submenu_page` with $cap set to `edit_agendas`
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'anp_agenda_add_to_menu' ) ) {
+if ( ! function_exists( 'wordpress_meetings_agenda_add_to_menu' ) ) {
 
-    function anp_agenda_add_to_menu() {
+    function wordpress_meetings_agenda_add_to_menu() {
 
         add_submenu_page(
             'edit.php?post_type=meeting',
-            __('All Agendas', 'meeting'),
-            __('All Agendas', 'meeting'),
+            __( 'All Agendas', 'wordpress-meetings' ),
+            __( 'All Agendas', 'wordpress-meetings' ),
             'edit_meetings',
             'edit.php?post_type=agenda'
         );
 
         add_submenu_page(
             'edit.php?post_type=meeting',
-            __('New Agenda', 'meeting'),
-            __('New Agenda', 'meeting'),
+            __( 'New Agenda', 'wordpress-meetings' ),
+            __( 'New Agenda', 'wordpress-meetings' ),
             'edit_meetings',
             'post-new.php?post_type=agenda'
         );
 
     }
 
-    add_action('admin_menu', 'anp_agenda_add_to_menu');
+    add_action( 'admin_menu', 'wordpress_meetings_agenda_add_to_menu' );
 }
+
+

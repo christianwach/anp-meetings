@@ -1,46 +1,48 @@
 <?php
 
 /**
- * ANP Meetings Summaries Post Type
+ * WordPress Meetings Summaries Post Type
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
+
+
 /**
- * Add Custom Post Type
+ * Add Custom Post Type.
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'anp_summary_post_type' ) ) {
+if ( ! function_exists( 'wordpress_summary_post_type' ) ) {
 
 	// Register Custom Post Type
-	function anp_summary_post_type() {
+	function wordpress_summary_post_type() {
 
-		$slug = apply_filters( 'anp_summary_post_type', 'summary' );
+		$slug = apply_filters( 'wordpress_summary_post_type', 'summary' );
 
 		$labels = array(
-			'name'                => _x( 'Summaries', 'Post Type General Name', 'meeting' ),
-			'singular_name'       => _x( 'Summary', 'Post Type Singular Name', 'meeting' ),
-			'menu_name'           => __( 'Summaries', 'meeting' ),
-			'name_admin_bar'      => __( 'Summaries', 'meeting' ),
-			'parent_item_colon'   => __( 'Parent Summary:', 'meeting' ),
-			'all_items'           => __( 'All Summaries', 'meeting' ),
-			'add_new_item'        => __( 'Add New Summary', 'meeting' ),
-			'add_new'             => __( 'Add New Summary', 'meeting' ),
-			'new_item'            => __( 'New Summary', 'meeting' ),
-			'edit_item'           => __( 'Edit Summary', 'meeting' ),
-			'update_item'         => __( 'Update Summary', 'meeting' ),
-			'view_item'           => __( 'View Summary', 'meeting' ),
-			'search_items'        => __( 'Search Summary', 'meeting' ),
-			'not_found'           => __( 'Not found', 'meeting' ),
-			'not_found_in_trash'  => __( 'Not found in Trash', 'meeting' ),
+			'name'                => _x( 'Summaries', 'Post Type General Name', 'wordpress-meetings' ),
+			'singular_name'       => _x( 'Summary', 'Post Type Singular Name', 'wordpress-meetings' ),
+			'menu_name'           => __( 'Summaries', 'wordpress-meetings' ),
+			'name_admin_bar'      => __( 'Summaries', 'wordpress-meetings' ),
+			'parent_item_colon'   => __( 'Parent Summary:', 'wordpress-meetings' ),
+			'all_items'           => __( 'All Summaries', 'wordpress-meetings' ),
+			'add_new_item'        => __( 'Add New Summary', 'wordpress-meetings' ),
+			'add_new'             => __( 'Add New Summary', 'wordpress-meetings' ),
+			'new_item'            => __( 'New Summary', 'wordpress-meetings' ),
+			'edit_item'           => __( 'Edit Summary', 'wordpress-meetings' ),
+			'update_item'         => __( 'Update Summary', 'wordpress-meetings' ),
+			'view_item'           => __( 'View Summary', 'wordpress-meetings' ),
+			'search_items'        => __( 'Search Summary', 'wordpress-meetings' ),
+			'not_found'           => __( 'Not found', 'wordpress-meetings' ),
+			'not_found_in_trash'  => __( 'Not found in Trash', 'wordpress-meetings' ),
 		);
 
-		$capabilities = anp_meetings_capabilities();
+		$capabilities = wordpress_meetings_capabilities();
 
 		$rewrite = array(
 			'slug'                => $slug,
@@ -50,7 +52,7 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
 		);
 
 		$default_config = array(
-			'label'               => __( 'Summary', 'meeting' ),
+			'label'               => __( 'Summary', 'wordpress-meetings' ),
 			'labels'              => $labels,
 			'supports'            => array( 'title', 'editor', 'excerpt', 'thumbnail', 'custom-fields', 'wpcom-markdown', 'revisions' ),
 			'taxonomies'          => array(
@@ -84,42 +86,46 @@ if ( ! function_exists( 'anp_summary_post_type' ) ) {
         register_post_type( $slug, $config );
 
 	}
-	add_action( 'init', 'anp_summary_post_type', 0 );
+	add_action( 'init', 'wordpress_summary_post_type', 0 );
 
 }
 
+
+
 /**
- * Move Admin Menus
- * Display admin as submenu under Meetings
+ * Move Admin Menus.
+ *
+ * Display admin as submenu under Meetings.
  *
  * @uses `add_submenu_page` with $cap set to `edit_summaries`
  *
  * @since 1.0.0
  */
-if ( ! function_exists( 'anp_summary_add_to_menu' ) ) {
+if ( ! function_exists( 'wordpress_summary_add_to_menu' ) ) {
 
-    function anp_summary_add_to_menu() {
+    function wordpress_summary_add_to_menu() {
 
         add_submenu_page(
             'edit.php?post_type=meeting',
-            __('All Summaries', 'meeting'),
-            __('All Summaries', 'meeting'),
+            __( 'All Summaries', 'wordpress-meetings' ),
+            __( 'All Summaries', 'wordpress-meetings' ),
             'edit_meetings',
             'edit.php?post_type=summary'
         );
 
         add_submenu_page(
             'edit.php?post_type=meeting',
-            __('New Summary', 'meeting'),
-            __('New Summary', 'meeting'),
+            __( 'New Summary', 'wordpress-meetings' ),
+            __( 'New Summary', 'wordpress-meetings' ),
             'edit_meetings',
             'post-new.php?post_type=summary'
         );
 
     }
 
-    add_action( 'admin_menu', 'anp_summary_add_to_menu' );
+    add_action( 'admin_menu', 'wordpress_summary_add_to_menu' );
 
 }
 
-?>
+
+

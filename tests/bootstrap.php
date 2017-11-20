@@ -1,8 +1,8 @@
 <?php
 /**
- * PHPUnit bootstrap file
+ * PHPUnit bootstrap file.
  *
- * @package Anp_Meetings
+ * @package WordPress_Meetings
  */
 
 $_tests_dir = getenv( 'WP_TESTS_DIR' );

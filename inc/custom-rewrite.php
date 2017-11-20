@@ -1,22 +1,24 @@
 <?php
 /**
- * ANP Meetings Rewrite Rules
+ * WordPress Meetings Rewrite Rules
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.0.9
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
+
+
 /**
- * Set up Custom Rewrite Rules
- * Creates rewrite rules for each meetings post type and custom taxonomy term
+ * Set up Custom Rewrite Rules.
+ *
+ * Creates rewrite rules for each meetings post type and custom taxonomy term.
  *
  * @since 1.0.9
  *
  * @param  $wp_rewrite
- * @return void
  */
 function meetings_custom_rewrite_rules( $wp_rewrite ) {
 
@@ -39,11 +41,11 @@ function meetings_custom_rewrite_rules( $wp_rewrite ) {
 
         foreach ( $taxonomies as $taxonomy ) {
 
-            if( !is_array( $taxonomy->object_type ) || empty( $taxonomy->object_type ) ) {
+            if ( ! is_array( $taxonomy->object_type ) || empty( $taxonomy->object_type ) ) {
                 return;
             }
 
-            if( ( count( $taxonomy->object_type ) > 1 && in_array( $post_type_name, $taxonomy->object_type ) ) || ( $taxonomy->object_type[0] == $post_type_name  ) ) {
+            if ( ( count( $taxonomy->object_type ) > 1 && in_array( $post_type_name, $taxonomy->object_type ) ) || ( $taxonomy->object_type[0] == $post_type_name  ) ) {
 
                 $terms = get_categories( array(
                     'type'          => $post_type_name,
@@ -63,18 +65,22 @@ function meetings_custom_rewrite_rules( $wp_rewrite ) {
 }
 add_action( 'generate_rewrite_rules', 'meetings_custom_rewrite_rules' );
 
+
+
 /**
- * Flush Rewrite Rules on Taxonomy Term Change
+ * Flush Rewrite Rules on Taxonomy Term Change.
  *
  * @since 1.0.9
  *
  * @uses edited_$taxonomy hook
  * @link https://codex.wordpress.org/Plugin_API/Action_Reference/edited_$taxonomy
  */
-function anp_meetings_flush_rewrite_on_tax_change() {
+function wordpress_meetings_flush_rewrite_on_tax_change() {
     flush_rewrite_rules();
 }
-add_action( 'edited_meeting_type', 'anp_meetings_flush_rewrite_on_tax_change', 10, 2 );
-add_action( 'edited_meeting_tag', 'anp_meetings_flush_rewrite_on_tax_change', 10, 2 );
-add_action( 'edited_organization', 'anp_meetings_flush_rewrite_on_tax_change', 10, 2 );
-add_action( 'edited_proposal_status', 'anp_meetings_flush_rewrite_on_tax_change', 10, 2 );
+add_action( 'edited_meeting_type', 'wordpress_meetings_flush_rewrite_on_tax_change', 10, 2 );
+add_action( 'edited_meeting_tag', 'wordpress_meetings_flush_rewrite_on_tax_change', 10, 2 );
+add_action( 'edited_organization', 'wordpress_meetings_flush_rewrite_on_tax_change', 10, 2 );
+add_action( 'edited_proposal_status', 'wordpress_meetings_flush_rewrite_on_tax_change', 10, 2 );
+
+

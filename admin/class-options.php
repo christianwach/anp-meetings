@@ -1,55 +1,57 @@
 <?php
 /**
- * ANP Meetings Options
+ * WordPress Meetings Options.
  *
  * @author    Pea, Glocal
  * @license   GPL-2.0+
  * @link      http://glocal.coop
  * @since     1.3.0
- * @package   ANP_Meetings
+ * @package   WordPress_Meetings
  */
 
- class ANP_Meetings_Admin {
+
+
+ class WordPress_Meetings_Admin {
 
  	/**
-	 * Option key, and option page slug
+	 * Option key, and option page slug.
 	 *
 	 * @var string
 	 */
  	protected $key = 'anp_meetings_options';
 
  	/**
-	 * Options page metabox id
+	 * Options page metabox id.
 	 *
 	 * @var string
 	 */
  	protected $metabox_id = 'anp_meetings_option_metabox';
 
  	/**
- 	 * Options Page title
+ 	 * Options Page title.
  	 *
  	 * @var string
  	 */
  	protected $title = '';
 
  	/**
- 	 * Options Page hook
+ 	 * Options Page hook.
  	 *
  	 * @var string
  	 */
  	protected $options_page = '';
 
  	/**
- 	 * Holds an instance of the object
+ 	 * Holds an instance of the object.
  	 *
- 	 * @var ANP_Meetings_Admin
+ 	 * @var WordPress_Meetings_Admin
  	 */
  	protected static $instance = null;
 
  	/**
- 	 * Returns the running object
+ 	 * Returns the running object.
  	 *
- 	 * @return ANP_Meetings_Admin
+ 	 * @return WordPress_Meetings_Admin
  	 */
  	public static function get_instance() {
  		if ( null === self::$instance ) {
@@ -60,18 +62,23 @@
  		return self::$instance;
  	}
 
+
+
  	/**
- 	 * Constructor
+ 	 * Constructor.
  	 *
  	 * @since 1.3.0
  	 */
  	protected function __construct() {
  		// Set our title
- 		$this->title = __( 'Meetings', 'meetings' );
+ 		$this->title = __( 'Meetings', 'wordpress-meetings' );
  	}
 
+
+
  	/**
- 	 * Initiate our hooks
+ 	 * Initiate our hooks.
+ 	 *
  	 * @since 1.3.0
  	 */
  	public function hooks() {
@@ -80,33 +87,44 @@
  		add_action( 'cmb2_admin_init', array( $this, 'add_options_page_metabox' ) );
  	}
 
+
+
  	/**
- 	 * Register our setting to WP
+ 	 * Register our setting to WP.
+ 	 *
  	 * @since  1.3.0
  	 */
  	public function init() {
  		register_setting( $this->key, $this->key );
  	}
 
+
+
  	/**
- 	 * Add menu options page
+ 	 * Add menu options page.
+ 	 *
  	 * @since 1.3.0
  	 */
  	public function add_options_page() {
-    $this->options_page = add_submenu_page(
-      'options-general.php',
-      $this->title,
-      $this->title,
-      'manage_options', $this->key,
-      array( $this, 'admin_page_display' )
-    );
+
+		$this->options_page = add_submenu_page(
+			'options-general.php',
+			$this->title,
+			$this->title,
+			'manage_options', $this->key,
+			array( $this, 'admin_page_display' )
+		);
 
  		// Include CMB CSS in the head to avoid FOUC
  		add_action( "admin_print_styles-{$this->options_page}", array( 'CMB2_hookup', 'enqueue_cmb_css' ) );
+
  	}
 
+
+
  	/**
- 	 * Admin page markup. Mostly handled by CMB2
+ 	 * Admin page markup. Mostly handled by CMB2.
+ 	 *
  	 * @since  1.3.0
  	 */
  	public function admin_page_display() {
@@ -118,8 +136,10 @@
  		<?php
  	}
 
+
+
  	/**
- 	 * Add the options metabox to the array of metaboxes
+ 	 * Add the options metabox to the array of metaboxes.
  	 *
  	 * @uses new_cmb2_box()
  	 *
@@ -141,35 +161,42 @@
  			),
  		) );
 
-    $cmb->add_field( array(
-  		'name'    => __( 'Disable CSS', 'meetings' ),
-  		'id'      => 'anp_meetings_css',
-  		'type'    => 'checkbox',
-  		'default' => false,
-  		'desc'    => __( 'Check this option to prevent any stylesheets from the Meetings plugin being loaded on the front-end', 'meetings' ),
-  	) );
+		$cmb->add_field( array(
+			'name'    => __( 'Disable CSS', 'wordpress-meetings' ),
+			'id'      => 'anp_meetings_css',
+			'type'    => 'checkbox',
+			'default' => false,
+			'desc'    => __( 'Check this option to prevent any stylesheets from the Meetings plugin being loaded on the front-end', 'wordpress-meetings' ),
+		) );
+
  	}
 
+
+
  	/**
- 	 * Register settings notices for display
+ 	 * Register settings notices for display.
  	 *
  	 * @since  1.3.0
+ 	 *
  	 * @param  int   $object_id Option key
  	 * @param  array $updated   Array of updated fields
- 	 * @return void
  	 */
  	public function settings_notices( $object_id, $updated ) {
  		if ( $object_id !== $this->key || empty( $updated ) ) {
  			return;
  		}
 
- 		add_settings_error( $this->key . '-notices', '', __( 'Settings updated.', 'meetings' ), 'updated' );
+ 		add_settings_error( $this->key . '-notices', '', __( 'Settings updated.', 'wordpress-meetings' ), 'updated' );
  		settings_errors( $this->key . '-notices' );
  	}
 
+
+
  	/**
- 	 * Public getter method for retrieving protected/private variables
+ 	 * Public getter method for retrieving protected/private variables.
+ 	 *
  	 * @since  1.3.0
+ 	 *
  	 * @param  string  $field Field to retrieve
  	 * @return mixed          Field value or exception is thrown
  	 */
@@ -182,32 +209,42 @@
  		throw new Exception( 'Invalid property: ' . $field );
  	}
 
- }
+
+
+ } // class ends
+
+
 
  /**
-  * Helper function to get/return the ANP_Meetings_Admin object
+  * Helper function to get/return the WordPress_Meetings_Admin object.
+  *
   * @since  1.3.0
-  * @return ANP_Meetings_Admin object
+  *
+  * @return WordPress_Meetings_Admin object
   */
- function anp_meetings_admin() {
- 	return ANP_Meetings_Admin::get_instance();
+ function wordpress_meetings_admin() {
+ 	return WordPress_Meetings_Admin::get_instance();
  }
 
+
+
  /**
-  * Wrapper function around cmb2_get_option
+  * Wrapper function around cmb2_get_option.
+  *
   * @since  1.3.0
+  *
   * @param  string $key     Options array key
   * @param  mixed  $default Optional default value
   * @return mixed           Option value
   */
- function anp_meetings_get_option( $key = '', $default = false ) {
+ function wordpress_meetings_get_option( $key = '', $default = false ) {
  	if ( function_exists( 'cmb2_get_option' ) ) {
  		// Use cmb2_get_option as it passes through some key filters.
- 		return cmb2_get_option( anp_meetings_admin()->key, $key, $default );
+ 		return cmb2_get_option( wordpress_meetings_admin()->key, $key, $default );
  	}
 
  	// Fallback to get_option if CMB2 is not loaded yet.
- 	$opts = get_option( anp_meetings_admin()->key, $default );
+ 	$opts = get_option( wordpress_meetings_admin()->key, $default );
 
  	$val = $default;
 
@@ -221,4 +258,6 @@
  }
 
  // Get it started
- anp_meetings_admin();
+ wordpress_meetings_admin();
+
+

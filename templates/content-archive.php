@@ -1,8 +1,8 @@
 <?php
 
 /*
- * Content Variables - DO NOT REMOVE
- * Variables that can be used in the template
+ * Content Variables - DO NOT REMOVE.
+ * Variables that can be used in the template.
  */
 $post_id = $post->ID;
 $post_type = get_post_type( $post_id );
@@ -24,31 +24,31 @@ $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class=
 
 
   <div class="meta meeting-meta">
-    <?php if( !empty( $meeting_date ) ) : ?>
-    <span class="meta-label"><?php _e( 'Date:','meetings'  ); ?></span> <?php echo $meeting_date; ?>
+    <?php if ( ! empty( $meeting_date ) ) : ?>
+    <span class="meta-label"><?php _e( 'Date:','wordpress-meetings'  ); ?></span> <?php echo $meeting_date; ?>
     <?php endif; ?>
   </div>
 
   <div class="meta meeting-meta">
-    <?php if( !empty( $organization ) ) : ?>
-    <span class="meta-label"><?php _e( 'Organization:', 'meetings' ); ?></span> <?php echo $organization; ?>
+    <?php if ( ! empty( $organization ) ) : ?>
+    <span class="meta-label"><?php _e( 'Organization:', 'wordpress-meetings' ); ?></span> <?php echo $organization; ?>
     <?php endif; ?>
   </div>
 
   <div class="meta meeting-meta">
-    <?php if( !empty( $meeting_type ) ) : ?>
-    <span class="meta-label"><?php _e( 'Type:', 'meetings' ); ?></span> <?php echo $meeting_type; ?>
+    <?php if ( ! empty( $meeting_type ) ) : ?>
+    <span class="meta-label"><?php _e( 'Type:', 'wordpress-meetings' ); ?></span> <?php echo $meeting_type; ?>
     <?php endif; ?>
   </div>
 
   <div class="meta meeting-meta">
-    <?php if( !empty(  $meeting_tags ) ) : ?>
-    <span class="meta-label"><?php _e( 'Tags:', 'meetings'  ); ?></span> <?php echo $meeting_tags; ?>
+    <?php if ( ! empty(  $meeting_tags ) ) : ?>
+    <span class="meta-label"><?php _e( 'Tags:', 'wordpress-meetings'  ); ?></span> <?php echo $meeting_tags; ?>
     <?php endif; ?>
   </div>
 
   <?php
-  if( 'meeting' == $post_type ) : ?>
+  if ( 'meeting' == $post_type ) : ?>
 
       <?php
       $agendas = ( function_exists( 'meeting_get_agenda' ) ) ? meeting_get_agenda( $post_id ) : '';
@@ -56,7 +56,7 @@ $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class=
       $proposals = ( function_exists( 'meeting_get_proposal' ) ) ? meeting_get_proposal( $post_id ) : '';
       $events =  (function_exists( 'meeting_get_event' ) ) ? meeting_get_event( $post_id ) : '';
 
-      if( $agendas || $summaries || $proposals || $events ) : ?>
+      if ( $agendas || $summaries || $proposals || $events ) : ?>
 
           <ul class="connected-content">
 
@@ -71,11 +71,11 @@ $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class=
 
   <?php endif; ?>
 
-  <?php if( 'agenda' == $post_type ) : ?>
+  <?php if ( 'agenda' == $post_type ) : ?>
 
       <?php $agendas = ( function_exists( 'meeting_get_agenda' ) ) ? meeting_get_agenda( $post_id ) : ''; ?>
 
-      <?php if( $agendas ) : ?>
+      <?php if ( $agendas ) : ?>
 
         <nav class="connected-content-nav" role="navigation">
 
@@ -91,11 +91,11 @@ $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class=
 
   <?php endif; ?>
 
-  <?php if( 'summary' == $post_type ) :  ?>
+  <?php if ( 'summary' == $post_type ) :  ?>
 
       <?php $summaries = ( function_exists( 'meeting_get_summary' ) ) ? meeting_get_summary( $post_id ) : ''; ?>
 
-      <?php if( !empty( $summaries ) ) :  ?>
+      <?php if ( ! empty( $summaries ) ) :  ?>
 
           <ul class="connected-content summaries">
 
