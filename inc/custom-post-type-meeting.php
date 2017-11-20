@@ -76,7 +76,7 @@ if ( ! function_exists( 'anp_meetings_post_type' ) ) {
 			'show_in_rest'        => true,
 	  		'rest_base'           => $slug,
 	  		'rest_controller_class' => 'WP_REST_Posts_Controller',
-			'capability_type'	  => array( 'meeting' ),
+			'capability_type'	  => 'meeting',
 			'capabilities'		  => apply_filters( 'meetings_meeting_capabilities', $capabilities ),
 			'map_meta_cap' 		  => true
 		);
