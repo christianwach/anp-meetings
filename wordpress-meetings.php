@@ -99,10 +99,10 @@ class WordPress_Meetings {
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/class-options.php' );
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-meeting.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-agenda.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-summary.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-proposal.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-meeting.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-agenda.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-summary.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-proposal.php' );
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-fields.php' );
 
