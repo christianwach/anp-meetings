@@ -16,7 +16,7 @@
  *
  * @since 1.2.0
  */
-require_once WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/libs/tgm-plugin-activation/class-tgm-plugin-activation.php';
+require_once WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php';
 
 
 

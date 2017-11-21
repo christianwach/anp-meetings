@@ -90,30 +90,31 @@ class WordPress_Meetings {
 	 */
 	public function include_files() {
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/required-plugins.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/required-plugins.php' );
 
 		// NB: this will load the class if spl_autoload is defined :(
 		if ( ! class_exists( 'Gamajo_Template_Loader' ) ) {
 			include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'vendor/gamajo/template-loader/class-gamajo-template-loader.php' );
 		}
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'admin/class-options.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/class-options.php' );
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-meeting.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-agenda.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-summary.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-post-type-proposal.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-meeting.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-agenda.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-summary.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-post-type-proposal.php' );
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-fields.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-fields.php' );
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/post-type-connections.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-content-filters.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-pre-get-filters.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/post-type-connections.php' );
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/enqueue.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/render-functions.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-search-filters.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'inc/custom-rewrite.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-content-filters.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-pre-get-filters.php' );
+
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/enqueue.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/render-functions.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-search-filters.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-rewrite.php' );
 
 	}
 
