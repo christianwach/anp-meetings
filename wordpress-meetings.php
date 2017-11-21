@@ -5,7 +5,7 @@ Plugin URI: https://github.com/christianwach/wordpress-meetings
 Description: Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display meeting notes/minutes, agendas, proposals and summaries.
 Author: Pea, Glocal, needle
 Author URI: http://glocal.coop
-Version: 1.3.0
+Version: 2.0
 License: GPLv3
 Text Domain: wordpress-meetings
 Domain Path: /languages
@@ -25,6 +25,8 @@ if ( ! defined( 'WPINC' ) ) {
 /* ---------------------------------- *
  * Constants
  * ---------------------------------- */
+define( 'WORDPRESS_MEETINGS_VERSION', '2.0' );
+
 if ( ! defined( 'WORDPRESS_MEETINGS_PLUGIN_DIR' ) ) {
     define( 'WORDPRESS_MEETINGS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 }

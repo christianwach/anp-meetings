@@ -3,7 +3,7 @@ Contributors: Pea, Glocal, needle
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.9
-Version:  1.3.0
+Version:  2.0
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
