@@ -90,7 +90,7 @@ class WordPress_Meetings {
 	 */
 	public function include_files() {
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/required-plugins.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/required-plugins.php' );
 
 		// NB: this will load the class if spl_autoload is defined :(
 		if ( ! class_exists( 'Gamajo_Template_Loader' ) ) {
