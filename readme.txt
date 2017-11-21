@@ -13,7 +13,9 @@ Creates custom post types for Meetings with custom fields and custom taxonomies 
 
 == Description ==
 
-Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display Meeting Notes/Minutes, Agendas, Proposals and Summaries.
+The *WordPress Meetings* plugin creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display Meeting Notes/Minutes, Agendas, Proposals and Summaries.
+
+Prior to version 2.0, this plugin was known as *ANP Meetings*. Please deactivate *ANP Meetings* before activating this plugin. The settings from *ANP Meetings* are imported into this plugin on activation and existing content remains unaltered.
 
 
 
