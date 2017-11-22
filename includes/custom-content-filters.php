@@ -145,7 +145,7 @@ if ( ! function_exists( 'wordpress_meetings_content_filter' ) ) {
         //
         //     ob_start();
         //
-        //     include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
+        //     include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
         //
         //     $content = ob_get_contents();
         //
@@ -159,7 +159,7 @@ if ( ! function_exists( 'wordpress_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
+            include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
 
             $content = ob_get_contents();
 
@@ -173,7 +173,7 @@ if ( ! function_exists( 'wordpress_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/content-single.php' );
+            include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-single.php' );
 
             $header = ob_get_contents();
 
@@ -183,7 +183,7 @@ if ( ! function_exists( 'wordpress_meetings_content_filter' ) ) {
 
             ob_start();
 
-            include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/single-footer.php' );
+            include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/single-footer.php' );
 
             $footer = ob_get_contents();
 
@@ -214,7 +214,7 @@ function wordpress_meetings_event_meta_content() {
 
   ob_start();
 
-  include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/content-event-meta.php' );
+  include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-event-meta.php' );
 
   $content = ob_get_contents();
 

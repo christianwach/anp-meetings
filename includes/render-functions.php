@@ -129,8 +129,8 @@ if ( ! function_exists( 'meeting_get_proposal' ) ) {
 
         $content = sprintf( '<li class="proposal-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
           esc_url( add_query_arg( $url ) ),
-          ( 1 == count( $proposals ) ) ? __( 'Proposal', 'meeting' ) : __( 'Proposals', 'meeting' ),
-          ( 1 == count( $proposals ) ) ? __( 'Proposal', 'meeting' ) : __( 'Proposals', 'meeting' )
+          ( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' ),
+          ( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' )
         );
 
         // Filter added to allow content be overriden
@@ -231,7 +231,7 @@ if ( ! function_exists( 'include_meeting_templates' ) ) {
             if ( $theme_file = locate_template( array( 'plugins/wordpress-meeting/archive.php' ) ) ) {
                 $template_path = $theme_file;
             } else {
-                $template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/archive.php';
+                $template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/archive.php';
             }
         }
 
@@ -241,7 +241,7 @@ if ( ! function_exists( 'include_meeting_templates' ) ) {
         //     if ( $theme_file = locate_template( array ( 'plugins/wordpress-meeting/single.php' ) ) ) {
         //         $template_path = $theme_file;
         //     } else {
-        //         $template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/single.php';
+        //         $template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/single.php';
         //     }
         // }
         return $template_path;

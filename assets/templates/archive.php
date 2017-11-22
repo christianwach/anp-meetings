@@ -36,8 +36,8 @@ get_header(); ?>
 			/* Start the Loop */
 			while ( have_posts() ) : the_post();
 
-				include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'templates/content-archive.php' );
-				//get_template_part( 'templates/content', 'archive' );
+				include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
+				//get_template_part( 'assets/templates/content', 'archive' );
 
 			endwhile;
 
