@@ -94,11 +94,8 @@ class WordPress_Meetings {
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/class-options.php' );
 
-		/*
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-meeting.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-summary.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-proposal.php' );
-		*/
+		// functions library
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/wordpress-meetings-functions.php' );
 
 		// custom post types
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-base.php' );

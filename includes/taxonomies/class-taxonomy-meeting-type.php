@@ -55,6 +55,9 @@ class WordPress_Meetings_Taxonomy_Meeting_Type extends WordPress_Meetings_Taxono
 		// common hooks
 		parent::register_hooks();
 
+		// filter the title
+		add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
+
 	}
 
 
@@ -143,6 +146,37 @@ class WordPress_Meetings_Taxonomy_Meeting_Type extends WordPress_Meetings_Taxono
 			$this->post_types,
 			$args
 		);
+
+	}
+
+
+
+	/**
+	 * Filter the title.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $title The existing title.
+	 * @param int $id The numeric ID of the WordPress post.
+	 * @return str $title The modifed title.
+	 */
+    public function title_filter( $title, $id = null ) {
+
+		// bail when not required
+		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
+			return $title;
+		}
+
+		// bail if not one of our CPT pages
+		if ( ! is_tax( $this->taxonomy_name ) ) {
+			return $title;
+		}
+
+		// use common function
+		$title = wordpress_meetings_meeting_title();
+
+		// --<
+		return $title;
 
 	}
 

@@ -52,6 +52,9 @@ class WordPress_Meetings_CPT_Summary extends WordPress_Meetings_CPT_Common {
 		// add menu item
 		add_action( 'admin_menu', array( $this, 'add_to_menu' ) );
 
+		// filter the title
+		add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
+
 	}
 
 
@@ -294,6 +297,37 @@ class WordPress_Meetings_CPT_Summary extends WordPress_Meetings_CPT_Common {
 			'edit_meetings',
 			'post-new.php?post_type=summary'
 		);
+
+	}
+
+
+
+	/**
+	 * Filter the title.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $title The existing title.
+	 * @param int $id The numeric ID of the WordPress post.
+	 * @return str $title The modifed title.
+	 */
+    public function title_filter( $title, $id = null ) {
+
+		// bail when not required
+		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
+			return $title;
+		}
+
+		// bail if not one of our CPT pages
+		if ( ! is_singular( $this->post_type_name ) AND ! is_post_type_archive( $this->post_type_name ) ) {
+			return $title;
+		}
+
+		// use common function
+		$title = wordpress_meetings_cpt_title( 'meeting_to_summary' );
+
+		// --<
+		return $title;
 
 	}
 

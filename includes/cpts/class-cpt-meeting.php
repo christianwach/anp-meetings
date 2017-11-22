@@ -53,6 +53,9 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// remove unwanted metaboxes
 		add_action( 'admin_menu', array( $this, 'metaboxes_remove' ) );
 
+		// filter the title
+		add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
+
 	}
 
 
@@ -317,6 +320,69 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		remove_meta_box( 'postcustom', $this->post_type_name, 'side' );
 
 	}
+
+
+
+	/**
+	 * Filter the title.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $title The existing title.
+	 * @param int $id The numeric ID of the WordPress post.
+	 * @return str $title The modifed title.
+	 */
+    public function title_filter( $title, $id = null ) {
+
+		// bail when not required
+		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
+			return $title;
+		}
+
+		// bail if not one of our CPT pages
+		if ( ! is_singular( $this->post_type_name ) AND ! is_post_type_archive( $this->post_type_name ) ) {
+			return $title;
+		}
+
+		// use common function
+		$title = wordpress_meetings_meeting_title();
+
+		// If agenda or summary, display as {post_type name - singular} - {meeting_type} - {meeting_date}
+		if ( is_post_type_archive( array( 'agenda', 'summary' ) ) || is_singular( array( 'agenda', 'summary' ) ) ) {
+
+			global $post;
+			$meeting_title = [];
+
+			$post_type_object = get_post_type_object( get_post_type( $post->ID ) );
+
+			$post_type_name = $post_type_object->labels->singular_name;
+
+			$org_terms = wp_get_post_terms( $post->ID, 'organization', array(
+				'fields' => 'names'
+			) );
+			$org_terms = ( ! empty( $org_terms ) ) ? $org_terms[0] : '' ;
+
+			$meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( $post->ID, 'meeting_date', true ) ) );
+
+			if ( ! empty( $post_type_name ) ) {
+				array_push( $meeting_title, '<span class="post-type">' . $post_type_name . '</span>' );
+			}
+			if ( ! empty( $org_terms ) ) {
+				array_push( $meeting_title, '<span class="organization">' . $org_terms . '</span>' );
+			}
+			if ( ! empty( $type_terms ) ) {
+				array_push( $meeting_title, '<span class="type">' . $type_terms . '</span>' );
+			}
+
+			// --<
+			return implode( ' - ', $meeting_title );
+
+		}
+
+		// --<
+		return $title;
+
+    }
 
 
 
