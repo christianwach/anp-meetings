@@ -25,20 +25,17 @@ get_header(); ?>
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main meetings-archive" role="main">
 
-      <div class="archive-heading">
-        <div class="heading-title" role="heading"><?php __( 'Title', 'wordpress-meetings' ); ?></div>
-        <div class="heading-date" role="heading"><?php __( 'Details', 'wordpress-meetings' ); ?></div>
-      </div>
+		<div class="archive-heading">
+			<div class="heading-title" role="heading"><?php __( 'Title', 'wordpress-meetings' ); ?></div>
+			<div class="heading-date" role="heading"><?php __( 'Details', 'wordpress-meetings' ); ?></div>
+		</div>
 
-		<?php
-		if ( have_posts() ) : ?>
+		<?php if ( have_posts() ) : ?>
 			<?php
-			/* Start the Loop */
-			while ( have_posts() ) : the_post();
 
+			while ( have_posts() ) : the_post();
 				include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
 				//get_template_part( 'assets/templates/content', 'archive' );
-
 			endwhile;
 
 			the_posts_pagination( array(
