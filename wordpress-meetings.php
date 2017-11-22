@@ -92,11 +92,6 @@ class WordPress_Meetings {
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/required-plugins.php' );
 
-		// NB: this will load the class if spl_autoload is defined :(
-		if ( ! class_exists( 'Gamajo_Template_Loader' ) ) {
-			include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'vendor/gamajo/template-loader/class-gamajo-template-loader.php' );
-		}
-
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/class-options.php' );
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-meeting.php' );
