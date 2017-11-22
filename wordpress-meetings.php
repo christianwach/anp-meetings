@@ -94,10 +94,25 @@ class WordPress_Meetings {
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/class-options.php' );
 
+		/*
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-meeting.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-agenda.php' );
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-summary.php' );
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/custom-post-type-proposal.php' );
+		*/
+
+		// custom post types
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-base.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-meeting.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-agenda.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-summary.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-proposal.php' );
+
+		// custom taxonomies
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-base.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-organization.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-meeting-tag.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-meeting-type.php' );
+		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-proposal-status.php' );
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-fields.php' );
 
@@ -121,6 +136,28 @@ class WordPress_Meetings {
 	 * @since 2.0
 	 */
 	public function setup_objects() {
+
+		// custom post types
+		$this->cpts = array();
+		$this->cpts['meeting'] = new WordPress_Meetings_CPT_Meeting( $this );
+		$this->cpts['agenda'] = new WordPress_Meetings_CPT_Agenda( $this );
+		$this->cpts['summary'] = new WordPress_Meetings_CPT_Summary( $this );
+		$this->cpts['proposal'] = new WordPress_Meetings_CPT_Proposal( $this );
+
+		foreach( $this->cpts as $obj ) {
+			$obj->register_hooks();
+		}
+
+		// custom taxonomies
+		$this->taxs = array();
+		$this->taxs['organization'] = new WordPress_Meetings_Taxonomy_Organization( $this );
+		$this->taxs['meeting_tag'] = new WordPress_Meetings_Taxonomy_Meeting_Tag( $this );
+		$this->taxs['meeting_type'] = new WordPress_Meetings_Taxonomy_Meeting_Type( $this );
+		$this->taxs['proposal_status'] = new WordPress_Meetings_Taxonomy_Proposal_Status( $this );
+
+		foreach( $this->taxs as $obj ) {
+			$obj->register_hooks();
+		}
 
 	}
 
