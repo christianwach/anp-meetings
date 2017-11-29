@@ -176,3 +176,440 @@ function wordpress_meetings_enqueue_styles() {
 
 
 
+// #############################################################################
+// Below are functions migrated from other files
+// #############################################################################
+
+
+
+/**
+ * CUSTOM POST TYPE QUERY.
+ *
+ * Modify query parameters for meeting post archive, meeting_tag archive or meeting_type archive.
+ *
+ * Commented out @since 1.0.9
+ */
+if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
+
+    function wordpress_meetings_pre_get_posts( $query ) {
+
+        // Do not modify queries in the admin or other queries (like nav)
+        if ( is_admin() || ! $query->is_main_query() ) {
+            return;
+        }
+
+        // If meeting post archive, meeting_tag archive or meeting_type archive
+        if ( ( is_post_type_archive( array( 'meeting', 'summary', 'agenda' ) ) || is_tax( 'meeting_tag' ) || is_tax( 'meeting_type' ) ) ) {
+
+            set_query_var( 'orderby', 'meta_value' );
+            set_query_var( 'meta_key', 'meeting_date' );
+            set_query_var( 'order', 'DESC' );
+
+        }
+
+        return $query;
+
+    }
+
+    //add_action( 'pre_get_posts', 'wordpress_meetings_pre_get_posts' );
+
+}
+
+
+/**
+ * Add Post-2-Post Connection Types.
+ *
+ * The action is tied to the wordpress_meetings_init() function.
+ *
+ * @since 0.1.0
+ *
+ * @uses p2p_register_connection_type()
+ */
+function wordpress_meetings_connection_types() {
+
+    p2p_register_connection_type( array(
+        'name' => 'meeting_to_agenda',
+        'from' => 'meeting',
+        'to' => 'agenda',
+        'reciprocal' => true,
+        'cardinality' => 'one-to-one',
+        'admin_column' => true,
+        'admin_dropdown' => 'to',
+        'title' => array( 'from' => __( 'Agenda', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+    ) );
+
+    p2p_register_connection_type( array(
+        'name' => 'meeting_to_summary',
+        'from' => 'meeting',
+        'to' => 'summary',
+        'reciprocal' => true,
+        'cardinality' => 'one-to-one',
+        'admin_column' => true,
+        'admin_dropdown' => 'to',
+        'title' => array( 'from' => __( 'Summary', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+    ) );
+
+    p2p_register_connection_type( array(
+        'name' => 'meeting_to_proposal',
+        'from' => 'meeting',
+        'to' => 'proposal',
+        'reciprocal' => true,
+        'cardinality' => 'one-to-many',
+        'admin_column' => true,
+        'admin_dropdown' => 'any',
+        'sortable' => 'any',
+        'title' => array( 'from' => __( 'Proposals', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+    ) );
+
+    /*
+     * Register Connection Between Meeting and Event Post types.
+     *
+     * @since 0.9.1
+     *
+     * @uses post_type_exists()
+     * @uses p2p_register_connection_type()
+     * @link https://github.com/scribu/wp-posts-to-posts/wiki/p2p_register_connection_type
+     */
+    if ( post_type_exists( 'event' ) ) {
+      p2p_register_connection_type( array(
+          'name' => 'meeting_to_event',
+          'from' => 'meeting',
+          'to' => 'event',
+          'reciprocal' => true,
+          'cardinality' => 'one-to-one',
+          'admin_column' => true,
+          'admin_dropdown' => 'any',
+          'sortable' => 'any',
+          'title' => array( 'from' => __( 'Event', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+      ) );
+    }
+
+}
+
+add_action( 'p2p_init', 'wordpress_meetings_connection_types' );
+
+
+
+/**
+ * ADMIN CONNECTION.
+ *
+ * Order posts alphabetically in the P2P connections box.
+ */
+function wordpress_connection_box_order( $args, $ctype, $post_id ) {
+	if ( ( 'meeting_to_agenda' == $ctype->name || 'meeting_to_summary' == $ctype->name || 'meeting_to_proposal' == $ctype->name ) ) {
+		$args['orderby'] = 'title';
+		$args['order'] = 'asc';
+	}
+
+	return $args;
+}
+
+add_filter( 'p2p_connectable_args', 'wordpress_connection_box_order', 10, 3 );
+
+
+
+/**
+ * Agenda.
+ *
+ * Render agenda associated with content.
+ */
+function meeting_get_agenda( $post_id ) {
+
+	$query_args = array(
+		'connected_type' => 'meeting_to_agenda',
+		'connected_items' => intval( $post_id ),
+		'nopaging' => true
+	);
+
+	$agendas = get_posts( $query_args );
+
+	if ( empty( $agendas ) ) {
+		return;
+	}
+
+	$post = $agendas[0];
+
+	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
+	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
+
+	$content = sprintf( '<li class="agenda-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
+	  get_post_permalink( $post->ID ),
+	  ( $post_type_name ) ? $post_type_name : $post->post_title,
+	  ( $post_type_name ) ? $post_type_name : $post->post_title
+	);
+
+	// Filter added to allow content be overriden
+	return apply_filters( 'meeting_get_agenda_content', $content, $post_id );
+}
+
+
+
+/**
+ * Summary.
+ *
+ * Render summary associated with content.
+ */
+function meeting_get_summary( $post_id ) {
+
+	$query_args = array(
+		'connected_type' => 'meeting_to_summary',
+		'connected_items' => intval( $post_id ),
+		'nopaging' => true
+	);
+
+	$summaries = get_posts( $query_args );
+
+	if ( empty( $summaries ) ) {
+	  return;
+	}
+
+	$post = $summaries[0];
+
+	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
+	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
+
+	$content = sprintf( '<li class="summary-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
+	  get_post_permalink( $post->ID ),
+	  ( $post_type_name ) ? esc_attr( $post_type_name ) : esc_attr( $post->post_title ),
+	  ( $post_type_name ) ? $post_type_name : $post->post_title
+	);
+
+	// Filter added to allow content be overriden
+	return apply_filters( 'meeting_get_summary_content', $content, $post_id );
+}
+
+
+
+/**
+ * Proposal.
+ *
+ * Render proposal associated with content.
+ */
+function meeting_get_proposal( $post_id ) {
+
+	$query_args = array(
+		'connected_type' => 'meeting_to_proposal',
+		'connected_items' => intval( $post_id ),
+		'nopaging' => true
+	);
+
+	$proposals = get_posts( $query_args );
+
+	if ( empty( $proposals ) ) {
+	  return;
+	}
+
+	$url = array(
+		'connected_type' => 'meeting_to_proposal',
+		'connected_items' => intval( $post_id ),
+		'connected_direction' => 'from'
+	);
+
+	$content = sprintf( '<li class="proposal-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
+	  esc_url( add_query_arg( $url ) ),
+	  ( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' ),
+	  ( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' )
+	);
+
+	// Filter added to allow content be overriden
+	return apply_filters( 'meeting_get_proposal_content', $content, $post_id );
+}
+
+
+
+/**
+ * Get Events.
+ *
+ * Return event connected to post.
+ *
+ * @since 1.0.0
+ *
+ * @param  int $post_id
+ * @return string event
+ */
+ function meeting_get_event( $post_id ) {
+
+	 $query_args = array(
+		 'connected_type' => 'meeting_to_event',
+		 'connected_items' => intval( $post_id ),
+		 'nopaging' => true
+	 );
+
+	 $events = get_posts( $query_args );
+
+	 if ( empty( $events ) ) {
+	   return;
+	 }
+
+	 $post = $events[0];
+
+	 $post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
+	 $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
+
+	 $content = sprintf( '<li class="event-link"><a href="%s" rel="bookmark" Title="View %s"><span class="link-text">%s</span></a></li>',
+	   get_post_permalink( $post->ID ),
+	   ( $post_type_name ) ? $post_type_name : $post->post_title,
+	   ( $post_type_name ) ? $post_type_name : $post->post_title
+	 );
+
+	 // Filter added to allow content be overriden
+	 return apply_filters( 'meeting_get_event_content', $content, $post_id );
+}
+
+
+
+/**
+ * TEMPLATE LOCATION.
+ *
+ * Templates can be overwritten by putting a template file of the same name in
+ * plugins/wordpress-meeting/ folder of your active theme.
+ */
+function include_meeting_templates( $template_path ) {
+
+	$post_types = array(
+		'meeting',
+		'proposal',
+		'summary',
+		'agenda'
+	);
+
+	$post_tax = array(
+		'meeting_type',
+		'meeting_tag',
+		'proposal_status',
+		'organization'
+	);
+
+	if ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) {
+		if ( $theme_file = locate_template( array( 'plugins/wordpress-meeting/archive.php' ) ) ) {
+			$template_path = $theme_file;
+		} else {
+			$template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/archive.php';
+		}
+	}
+
+	// elseif ( is_singular( $post_types ) ) {
+	//     // checks if the file exists in the theme first,
+	//     // otherwise serve the file from the plugin
+	//     if ( $theme_file = locate_template( array ( 'plugins/wordpress-meeting/single.php' ) ) ) {
+	//         $template_path = $theme_file;
+	//     } else {
+	//         $template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/single.php';
+	//     }
+	// }
+	return $template_path;
+}
+
+add_filter( 'template_include', 'include_meeting_templates', 1 );
+
+
+
+/**
+ * Content Filter.
+ *
+ * Modify `the_content` to display custom post meta data above and below content.
+ *
+ * @uses the_content
+ *
+ * @param string $content
+ * @return string $content
+ */
+if ( ! function_exists( 'wordpress_meetings_content_filter' ) ) {
+
+	function wordpress_meetings_content_filter( $content ) {
+
+		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
+			return $content;
+		}
+
+		$post_types = array(
+			'meeting',
+			'proposal',
+			'summary',
+			'agenda',
+			'event'
+		);
+
+		$post_tax = array(
+			'organization',
+			'meeting_type',
+			'meeting_tag',
+			'proposal_status',
+		);
+
+		if ( ( is_post_type_archive( array( 'meeting' ) ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
+
+			global $post;
+
+			ob_start();
+			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
+			$content = ob_get_contents();
+			ob_end_clean();
+
+		}
+
+		if ( ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) && in_the_loop() ) {
+
+			global $post;
+
+			ob_start();
+			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
+			$content = ob_get_contents();
+			ob_end_clean();
+
+		}
+
+		if ( is_singular( $post_types ) && in_the_loop() ) {
+
+			global $post;
+
+			ob_start();
+			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-single.php' );
+			$header = ob_get_contents();
+			ob_end_clean();
+
+			$body = wpautop( $post->post_content );
+
+			ob_start();
+			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/single-footer.php' );
+			$footer = ob_get_contents();
+			ob_end_clean();
+
+			$content = $header . $body . $footer;
+
+		}
+
+		return $content;
+
+	}
+
+	add_filter( 'the_content', 'wordpress_meetings_content_filter' );
+
+}
+
+
+
+/**
+ * Modify Event Arhive Meta Content.
+ *
+ * @since 1.1.0
+ *
+ * @return string $content
+ */
+function wordpress_meetings_event_meta_content() {
+
+	global $post;
+
+	ob_start();
+	include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-event-meta.php' );
+	$content = ob_get_contents();
+	ob_end_clean();
+
+	return $content;
+
+}
+
+add_action( 'eventorganiser_additional_event_meta', 'wordpress_meetings_event_meta_content' );
+
+
+

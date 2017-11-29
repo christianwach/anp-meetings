@@ -111,7 +111,6 @@ class WordPress_Meetings {
 	public function include_files() {
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/required-plugins.php' );
-
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/class-options.php' );
 
 		// functions library
@@ -132,15 +131,6 @@ class WordPress_Meetings {
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-proposal-status.php' );
 
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-fields.php' );
-
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/post-type-connections.php' );
-
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-content-filters.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-pre-get-filters.php' );
-
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/render-functions.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-search-filters.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-rewrite.php' );
 
 	}
 
@@ -186,9 +176,8 @@ class WordPress_Meetings {
 	 */
 	public function register_hooks() {
 
-		if ( function_exists( 'p2p_register_connection_type' ) ) {
-			add_action( 'p2p_init', 'wordpress_meetings_connection_types' );
-		}
+		// generate rewrite rules
+		add_action( 'generate_rewrite_rules', array( $this, 'rewrite_rules' ) );
 
 	}
 
@@ -201,16 +190,7 @@ class WordPress_Meetings {
 	 */
 	public function activate() {
 
-		// copied from old plugin
-		wordpress_organization_taxonomy();
-		wordpress_meetings_type();
-		wordpress_meetings_tag();
-		wordpress_proposals_status_taxonomy();
-		wordpress_meetings_post_type();
-		wordpress_meetings_agenda_post_type();
-		wordpress_proposals_post_type();
-		wordpress_summary_post_type();
-
+		// add global capabilites
 		$this->add_capabilities();
 
 		flush_rewrite_rules();
@@ -295,6 +275,62 @@ class WordPress_Meetings {
 				}
 			}
 		}
+
+	}
+
+
+
+	/**
+	 * Set up Custom Rewrite Rules.
+	 *
+	 * Creates rewrite rules for each meetings post type and custom taxonomy term.
+	 *
+	 * @since 1.0.9
+	 *
+	 * @param object $wp_rewrite
+	 */
+	public function rewrite_rules( $wp_rewrite ) {
+
+		$rules = array();
+
+		$post_types = get_post_types( array(
+			'public'            => true,
+			'_builtin'          => false,
+			'capability_type'   => 'meeting'
+		), 'objects' );
+
+		$taxonomies = get_taxonomies( array(
+			'public'            => true,
+			'_builtin'          => false
+		), 'objects' );
+
+		foreach ( $post_types as $post_type ) {
+			$post_type_name = $post_type->name;
+			$post_type_slug = $post_type->rewrite['slug'];
+
+			foreach ( $taxonomies as $taxonomy ) {
+
+				if ( ! is_array( $taxonomy->object_type ) || empty( $taxonomy->object_type ) ) {
+					return;
+				}
+
+				if ( ( count( $taxonomy->object_type ) > 1 && in_array( $post_type_name, $taxonomy->object_type ) ) || ( $taxonomy->object_type[0] == $post_type_name  ) ) {
+
+					$terms = get_categories( array(
+						'type'          => $post_type_name,
+						'taxonomy'      => $taxonomy->name,
+						'hide_empty'    => 0
+					) );
+
+					foreach ( $terms as $term ) {
+						$rules[$post_type_slug . '/' . $term->slug . '/?$'] = 'index.php?post_type=' . $post_type_name . '&' . $term->taxonomy . '=' . $term->slug;
+						$rules[$post_type_slug . '/' . $term->slug . '/page/?([0-9]{1,})/?$'] = 'index.php?post_type=' . $post_type_name . '&' . $term->taxonomy . '=' . $term->slug . '&paged=' . $wp_rewrite->preg_index( 1 );
+					}
+				}
+			}
+		}
+
+		$wp_rewrite->rules = $rules + $wp_rewrite->rules;
 
 	}
 
