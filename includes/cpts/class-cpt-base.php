@@ -61,6 +61,12 @@ class WordPress_Meetings_CPT_Common {
 		// maybe add stylesheet
 		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
 
+		// override archive template
+		add_filter( 'template_include', array( $this, 'archive_template' ) );
+
+		// override the content
+		add_filter( 'the_content', array( $this, 'the_content' ) );
+
 	}
 
 
@@ -176,6 +182,87 @@ class WordPress_Meetings_CPT_Common {
 
 		// use common function
 		wordpress_meetings_enqueue_styles();
+
+	}
+
+
+
+	/**
+	 * Archive Template override.
+	 *
+	 * Templates can be overridden by putting a template file of the same name
+	 * in a folder called "wordpress-meetings" in your active theme.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $template_path The existing path to the template.
+	 * @return str $template_path The modified path to the template.
+	 */
+    public function archive_template( $template_path ) {
+
+		// bail if not our CPT archive
+		if ( ! is_post_type_archive( $this->post_type_name ) ) {
+			return $template_path;
+		}
+
+		// use template
+		$file = 'wordpress-meetings/archive.php';
+		$template_path = wordpress_meetings_template_get( $file );
+
+		// --<
+		return $template_path;
+
+	}
+
+
+
+	/**
+	 * Content override.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $content The existing content.
+	 * @return str $content The modified content.
+	 */
+    public function the_content( $content ) {
+
+		// only parse main content
+		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
+			return $content;
+		}
+
+		// bail if not one of our CPT pages
+		if ( ! is_singular( $this->post_type_name ) AND ! is_post_type_archive( $this->post_type_name ) ) {
+			return $content;
+		}
+
+		// archive template
+		if ( is_post_type_archive( $this->post_type_name ) ) {
+			$file = 'wordpress-meetings/content-archive.php';
+			$content = wordpress_meetings_template_buffer( $file );
+		}
+
+		// singular template
+		if ( is_singular( $this->post_type_name ) ) {
+
+			global $post;
+
+			// header template
+			$file = 'wordpress-meetings/content-single.php';
+			$header = wordpress_meetings_template_buffer( $file );
+
+			$body = wpautop( $post->post_content );
+
+			// footer template
+			$file = 'wordpress-meetings/single-footer.php';
+			$footer = wordpress_meetings_template_buffer( $file );
+
+			$content = $header . $body . $footer;
+
+		}
+
+		// --<
+		return $content;
 
 	}
 

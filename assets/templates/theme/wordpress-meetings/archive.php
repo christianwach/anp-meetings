@@ -22,7 +22,7 @@ get_header(); ?>
 		</header><!-- .page-header -->
 	<?php endif; ?>
 
-	<div id="primary" class="content-area">
+	<div id="primary" class="content-area site-content">
 		<main id="main" class="site-main meetings-archive" role="main">
 
 		<div class="archive-heading">
@@ -34,7 +34,9 @@ get_header(); ?>
 			<?php
 
 			while ( have_posts() ) : the_post();
-				include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
+				$file = 'wordpress-meetings/content-archive.php';
+				$template_path = wordpress_meetings_template_get( $file );
+				include( $template_path );
 				//get_template_part( 'assets/templates/content', 'archive' );
 			endwhile;
 

@@ -163,7 +163,7 @@ function wordpress_meetings_enqueue_styles() {
 	// do enqueue
 	wp_enqueue_style(
 		'wordpress-meetings',
-		WORDPRESS_MEETINGS_PLUGIN_URL . 'assets/css/style.min.css',
+		WORDPRESS_MEETINGS_URL . 'assets/css/style.min.css',
 		array( 'dashicons' ), // dependencies
 		WORDPRESS_MEETINGS_VERSION, // version
 		'all' // media
@@ -214,6 +214,7 @@ if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
     //add_action( 'pre_get_posts', 'wordpress_meetings_pre_get_posts' );
 
 }
+
 
 
 /**
@@ -340,6 +341,7 @@ function meeting_get_agenda( $post_id ) {
 
 	// Filter added to allow content be overriden
 	return apply_filters( 'meeting_get_agenda_content', $content, $post_id );
+
 }
 
 
@@ -376,6 +378,7 @@ function meeting_get_summary( $post_id ) {
 
 	// Filter added to allow content be overriden
 	return apply_filters( 'meeting_get_summary_content', $content, $post_id );
+
 }
 
 
@@ -413,6 +416,7 @@ function meeting_get_proposal( $post_id ) {
 
 	// Filter added to allow content be overriden
 	return apply_filters( 'meeting_get_proposal_content', $content, $post_id );
+
 }
 
 
@@ -454,143 +458,13 @@ function meeting_get_proposal( $post_id ) {
 
 	 // Filter added to allow content be overriden
 	 return apply_filters( 'meeting_get_event_content', $content, $post_id );
-}
-
-
-
-/**
- * TEMPLATE LOCATION.
- *
- * Templates can be overwritten by putting a template file of the same name in
- * plugins/wordpress-meeting/ folder of your active theme.
- */
-function include_meeting_templates( $template_path ) {
-
-	$post_types = array(
-		'meeting',
-		'proposal',
-		'summary',
-		'agenda'
-	);
-
-	$post_tax = array(
-		'meeting_type',
-		'meeting_tag',
-		'proposal_status',
-		'organization'
-	);
-
-	if ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) {
-		if ( $theme_file = locate_template( array( 'plugins/wordpress-meeting/archive.php' ) ) ) {
-			$template_path = $theme_file;
-		} else {
-			$template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/archive.php';
-		}
-	}
-
-	// elseif ( is_singular( $post_types ) ) {
-	//     // checks if the file exists in the theme first,
-	//     // otherwise serve the file from the plugin
-	//     if ( $theme_file = locate_template( array ( 'plugins/wordpress-meeting/single.php' ) ) ) {
-	//         $template_path = $theme_file;
-	//     } else {
-	//         $template_path = WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/single.php';
-	//     }
-	// }
-	return $template_path;
-}
-
-add_filter( 'template_include', 'include_meeting_templates', 1 );
-
-
-
-/**
- * Content Filter.
- *
- * Modify `the_content` to display custom post meta data above and below content.
- *
- * @uses the_content
- *
- * @param string $content
- * @return string $content
- */
-if ( ! function_exists( 'wordpress_meetings_content_filter' ) ) {
-
-	function wordpress_meetings_content_filter( $content ) {
-
-		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
-			return $content;
-		}
-
-		$post_types = array(
-			'meeting',
-			'proposal',
-			'summary',
-			'agenda',
-			'event'
-		);
-
-		$post_tax = array(
-			'organization',
-			'meeting_type',
-			'meeting_tag',
-			'proposal_status',
-		);
-
-		if ( ( is_post_type_archive( array( 'meeting' ) ) || is_tax( array( 'organization', 'meeting_type', 'meeting_tag' ) ) ) && in_the_loop() ) {
-
-			global $post;
-
-			ob_start();
-			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
-			$content = ob_get_contents();
-			ob_end_clean();
-
-		}
-
-		if ( ( is_post_type_archive( $post_types ) || is_tax( $post_tax ) ) && in_the_loop() ) {
-
-			global $post;
-
-			ob_start();
-			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-archive.php' );
-			$content = ob_get_contents();
-			ob_end_clean();
-
-		}
-
-		if ( is_singular( $post_types ) && in_the_loop() ) {
-
-			global $post;
-
-			ob_start();
-			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-single.php' );
-			$header = ob_get_contents();
-			ob_end_clean();
-
-			$body = wpautop( $post->post_content );
-
-			ob_start();
-			include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/single-footer.php' );
-			$footer = ob_get_contents();
-			ob_end_clean();
-
-			$content = $header . $body . $footer;
-
-		}
-
-		return $content;
-
-	}
-
-	add_filter( 'the_content', 'wordpress_meetings_content_filter' );
 
 }
 
 
 
 /**
- * Modify Event Arhive Meta Content.
+ * Modify Event Archive Meta Content.
  *
  * @since 1.1.0
  *
@@ -600,11 +474,11 @@ function wordpress_meetings_event_meta_content() {
 
 	global $post;
 
-	ob_start();
-	include( WORDPRESS_MEETINGS_PLUGIN_DIR . 'assets/templates/content-event-meta.php' );
-	$content = ob_get_contents();
-	ob_end_clean();
+	// use template
+	$file = 'wordpress-meetings/content-event-meta.php';
+	$content = wordpress_meetings_template_buffer( $file );
 
+	// --<
 	return $content;
 
 }

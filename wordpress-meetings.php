@@ -26,13 +26,13 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WORDPRESS_MEETINGS_VERSION', '2.0' );
 
 // path to plugin directory
-if ( ! defined( 'WORDPRESS_MEETINGS_PLUGIN_DIR' ) ) {
-    define( 'WORDPRESS_MEETINGS_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+if ( ! defined( 'WORDPRESS_MEETINGS_PATH' ) ) {
+    define( 'WORDPRESS_MEETINGS_PATH', plugin_dir_path( __FILE__ ) );
 }
 
 // URL of plugin directory
-if ( ! defined( 'WORDPRESS_MEETINGS_PLUGIN_URL' ) ) {
-    define( 'WORDPRESS_MEETINGS_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+if ( ! defined( 'WORDPRESS_MEETINGS_URL' ) ) {
+    define( 'WORDPRESS_MEETINGS_URL', plugin_dir_url( __FILE__ ) );
 }
 
 
@@ -63,6 +63,15 @@ class WordPress_Meetings {
 	 * @var array $taxs The registered Taxonomy objects.
 	 */
 	public $taxs;
+
+	/**
+	 * Template class.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var object $template The Template object.
+	 */
+	public $template;
 
 
 
@@ -110,27 +119,30 @@ class WordPress_Meetings {
 	 */
 	public function include_files() {
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/required-plugins.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/admin/class-options.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/required-plugins.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-options.php' );
+
+		// template class
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/wordpress-meetings-template.php' );
 
 		// functions library
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/wordpress-meetings-functions.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/wordpress-meetings-functions.php' );
 
 		// custom post types
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-base.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-meeting.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-agenda.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-summary.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/cpts/class-cpt-proposal.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-base.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-meeting.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-agenda.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-summary.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-proposal.php' );
 
 		// custom taxonomies
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-base.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-organization.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-meeting-tag.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-meeting-type.php' );
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/taxonomies/class-taxonomy-proposal-status.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-base.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-organization.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-meeting-tag.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-meeting-type.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-proposal-status.php' );
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-fields.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/custom-fields.php' );
 
 	}
 
@@ -142,6 +154,9 @@ class WordPress_Meetings {
 	 * @since 2.0
 	 */
 	public function setup_objects() {
+
+		// template class
+		$this->template = new WordPress_Meetings_Template( $this );
 
 		// custom post types
 		$this->cpts = array();
