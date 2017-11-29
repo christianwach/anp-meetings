@@ -144,3 +144,35 @@ function wordpress_meetings_cpt_title( $connection_type ) {
 }
 
 
+
+/**
+ * Enqueue stylesheet.
+ *
+ * @since 2.0
+ */
+function wordpress_meetings_enqueue_styles() {
+
+	// only do this once
+	static $done;
+	if ( $done ) return;
+
+	// bail if disabled via admin setting
+	$hide_css = wordpress_meetings_get_option( 'anp_meetings_css', false );
+	if ( $hide_css ) return;
+
+	// do enqueue
+	wp_enqueue_style(
+		'wordpress-meetings',
+		WORDPRESS_MEETINGS_PLUGIN_URL . 'assets/css/style.min.css',
+		array( 'dashicons' ), // dependencies
+		WORDPRESS_MEETINGS_VERSION, // version
+		'all' // media
+	);
+
+	// set flag
+	$done = true;
+
+}
+
+
+

@@ -47,6 +47,26 @@ if ( ! defined( 'WORDPRESS_MEETINGS_PLUGIN_URL' ) ) {
 class WordPress_Meetings {
 
 	/**
+	 * Custom Post Types holder.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var array $cpts The registered CPT objects.
+	 */
+	public $cpts;
+
+	/**
+	 * Custom Taxonomies holder.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var array $taxs The registered Taxonomy objects.
+	 */
+	public $taxs;
+
+
+
+	/**
 	 * Constructor.
 	 *
 	 * @since 2.0
@@ -118,7 +138,6 @@ class WordPress_Meetings {
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-content-filters.php' );
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-pre-get-filters.php' );
 
-		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/enqueue.php' );
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/render-functions.php' );
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-search-filters.php' );
 		include_once( WORDPRESS_MEETINGS_PLUGIN_DIR . 'includes/custom-rewrite.php' );

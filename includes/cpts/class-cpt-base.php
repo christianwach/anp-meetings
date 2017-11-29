@@ -58,6 +58,9 @@ class WordPress_Meetings_CPT_Common {
 		// make sure our feedback is appropriate
 		add_filter( 'post_updated_messages', array( $this, 'post_type_messages' ) );
 
+		// maybe add stylesheet
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+
 	}
 
 
@@ -154,6 +157,25 @@ class WordPress_Meetings_CPT_Common {
 		 * @return array $capabilities The modified caps.
 		 */
 		return apply_filters( 'wordpress_meetings_global_capabilities', $capabilities );
+
+	}
+
+
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @since 2.0
+	 */
+    public function enqueue_styles() {
+
+		// bail if not one of our CPT pages
+		if ( ! is_singular( $this->post_type_name ) AND ! is_post_type_archive( $this->post_type_name ) ) {
+			return;
+		}
+
+		// use common function
+		wordpress_meetings_enqueue_styles();
 
 	}
 

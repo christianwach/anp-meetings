@@ -64,6 +64,9 @@ class WordPress_Meetings_Taxonomy_Base {
 		// create taxonomy
 		add_action( 'init', array( $this, 'taxonomy_create' ) );
 
+		// maybe add stylesheet
+		add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_styles' ) );
+
 	}
 
 
@@ -109,6 +112,25 @@ class WordPress_Meetings_Taxonomy_Base {
 	 * @since 2.0
 	 */
 	public function taxonomy_create() {}
+
+
+
+	/**
+	 * Enqueue styles.
+	 *
+	 * @since 2.0
+	 */
+    public function enqueue_styles() {
+
+		// bail when not required
+		if ( ! is_tax( $this->taxonomy_name ) ) {
+			return;
+		}
+
+		// use common function
+		wordpress_meetings_enqueue_styles();
+
+	}
 
 
 
