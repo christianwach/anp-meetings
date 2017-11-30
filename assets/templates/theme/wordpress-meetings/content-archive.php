@@ -4,7 +4,7 @@
  * Content Variables - DO NOT REMOVE.
  * Variables that can be used in the template.
  */
-$post_id = $post->ID;
+$post_id = get_the_ID();
 $post_type = get_post_type( $post_id );
 
 // Meeting Meta

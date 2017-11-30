@@ -157,8 +157,8 @@ function wordpress_meetings_enqueue_styles() {
 	if ( $done ) return;
 
 	// bail if disabled via admin setting
-	$hide_css = wordpress_meetings_get_option( 'anp_meetings_css', false );
-	if ( $hide_css ) return;
+	$include_css = wordpress_meetings()->admin->setting_get( 'include_css', 'y' );
+	if ( $include_css != 'y' ) return;
 
 	// do enqueue
 	wp_enqueue_style(

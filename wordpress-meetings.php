@@ -73,6 +73,15 @@ class WordPress_Meetings {
 	 */
 	public $template;
 
+	/**
+	 * Admin class.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var object $admin The Admin object.
+	 */
+	public $admin;
+
 
 
 	/**
@@ -119,8 +128,11 @@ class WordPress_Meetings {
 	 */
 	public function include_files() {
 
+		// third-party plugin installer
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/required-plugins.php' );
-		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-options.php' );
+
+		// admin class
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-admin.php' );
 
 		// template class
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/wordpress-meetings-template.php' );
@@ -154,6 +166,10 @@ class WordPress_Meetings {
 	 * @since 2.0
 	 */
 	public function setup_objects() {
+
+		// admin class
+		$this->admin = new WordPress_Meetings_Admin( $this );
+		$this->admin->register_hooks();
 
 		// template class
 		$this->template = new WordPress_Meetings_Template( $this );
