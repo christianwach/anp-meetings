@@ -18,6 +18,15 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 	 */
 	public $post_type_name = 'meeting';
 
+	/**
+	 * Meeting Date meta key.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var str $meeting_date The meta key for the Meeting Date.
+	 */
+	public $date_meta_key = 'wordpress_meetings_meeting_date';
+
 
 
 	/**
@@ -50,11 +59,17 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		add_filter( 'manage_edit-' . $this->post_type_name . '_columns', array( $this, 'columns_amend' ) );
 		add_action( 'manage_posts_custom_column', array( $this, 'columns_populate' ) );
 
+		// filter the title
+		add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
+
 		// remove unwanted metaboxes
 		add_action( 'admin_menu', array( $this, 'metaboxes_remove' ) );
 
-		// filter the title
-		add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
+		// add meta boxes
+		add_action( 'add_meta_boxes', array( $this, 'metaboxes_add' ) );
+
+		// intercept save
+		add_action( 'save_post', array( $this, 'save_post' ), 1, 2 );
 
 	}
 
@@ -270,17 +285,17 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 	 */
 	public function columns_amend( $columns ) {
 
-	    // add date
-	    $columns['meeting_date'] = __( 'Date', 'wordpress-meetings' );
+		// add date
+		$columns['meeting_date'] = __( 'Date', 'wordpress-meetings' );
 
-	    // remove default columns
-	    unset( $columns['comments'] );
-	    unset( $columns['glocal_post_thumb'] );
-	    unset( $columns['date'] );
-	    unset( $columns['author'] );
+		// remove default columns
+		unset( $columns['comments'] );
+		unset( $columns['glocal_post_thumb'] );
+		unset( $columns['date'] );
+		unset( $columns['author'] );
 
-	    // --<
-	    return $columns;
+		// --<
+		return $columns;
 
 	}
 
@@ -295,15 +310,19 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 	 */
 	public function columns_populate( $column ) {
 
-	    if ( 'meeting_date' !== $column ) return;
+		if ( 'meeting_date' !== $column ) return;
 
 		// get the date
-		$meeting_date = esc_html( get_post_meta( get_the_ID(), 'meeting_date', true ) );
+		$meeting_date = esc_html( get_post_meta( get_the_ID(), '_' . $this->date_meta_key, true ) );
 
 		// show it
 		echo $meeting_date;
 
 	}
+
+
+
+	// #########################################################################
 
 
 
@@ -324,6 +343,188 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 
 	/**
+	 * Adds metaboxes to admin screens.
+	 *
+	 * @since 2.0
+	 */
+	public function metaboxes_add() {
+
+		// add Meeting Info meta box
+		add_meta_box(
+			'wordpress_meetings_meeting_info',
+			__( 'Meeting Information', 'wordpress-meetings' ),
+			array( $this, 'metabox_info' ),
+			$this->post_type_name,
+			'side', // column: options are 'normal' and 'side'
+			'high' // vertical placement: options are 'core', 'high', 'low'
+		);
+
+	}
+
+
+
+	/**
+	 * Adds a metabox to CPT edit screens.
+	 *
+	 * @since 2.0
+	 *
+	 * @param WP_Post $post The object for the current post/page.
+	 */
+	public function metabox_info( $post ) {
+
+		// enqueue date picker
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+
+		// trigger date picker
+		add_action( 'admin_footer', array( $this, 'metabox_js' ) );
+
+		// give it some style
+		wp_enqueue_style(
+			'wordpress_meetings_datepicker',
+			WORDPRESS_MEETINGS_URL . 'assets/css/datepicker/jquery-ui.min.css',
+			array(), // dependencies
+			WORDPRESS_MEETINGS_VERSION, // version
+			'all' // media
+		);
+
+		// set key
+		$key = '_' . $this->date_meta_key;
+
+		//if the custom field already has a value, grab it
+		$date = '';
+		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
+			$date = get_post_meta( $post->ID, $key, true );
+		}
+
+		// include template file
+		include( WORDPRESS_MEETINGS_PATH . 'assets/templates/admin/metabox-meeting-info.php' );
+
+	}
+
+
+
+	/**
+	 * Trigger date picker on our elements.
+	 *
+	 * @since 2.0
+	 */
+	public function metabox_js() {
+		?>
+		<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('.wp_datepicker').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		});
+		</script>
+		<?php
+	}
+
+
+
+	/**
+	 * Stores our additional params.
+	 *
+	 * @since 2.0
+	 *
+	 * @param integer $post_id The ID of the post (or revision).
+	 * @param WP_Post $post The post object.
+	 */
+	public function save_post( $post_id, $post ) {
+
+		// if no post, kick out
+		if ( ! $post ) return;
+
+		// is this an auto save routine?
+		if ( defined( 'DOING_AUTOSAVE' ) AND DOING_AUTOSAVE ) return;
+
+		// check permissions
+		if ( ! current_user_can( 'edit_meeting', $post->ID ) ) return;
+
+		// bail if not our post type
+		if ( $post->post_type != $this->post_type_name ) return;
+
+		// check for revision
+		if ( $post->post_type == 'revision' ) {
+
+			// get parent
+			if ( $post->post_parent != 0 ) {
+				$post_obj = get_post( $post->post_parent );
+			} else {
+				$post_obj = $post;
+			}
+
+		} else {
+			$post_obj = $post;
+		}
+
+		// store our metadata
+		$this->save_metadata( $post_obj );
+
+	}
+
+
+
+	/**
+	 * When a post is saved, this also saves the metadata.
+	 *
+	 * @since 2.0
+	 *
+	 * @param WP_Post $post The object for the post.
+	 */
+	private function save_metadata( $post ) {
+
+		// authenticate
+		$nonce = isset( $_POST['wordpress_meetings_meeting_info_nonce'] ) ? $_POST['wordpress_meetings_meeting_info_nonce'] : '';
+		if ( ! wp_verify_nonce( $nonce, 'wordpress_meetings_meeting_info_box' ) ) return;
+
+		// define key
+		$db_key = '_' . $this->date_meta_key;
+
+		// get date value (yyyy-mm-dd)
+		$value = isset( $_POST[$this->date_meta_key] ) ? trim( $_POST[$this->date_meta_key] ) : 0;
+
+		// validate
+		$parts = explode( '-', $value );
+		if ( count( $parts ) !== 3 ) return; // must be yyyy-mm-dd
+		if ( ! wp_checkdate( $parts[1], $parts[2], $parts[0], $value ) ) return;
+
+		// save for this post
+		$this->save_meta( $post, $db_key, $value );
+
+	}
+
+
+
+	/**
+	 * Utility to automate metadata saving.
+	 *
+	 * @since 2.0
+	 *
+	 * @param WP_Post $post_obj The WordPress post object.
+	 * @param string $key The meta key.
+	 * @param mixed $data The data to be saved.
+	 * @return mixed $data The data that was saved.
+	 */
+	private function save_meta( $post, $key, $data = '' ) {
+
+		// add first, but update if there is existing metadata
+		if ( ! add_post_meta( $post->ID, $key, $data, true ) ) {
+			update_post_meta( $post->ID, $key, $data );
+		}
+
+		// --<
+		return $data;
+
+	}
+
+
+
+	// #########################################################################
+
+
+
+	/**
 	 * Filter the title.
 	 *
 	 * @since 2.0
@@ -332,7 +533,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 	 * @param int $id The numeric ID of the WordPress post.
 	 * @return str $title The modifed title.
 	 */
-    public function title_filter( $title, $id = null ) {
+	public function title_filter( $title, $id = null ) {
 
 		// bail when not required
 		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
@@ -382,7 +583,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// --<
 		return $title;
 
-    }
+	}
 
 
 

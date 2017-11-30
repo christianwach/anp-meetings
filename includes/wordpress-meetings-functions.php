@@ -191,27 +191,27 @@ function wordpress_meetings_enqueue_styles() {
  */
 if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
 
-    function wordpress_meetings_pre_get_posts( $query ) {
+	function wordpress_meetings_pre_get_posts( $query ) {
 
-        // Do not modify queries in the admin or other queries (like nav)
-        if ( is_admin() || ! $query->is_main_query() ) {
-            return;
-        }
+		// Do not modify queries in the admin or other queries (like nav)
+		if ( is_admin() || ! $query->is_main_query() ) {
+			return;
+		}
 
-        // If meeting post archive, meeting_tag archive or meeting_type archive
-        if ( ( is_post_type_archive( array( 'meeting', 'summary', 'agenda' ) ) || is_tax( 'meeting_tag' ) || is_tax( 'meeting_type' ) ) ) {
+		// If meeting post archive, meeting_tag archive or meeting_type archive
+		if ( ( is_post_type_archive( array( 'meeting', 'summary', 'agenda' ) ) || is_tax( 'meeting_tag' ) || is_tax( 'meeting_type' ) ) ) {
 
-            set_query_var( 'orderby', 'meta_value' );
-            set_query_var( 'meta_key', 'meeting_date' );
-            set_query_var( 'order', 'DESC' );
+			set_query_var( 'orderby', 'meta_value' );
+			set_query_var( 'meta_key', 'meeting_date' );
+			set_query_var( 'order', 'DESC' );
 
-        }
+		}
 
-        return $query;
+		return $query;
 
-    }
+	}
 
-    //add_action( 'pre_get_posts', 'wordpress_meetings_pre_get_posts' );
+	//add_action( 'pre_get_posts', 'wordpress_meetings_pre_get_posts' );
 
 }
 
@@ -228,62 +228,62 @@ if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
  */
 function wordpress_meetings_connection_types() {
 
-    p2p_register_connection_type( array(
-        'name' => 'meeting_to_agenda',
-        'from' => 'meeting',
-        'to' => 'agenda',
-        'reciprocal' => true,
-        'cardinality' => 'one-to-one',
-        'admin_column' => true,
-        'admin_dropdown' => 'to',
-        'title' => array( 'from' => __( 'Agenda', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
-    ) );
+	p2p_register_connection_type( array(
+		'name' => 'meeting_to_agenda',
+		'from' => 'meeting',
+		'to' => 'agenda',
+		'reciprocal' => true,
+		'cardinality' => 'one-to-one',
+		'admin_column' => true,
+		'admin_dropdown' => 'to',
+		'title' => array( 'from' => __( 'Agenda', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+	) );
 
-    p2p_register_connection_type( array(
-        'name' => 'meeting_to_summary',
-        'from' => 'meeting',
-        'to' => 'summary',
-        'reciprocal' => true,
-        'cardinality' => 'one-to-one',
-        'admin_column' => true,
-        'admin_dropdown' => 'to',
-        'title' => array( 'from' => __( 'Summary', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
-    ) );
+	p2p_register_connection_type( array(
+		'name' => 'meeting_to_summary',
+		'from' => 'meeting',
+		'to' => 'summary',
+		'reciprocal' => true,
+		'cardinality' => 'one-to-one',
+		'admin_column' => true,
+		'admin_dropdown' => 'to',
+		'title' => array( 'from' => __( 'Summary', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+	) );
 
-    p2p_register_connection_type( array(
-        'name' => 'meeting_to_proposal',
-        'from' => 'meeting',
-        'to' => 'proposal',
-        'reciprocal' => true,
-        'cardinality' => 'one-to-many',
-        'admin_column' => true,
-        'admin_dropdown' => 'any',
-        'sortable' => 'any',
-        'title' => array( 'from' => __( 'Proposals', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
-    ) );
+	p2p_register_connection_type( array(
+		'name' => 'meeting_to_proposal',
+		'from' => 'meeting',
+		'to' => 'proposal',
+		'reciprocal' => true,
+		'cardinality' => 'one-to-many',
+		'admin_column' => true,
+		'admin_dropdown' => 'any',
+		'sortable' => 'any',
+		'title' => array( 'from' => __( 'Proposals', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+	) );
 
-    /*
-     * Register Connection Between Meeting and Event Post types.
-     *
-     * @since 0.9.1
-     *
-     * @uses post_type_exists()
-     * @uses p2p_register_connection_type()
-     * @link https://github.com/scribu/wp-posts-to-posts/wiki/p2p_register_connection_type
-     */
-    if ( post_type_exists( 'event' ) ) {
-      p2p_register_connection_type( array(
-          'name' => 'meeting_to_event',
-          'from' => 'meeting',
-          'to' => 'event',
-          'reciprocal' => true,
-          'cardinality' => 'one-to-one',
-          'admin_column' => true,
-          'admin_dropdown' => 'any',
-          'sortable' => 'any',
-          'title' => array( 'from' => __( 'Event', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
-      ) );
-    }
+	/*
+	 * Register Connection Between Meeting and Event Post types.
+	 *
+	 * @since 0.9.1
+	 *
+	 * @uses post_type_exists()
+	 * @uses p2p_register_connection_type()
+	 * @link https://github.com/scribu/wp-posts-to-posts/wiki/p2p_register_connection_type
+	 */
+	if ( post_type_exists( 'event' ) ) {
+	  p2p_register_connection_type( array(
+		  'name' => 'meeting_to_event',
+		  'from' => 'meeting',
+		  'to' => 'event',
+		  'reciprocal' => true,
+		  'cardinality' => 'one-to-one',
+		  'admin_column' => true,
+		  'admin_dropdown' => 'any',
+		  'sortable' => 'any',
+		  'title' => array( 'from' => __( 'Event', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+	  ) );
+	}
 
 }
 

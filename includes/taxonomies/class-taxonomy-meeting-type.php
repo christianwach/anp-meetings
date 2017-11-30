@@ -160,7 +160,7 @@ class WordPress_Meetings_Taxonomy_Meeting_Type extends WordPress_Meetings_Taxono
 	 * @param int $id The numeric ID of the WordPress post.
 	 * @return str $title The modifed title.
 	 */
-    public function title_filter( $title, $id = null ) {
+	public function title_filter( $title, $id = null ) {
 
 		// bail when not required
 		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {

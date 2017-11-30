@@ -129,7 +129,7 @@ class WordPress_Meetings_Taxonomy_Base {
 	 *
 	 * @since 2.0
 	 */
-    public function enqueue_styles() {
+	public function enqueue_styles() {
 
 		// bail when not required
 		if ( ! is_tax( $this->taxonomy_name ) ) {
@@ -154,7 +154,7 @@ class WordPress_Meetings_Taxonomy_Base {
 	 * @param str $template_path The existing path to the template.
 	 * @return str $template_path The modified path to the template.
 	 */
-    public function archive_template( $template_path ) {
+	public function archive_template( $template_path ) {
 
 		// bail when not required
 		if ( ! is_tax( $this->taxonomy_name ) ) {
@@ -180,7 +180,7 @@ class WordPress_Meetings_Taxonomy_Base {
 	 * @param str $content The existing content.
 	 * @return str $content The modified content.
 	 */
-    public function the_content( $content ) {
+	public function the_content( $content ) {
 
 		// only parse main content
 		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {

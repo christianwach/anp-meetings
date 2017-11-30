@@ -17,7 +17,7 @@ Domain Path: /languages
 
 // If this file is called directly, abort.
 if ( ! defined( 'WPINC' ) ) {
-    die;
+	die;
 }
 
 
@@ -27,12 +27,12 @@ define( 'WORDPRESS_MEETINGS_VERSION', '2.0' );
 
 // path to plugin directory
 if ( ! defined( 'WORDPRESS_MEETINGS_PATH' ) ) {
-    define( 'WORDPRESS_MEETINGS_PATH', plugin_dir_path( __FILE__ ) );
+	define( 'WORDPRESS_MEETINGS_PATH', plugin_dir_path( __FILE__ ) );
 }
 
 // URL of plugin directory
 if ( ! defined( 'WORDPRESS_MEETINGS_URL' ) ) {
-    define( 'WORDPRESS_MEETINGS_URL', plugin_dir_url( __FILE__ ) );
+	define( 'WORDPRESS_MEETINGS_URL', plugin_dir_url( __FILE__ ) );
 }
 
 
@@ -207,6 +207,9 @@ class WordPress_Meetings {
 	 */
 	public function register_hooks() {
 
+		// map capabilities
+		add_filter( 'map_meta_cap', array( $this, 'map_meta_cap' ), 10, 4 );
+
 		// generate rewrite rules
 		add_action( 'generate_rewrite_rules', array( $this, 'rewrite_rules' ) );
 
@@ -312,6 +315,62 @@ class WordPress_Meetings {
 
 
 	/**
+	 * Map Meetings capabilities.
+	 *
+	 * @since 2.0
+	 *
+	 * @param array $caps The existing capabilities array for the WordPress user.
+	 * @param str $cap The capability in question.
+	 * @param int $user_id The numerical ID of the WordPress user.
+	 * @param array $args The additional arguments.
+	 * @return array $caps The modified capabilities array for the WordPress user.
+	 */
+	public function map_meta_cap( $caps, $cap, $user_id, $args ) {
+
+		// if editing, deleting, or reading a meeting, get the post and post type object
+		if ( 'edit_meeting' == $cap OR 'delete_meeting' == $cap OR 'read_meeting' == $cap ) {
+			$post = get_post( $args[0] );
+			$post_type = get_post_type_object( $post->post_type );
+			$caps = array();
+		}
+
+		// if editing a meeting, assign the required capability
+		if ( 'edit_meeting' == $cap ) {
+			if ( $user_id == $post->post_author ) {
+				$caps[] = $post_type->cap->edit_posts;
+			} else {
+				$caps[] = $post_type->cap->edit_others_posts;
+			}
+		}
+
+		// if deleting a meeting, assign the required capability
+		elseif ( 'delete_meeting' == $cap ) {
+			if ( $user_id == $post->post_author ) {
+				$caps[] = $post_type->cap->delete_posts;
+			} else {
+				$caps[] = $post_type->cap->delete_others_posts;
+			}
+		}
+
+		// if reading a meeting, assign the required capability
+		elseif ( 'read_meeting' == $cap ) {
+			if ( 'private' != $post->post_status ) {
+				$caps[] = 'read';
+			} elseif ( $user_id == $post->post_author ) {
+				$caps[] = 'read';
+			} else {
+				$caps[] = $post_type->cap->read_private_posts;
+			}
+		}
+
+		// --<
+		return $caps;
+
+	}
+
+
+
+	/**
 	 * Set up Custom Rewrite Rules.
 	 *
 	 * Creates rewrite rules for each meetings post type and custom taxonomy term.
@@ -397,40 +456,6 @@ function wordpress_meetings() {
 	// return instance
 	global $wordpress_meetings_plugin;
 	return $wordpress_meetings_plugin;
-
-}
-
-
-
-/**
- * Plugin Capabilities.
- *
- * @since 1.0.9
- */
-function wordpress_meetings_capabilities() {
-
-    // set default mappings
-    $capabilities = array(
-        'publish_posts'         => 'publish_meetings',
-        'edit_posts'            => 'edit_meetings',
-        'edit_others_posts'     => 'edit_others_meetings',
-        'delete_posts'          => 'delete_meetings',
-        'delete_others_posts'   => 'delete_others_meetings',
-        'read_private_posts'    => 'read_private_meetings',
-        'edit_post'             => 'edit_meeting',
-        'delete_post'           => 'delete_meeting',
-        'read_post'             => 'read_meeting',
-    );
-
-	/**
-	 * Allow filtering of capabilities.
-	 *
-	 * @since 1.0.9
-	 *
-	 * @param array $capabilities The default caps.
-	 * @return array $capabilities The modified caps.
-	 */
-    return apply_filters( 'wordpress_meetings_global_capabilities', $capabilities );
 
 }
 

@@ -18,6 +18,33 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 	 */
 	public $post_type_name = 'proposal';
 
+	/**
+	 * Status meta key.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var str $date_accepted_meta_key The meta key for the Proposal Status.
+	 */
+	public $status_meta_key = 'wordpress_meetings_proposal_status';
+
+	/**
+	 * Date Accepted meta key.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var str $date_accepted_meta_key The meta key for Date Accepted.
+	 */
+	public $date_accepted_meta_key = 'wordpress_meetings_proposal_date_accepted';
+
+	/**
+	 * Date Effective meta key.
+	 *
+	 * @since 2.0
+	 * @access public
+	 * @var str $date_effective_meta_key The meta key for Date Effective.
+	 */
+	public $date_effective_meta_key = 'wordpress_meetings_proposal_date_effective';
+
 
 
 	/**
@@ -46,11 +73,17 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 		// common hooks
 		parent::register_hooks();
 
+		// add menu item
+		add_action( 'admin_menu', array( $this, 'add_to_menu' ) );
+
 		// remove unwanted metaboxes
 		add_action( 'admin_menu', array( $this, 'metaboxes_remove' ) );
 
-		// add menu item
-		add_action( 'admin_menu', array( $this, 'add_to_menu' ) );
+		// add meta boxes
+		add_action( 'add_meta_boxes', array( $this, 'metaboxes_add' ) );
+
+		// intercept save
+		add_action( 'save_post', array( $this, 'save_post' ), 1, 2 );
 
 	}
 
@@ -269,7 +302,283 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 		remove_meta_box( 'postcustom', $this->post_type_name, 'side' );
 
 		// remove proposal status
-	    remove_meta_box( 'proposal_statusdiv' , $this->post_type_name , 'side' );
+		remove_meta_box( 'proposal_statusdiv' , $this->post_type_name , 'side' );
+
+	}
+
+
+
+	/**
+	 * Adds metaboxes to admin screens.
+	 *
+	 * @since 2.0
+	 */
+	public function metaboxes_add() {
+
+		// add Proposal Info meta box
+		add_meta_box(
+			'wordpress_meetings_proposal_info',
+			__( 'Proposal Information', 'wordpress-meetings' ),
+			array( $this, 'metabox_info' ),
+			$this->post_type_name,
+			'side', // column: options are 'normal' and 'side'
+			'high' // vertical placement: options are 'core', 'high', 'low'
+		);
+
+	}
+
+
+
+	/**
+	 * Adds a metabox to CPT edit screens.
+	 *
+	 * @since 2.0
+	 *
+	 * @param WP_Post $post The object for the current post/page.
+	 */
+	public function metabox_info( $post ) {
+
+		// enqueue date picker
+		wp_enqueue_script( 'jquery-ui-datepicker' );
+
+		// trigger date picker
+		add_action( 'admin_footer', array( $this, 'metabox_js' ) );
+
+		// give it some style
+		wp_enqueue_style(
+			'wordpress_meetings_datepicker',
+			WORDPRESS_MEETINGS_URL . 'assets/css/datepicker/jquery-ui.min.css',
+			array(), // dependencies
+			WORDPRESS_MEETINGS_VERSION, // version
+			'all' // media
+		);
+
+		// set key
+		$key = '_' . $this->status_meta_key;
+
+		// if the custom field already has a value, grab it
+		$status = '-1';
+		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
+			$status = get_post_meta( $post->ID, $key, true );
+		}
+
+		// set key
+		$key = '_' . $this->date_accepted_meta_key;
+
+		// if the custom field already has a value, grab it
+		$date_accepted = '';
+		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
+			$date_accepted = get_post_meta( $post->ID, $key, true );
+		}
+
+		// set key
+		$key = '_' . $this->date_effective_meta_key;
+
+		// if the custom field already has a value, grab it
+		$date_effective = '';
+		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
+			$date_effective = get_post_meta( $post->ID, $key, true );
+		}
+
+		// include template file
+		include( WORDPRESS_MEETINGS_PATH . 'assets/templates/admin/metabox-proposal-info.php' );
+
+	}
+
+
+
+	/**
+	 * Trigger date picker on our elements.
+	 *
+	 * @since 2.0
+	 */
+	public function metabox_js() {
+		?>
+		<script type="text/javascript">
+		jQuery(document).ready(function(){
+			jQuery('.wp_datepicker').datepicker({
+				dateFormat : 'yy-mm-dd'
+			});
+		});
+		</script>
+		<?php
+	}
+
+
+
+	/**
+	 * Stores our additional params.
+	 *
+	 * @since 2.0
+	 *
+	 * @param integer $post_id The ID of the post (or revision).
+	 * @param WP_Post $post The post object.
+	 */
+	public function save_post( $post_id, $post ) {
+
+		// if no post, kick out
+		if ( ! $post ) return;
+
+		// is this an auto save routine?
+		if ( defined( 'DOING_AUTOSAVE' ) AND DOING_AUTOSAVE ) return;
+
+		// check permissions
+		if ( ! current_user_can( 'edit_meeting', $post->ID ) ) return;
+
+		// bail if not our post type
+		if ( $post->post_type != $this->post_type_name ) return;
+
+		// check for revision
+		if ( $post->post_type == 'revision' ) {
+
+			// get parent
+			if ( $post->post_parent != 0 ) {
+				$post_obj = get_post( $post->post_parent );
+			} else {
+				$post_obj = $post;
+			}
+
+		} else {
+			$post_obj = $post;
+		}
+
+		// store our metadata
+		$this->save_metadata( $post_obj );
+
+	}
+
+
+
+	/**
+	 * When a post is saved, this also saves the metadata.
+	 *
+	 * @since 2.0
+	 *
+	 * @param WP_Post $post The object for the post.
+	 */
+	private function save_metadata( $post ) {
+
+		// authenticate
+		$nonce = isset( $_POST['wordpress_meetings_proposal_info_nonce'] ) ? $_POST['wordpress_meetings_proposal_info_nonce'] : '';
+		if ( ! wp_verify_nonce( $nonce, 'wordpress_meetings_proposal_info_box' ) ) return;
+
+		// define key
+		$db_key = '_' . $this->status_meta_key;
+
+		// get value
+		$status = isset( $_POST[$this->status_meta_key] ) ? trim( $_POST[$this->status_meta_key] ) : 0;
+
+		// save if valid
+		if ( $this->is_valid_status( $status ) ) {
+			$this->save_meta( $post, $db_key, $status );
+		}
+
+		// define key
+		$db_key = '_' . $this->date_accepted_meta_key;
+
+		// get date value (yyyy-mm-dd)
+		$date_accepted = isset( $_POST[$this->date_accepted_meta_key] ) ? trim( $_POST[$this->date_accepted_meta_key] ) : 0;
+
+		// save if valid
+		if ( $this->is_valid_date( $date_accepted ) ) {
+			$this->save_meta( $post, $db_key, $date_accepted );
+		}
+
+		// define key
+		$db_key = '_' . $this->date_effective_meta_key;
+
+		// get date value (yyyy-mm-dd)
+		$date_effective = isset( $_POST[$this->date_effective_meta_key] ) ? trim( $_POST[$this->date_effective_meta_key] ) : 0;
+
+		// save if valid
+		if ( $this->is_valid_date( $date_effective ) ) {
+			$this->save_meta( $post, $db_key, $date_effective );
+		}
+
+	}
+
+
+
+	/**
+	 * Utility to automate metadata saving.
+	 *
+	 * @since 2.0
+	 *
+	 * @param WP_Post $post_obj The WordPress post object.
+	 * @param string $key The meta key.
+	 * @param mixed $data The data to be saved.
+	 * @return mixed $data The data that was saved.
+	 */
+	private function save_meta( $post, $key, $data = '' ) {
+
+		// add first, but update if there is existing metadata
+		if ( ! add_post_meta( $post->ID, $key, $data, true ) ) {
+			update_post_meta( $post->ID, $key, $data );
+		}
+
+		// --<
+		return $data;
+
+	}
+
+
+
+	/**
+	 * Utility to check a status.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $status The status to test.
+	 * @return bool $is_valid True if the status is valid, false otherwise.
+	 */
+	private function is_valid_status( $status ) {
+
+		// assume invalid
+		$is_valid = false;
+
+		// -1 is a valid status (means none selected)
+		if ( $status == '-1' ) {
+			$is_valid = true;
+		}
+
+		// other statuses must be integers
+		elseif ( $status == absint( $status ) ) {
+			$is_valid = true;
+		}
+
+		// --<
+		return $is_valid;
+
+	}
+
+
+
+	/**
+	 * Utility to check the format of a date.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $date The date to test in yyyy-mm-dd format.
+	 * @return bool $is_valid True if the date is valid, false otherwise.
+	 */
+	private function is_valid_date( $date ) {
+
+		// assume invalid
+		$is_valid = false;
+
+		// get parts
+		$parts = explode( '-', $date );
+
+		// bail if not yyyy-mm-dd
+		if ( count( $parts ) !== 3 ) return $is_valid;
+
+		// check parts
+		if ( wp_checkdate( $parts[1], $parts[2], $parts[0], $date ) ) {
+			$is_valid = true;
+		}
+
+		// --<
+		return $is_valid;
 
 	}
 

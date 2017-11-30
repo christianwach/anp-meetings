@@ -74,23 +74,23 @@ class WordPress_Meetings_Taxonomy_Proposal_Status extends WordPress_Meetings_Tax
 	public function taxonomy_create() {
 
 		$labels = array(
-            'name'                       => _x( 'Proposal Statuses', 'Taxonomy General Name', 'wordpress-meetings' ),
-            'singular_name'              => _x( 'Proposal Status', 'Taxonomy Singular Name', 'wordpress-meetings' ),
-            'menu_name'                  => __( 'Statuses', 'wordpress-meetings' ),
-            'all_items'                  => __( 'All Proposal Statuses', 'wordpress-meetings' ),
-            'parent_item'                => __( 'Parent Proposal Status', 'wordpress-meetings' ),
-            'parent_item_colon'          => __( 'Parent Proposal Status:', 'wordpress-meetings' ),
-            'new_item_name'              => __( 'New Proposal Status Name', 'wordpress-meetings' ),
-            'add_new_item'               => __( 'Add New Proposal Status', 'wordpress-meetings' ),
-            'edit_item'                  => __( 'Edit Proposal Status', 'wordpress-meetings' ),
-            'update_item'                => __( 'Update Proposal Status', 'wordpress-meetings' ),
-            'view_item'                  => __( 'View Proposal Status', 'wordpress-meetings' ),
-            'separate_items_with_commas' => __( 'Separate proposal status with commas', 'wordpress-meetings' ),
-            'add_or_remove_items'        => __( 'Add or remove proposal status', 'wordpress-meetings' ),
-            'choose_from_most_used'      => __( 'Choose from the most used', 'wordpress-meetings' ),
-            'popular_items'              => __( 'Popular Proposal Statuses', 'wordpress-meetings' ),
-            'search_items'               => __( 'Search Proposal Status', 'wordpress-meetings' ),
-            'not_found'                  => __( 'Not Found', 'wordpress-meetings' ),
+			'name'                       => _x( 'Proposal Statuses', 'Taxonomy General Name', 'wordpress-meetings' ),
+			'singular_name'              => _x( 'Proposal Status', 'Taxonomy Singular Name', 'wordpress-meetings' ),
+			'menu_name'                  => __( 'Statuses', 'wordpress-meetings' ),
+			'all_items'                  => __( 'All Proposal Statuses', 'wordpress-meetings' ),
+			'parent_item'                => __( 'Parent Proposal Status', 'wordpress-meetings' ),
+			'parent_item_colon'          => __( 'Parent Proposal Status:', 'wordpress-meetings' ),
+			'new_item_name'              => __( 'New Proposal Status Name', 'wordpress-meetings' ),
+			'add_new_item'               => __( 'Add New Proposal Status', 'wordpress-meetings' ),
+			'edit_item'                  => __( 'Edit Proposal Status', 'wordpress-meetings' ),
+			'update_item'                => __( 'Update Proposal Status', 'wordpress-meetings' ),
+			'view_item'                  => __( 'View Proposal Status', 'wordpress-meetings' ),
+			'separate_items_with_commas' => __( 'Separate proposal status with commas', 'wordpress-meetings' ),
+			'add_or_remove_items'        => __( 'Add or remove proposal status', 'wordpress-meetings' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'wordpress-meetings' ),
+			'popular_items'              => __( 'Popular Proposal Statuses', 'wordpress-meetings' ),
+			'search_items'               => __( 'Search Proposal Status', 'wordpress-meetings' ),
+			'not_found'                  => __( 'Not Found', 'wordpress-meetings' ),
 		);
 
 		$capabilities = array(
@@ -138,7 +138,7 @@ class WordPress_Meetings_Taxonomy_Proposal_Status extends WordPress_Meetings_Tax
 	  		'rest_base'          		 => $slug,
 	  		'rest_controller_class' 	 => 'WP_REST_Terms_Controller',
 			'rewrite'                    => $rewrite,
-			'capabilities'          	 => $capabilities,
+			'capabilities'               => $capabilities,
 		);
 
 		register_taxonomy(
@@ -165,7 +165,7 @@ class WordPress_Meetings_Taxonomy_Proposal_Status extends WordPress_Meetings_Tax
 			__( 'Proposal Statuses', 'wordpress-meetings' ),
 			__( 'Proposal Statuses', 'wordpress-meetings' ),
 			'manage_categories',
-			'edit-tags.php?taxonomy=proposal_status&post_type=proposal'
+			'edit-tags.php?taxonomy=' . $this->taxonomy_name . '&post_type=proposal'
 		);
 
 	}

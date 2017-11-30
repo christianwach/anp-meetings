@@ -173,7 +173,7 @@ class WordPress_Meetings_CPT_Common {
 	 *
 	 * @since 2.0
 	 */
-    public function enqueue_styles() {
+	public function enqueue_styles() {
 
 		// bail if not one of our CPT pages
 		if ( ! is_singular( $this->post_type_name ) AND ! is_post_type_archive( $this->post_type_name ) ) {
@@ -198,7 +198,7 @@ class WordPress_Meetings_CPT_Common {
 	 * @param str $template_path The existing path to the template.
 	 * @return str $template_path The modified path to the template.
 	 */
-    public function archive_template( $template_path ) {
+	public function archive_template( $template_path ) {
 
 		// bail if not our CPT archive
 		if ( ! is_post_type_archive( $this->post_type_name ) ) {
@@ -224,7 +224,7 @@ class WordPress_Meetings_CPT_Common {
 	 * @param str $content The existing content.
 	 * @return str $content The modified content.
 	 */
-    public function the_content( $content ) {
+	public function the_content( $content ) {
 
 		// only parse main content
 		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {

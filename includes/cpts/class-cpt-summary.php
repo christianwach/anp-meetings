@@ -311,7 +311,7 @@ class WordPress_Meetings_CPT_Summary extends WordPress_Meetings_CPT_Common {
 	 * @param int $id The numeric ID of the WordPress post.
 	 * @return str $title The modifed title.
 	 */
-    public function title_filter( $title, $id = null ) {
+	public function title_filter( $title, $id = null ) {
 
 		// bail when not required
 		if ( is_admin() || ! in_the_loop() || ! is_main_query() ) {
