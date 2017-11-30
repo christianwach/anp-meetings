@@ -35,11 +35,6 @@ if ( class_exists( 'TGM_Plugin_Activation' ) ) {
 
 		$plugins = array(
 			array(
-				'name'		=> 'CMB2',
-				'slug'		=> 'cmb2',
-				'required'	=> true,
-			),
-			array(
 				'name'		=> 'Posts 2 Posts',
 				'slug'		=> 'posts-to-posts',
 				'required'	=> true
@@ -49,8 +44,10 @@ if ( class_exists( 'TGM_Plugin_Activation' ) ) {
 		/**
 		 * Allow Filtering List of Plugins.
 		 *
-		 * @param array $plugins
-		 * @return array $plugins
+		 * @since 1.2.0
+		 *
+		 * @param array $plugins The existing plugin data.
+		 * @return array $plugins The modified plugin data.
 		 */
 		$plugins = apply_filters( 'wordpress_meetings_required_plugins', $plugins );
 
@@ -75,10 +72,12 @@ if ( class_exists( 'TGM_Plugin_Activation' ) ) {
 		);
 
 		/**
-		 * Allow Filtering Configuration.
+		 * Allow filtering of Configuration data.
 		 *
-		 * @param array $config
-		 * @return array $config
+		 * @since 1.2.0
+		 *
+		 * @param array $config The existing config data.
+		 * @return array $config The modified config data.
 		 */
 		$config = apply_filters( 'wordpress_meetings_required_plugins_configs', $config );
 

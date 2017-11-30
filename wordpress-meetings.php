@@ -154,8 +154,6 @@ class WordPress_Meetings {
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-meeting-type.php' );
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-proposal-status.php' );
 
-		include_once( WORDPRESS_MEETINGS_PATH . 'includes/custom-fields.php' );
-
 	}
 
 
