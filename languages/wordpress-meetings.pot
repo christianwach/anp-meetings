@@ -1,0 +1,1229 @@
+# Copyright (C) 2017 WordPress Meetings
+# This file is distributed under the same license as the WordPress Meetings package.
+msgid ""
+msgstr ""
+"Project-Id-Version: WordPress Meetings 2.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-meetings\n"
+"POT-Creation-Date: 2017-11-30 18:00:39+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: assets/templates/admin/metabox-meeting-info.php:4
+msgid "Meeting Date"
+msgstr ""
+
+#: assets/templates/admin/metabox-proposal-info.php:4
+#: assets/templates/theme/wordpress-meetings/single-footer.php:15
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2647
+msgid "Status"
+msgstr ""
+
+#: assets/templates/admin/metabox-proposal-info.php:8
+msgid "No status"
+msgstr ""
+
+#: assets/templates/admin/metabox-proposal-info.php:16
+msgid "Date Accepted"
+msgstr ""
+
+#: assets/templates/admin/metabox-proposal-info.php:20
+msgid "Date Effective"
+msgstr ""
+
+#: assets/templates/admin/settings.php:4
+msgid "WordPress Meetings Settings"
+msgstr ""
+
+#: assets/templates/admin/settings.php:17
+msgid "Include styles"
+msgstr ""
+
+#: assets/templates/admin/settings.php:20
+msgid "Check this to include the stylesheet supplied with this plugin."
+msgstr ""
+
+#: assets/templates/admin/settings.php:29
+msgid "Save Changes"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/archive.php:29
+msgid "Title"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/archive.php:30
+msgid "Details"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/archive.php:44
+msgid "Previous page"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/archive.php:45
+msgid "Next page"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/archive.php:46
+msgid "Page"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-archive.php:29
+#: assets/templates/theme/wordpress-meetings/content-single.php:58
+msgid "Date:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-archive.php:35
+#: assets/templates/theme/wordpress-meetings/content-single.php:73
+msgid "Organization:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-archive.php:41
+#: assets/templates/theme/wordpress-meetings/content-single.php:64
+msgid "Type:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-archive.php:47
+#: assets/templates/theme/wordpress-meetings/content-single.php:80
+msgid "Tags:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-event-meta.php:15
+msgid "Type: "
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single.php:88
+msgid "Status:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single.php:94
+msgid "Date Appoved:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single.php:100
+msgid "Date Effective:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/single-footer.php:5
+#: includes/cpts/class-cpt-proposal.php:126
+#: includes/wordpress-meetings-functions.php:262
+#: includes/wordpress-meetings-functions.php:413
+#: includes/wordpress-meetings-functions.php:414
+msgid "Proposals"
+msgstr ""
+
+#: includes/admin/class-admin.php:169
+msgid "WordPress Meetings: Settings"
+msgstr ""
+
+#: includes/admin/class-admin.php:170 includes/cpts/class-cpt-meeting.php:112
+msgid "Meetings"
+msgstr ""
+
+#: includes/admin/class-admin.php:227
+msgid "WordPress Meetings"
+msgstr ""
+
+#: includes/admin/class-admin.php:248
+msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel iaculis leo. Fusce eget erat vitae justo vestibulum tincidunt efficitur id nunc. Vivamus id quam tempus, aliquam tortor nec, volutpat nisl. Ut venenatis aliquam enim, a placerat libero vehicula quis. Etiam neque risus, vestibulum facilisis erat a, tincidunt vestibulum nulla. Sed ultrices ante nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent maximus purus ac lacinia vulputate. Aenean ex quam, aliquet id feugiat et, cursus vel magna. Cras id congue ipsum, vel consequat libero."
+msgstr ""
+
+#: includes/admin/required-plugins.php:66
+msgid "The Meetings plugin requires the following plugin: %1$s."
+msgid_plural "The Meetings plugin requires the following plugins: %1$s."
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/cpts/class-cpt-agenda.php:94
+msgctxt "Post Type General Name"
+msgid "Agendas"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:95
+msgctxt "Post Type Singular Name"
+msgid "Agenda"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:96
+msgid "Agendas"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:97 includes/cpts/class-cpt-agenda.php:133
+#: includes/wordpress-meetings-functions.php:239
+msgid "Agenda"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:98
+msgid "Parent Agenda:"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:99 includes/cpts/class-cpt-agenda.php:286
+#: includes/cpts/class-cpt-agenda.php:287
+msgid "All Agendas"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:100
+#: includes/cpts/class-cpt-agenda.php:101
+msgid "Add New Agenda"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:102
+#: includes/cpts/class-cpt-agenda.php:294
+#: includes/cpts/class-cpt-agenda.php:295
+msgid "New Agenda"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:103
+msgid "Edit Agenda"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:104
+msgid "Update Agenda"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:105
+msgid "View Agenda"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:106
+msgid "Search Agendas"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:107
+#: includes/cpts/class-cpt-meeting.php:123
+#: includes/cpts/class-cpt-proposal.php:137
+#: includes/cpts/class-cpt-summary.php:107
+msgid "Not found"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:108
+#: includes/cpts/class-cpt-meeting.php:124
+#: includes/cpts/class-cpt-proposal.php:138
+#: includes/cpts/class-cpt-summary.php:108
+msgid "Not found in Trash"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:134
+msgid "Custom post type for agendas"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:198
+msgid "Agenda updated. <a href=\"%s\">View agenda</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:203
+#: includes/cpts/class-cpt-meeting.php:222
+#: includes/cpts/class-cpt-proposal.php:236
+#: includes/cpts/class-cpt-summary.php:204
+msgid "Custom field updated."
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:204
+#: includes/cpts/class-cpt-meeting.php:223
+#: includes/cpts/class-cpt-proposal.php:237
+#: includes/cpts/class-cpt-summary.php:205
+msgid "Custom field deleted."
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:205
+msgid "Agenda updated."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+
+#: includes/cpts/class-cpt-agenda.php:213
+msgid "Agenda restored to revision from %s"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:222
+msgid "Agenda published. <a href=\"%s\">View agenda</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:227
+msgid "Agenda saved."
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:231
+msgid "Agenda submitted. <a target=\"_blank\" href=\"%s\">Preview agenda</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:237
+msgid "Agenda scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview agenda</a>"
+msgstr ""
+
+#. translators: Publish box date format, see http://php.net/date
+
+#: includes/cpts/class-cpt-agenda.php:239
+#: includes/cpts/class-cpt-meeting.php:258
+#: includes/cpts/class-cpt-proposal.php:272
+#: includes/cpts/class-cpt-summary.php:240
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: includes/cpts/class-cpt-agenda.php:246
+msgid "Agenda draft updated. <a target=\"_blank\" href=\"%s\">Preview agenda</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:110
+msgctxt "Post Type General Name"
+msgid "Meetings"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:111
+msgctxt "Post Type Singular Name"
+msgid "Meeting"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:113
+#: includes/cpts/class-cpt-meeting.php:152
+#: includes/wordpress-meetings-functions.php:239
+#: includes/wordpress-meetings-functions.php:250
+#: includes/wordpress-meetings-functions.php:262
+#: includes/wordpress-meetings-functions.php:284
+msgid "Meeting"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:114
+msgid "Parent Meeting:"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:115
+msgid "All Meetings"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:116
+#: includes/cpts/class-cpt-meeting.php:117
+msgid "Add New Meeting"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:118
+msgid "New Meeting"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:119
+msgid "Edit Meeting"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:120
+msgid "Update Meeting"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:121
+msgid "View Meeting"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:122
+msgid "Search Meetings"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:153
+msgid "Custom post type for meetings"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:217
+msgid "Meeting updated. <a href=\"%s\">View meeting</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:224
+msgid "Meeting updated."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+
+#: includes/cpts/class-cpt-meeting.php:232
+msgid "Meeting restored to revision from %s"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:241
+msgid "Meeting published. <a href=\"%s\">View meeting</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:246
+msgid "Meeting saved."
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:250
+msgid "Meeting submitted. <a target=\"_blank\" href=\"%s\">Preview meeting</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:256
+msgid "Meeting scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview meeting</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:265
+msgid "Meeting draft updated. <a target=\"_blank\" href=\"%s\">Preview meeting</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:289
+msgid "Date"
+msgstr ""
+
+#: includes/cpts/class-cpt-meeting.php:355
+msgid "Meeting Information"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:124
+msgctxt "Post Type General Name"
+msgid "Proposals"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:125
+msgctxt "Post Type Singular Name"
+msgid "Proposal"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:127
+#: includes/cpts/class-cpt-proposal.php:166
+#: includes/wordpress-meetings-functions.php:413
+#: includes/wordpress-meetings-functions.php:414
+msgid "Proposal"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:128
+msgid "Parent Proposal:"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:129
+#: includes/cpts/class-cpt-proposal.php:598
+#: includes/cpts/class-cpt-proposal.php:599
+msgid "All Proposals"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:130
+#: includes/cpts/class-cpt-proposal.php:131
+msgid "Add New Proposal"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:132
+#: includes/cpts/class-cpt-proposal.php:606
+#: includes/cpts/class-cpt-proposal.php:607
+msgid "New Proposal"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:133
+msgid "Edit Proposal"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:134
+msgid "Update Proposal"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:135
+msgid "View Proposal"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:136
+msgid "Search Proposals"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:167
+msgid "Custom post type for proposals"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:231
+msgid "Proposal updated. <a href=\"%s\">View proposal</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:238
+msgid "Proposal updated."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+
+#: includes/cpts/class-cpt-proposal.php:246
+msgid "Proposal restored to revision from %s"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:255
+msgid "Proposal published. <a href=\"%s\">View proposal</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:260
+msgid "Proposal saved."
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:264
+msgid "Proposal submitted. <a target=\"_blank\" href=\"%s\">Preview proposal</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:270
+msgid "Proposal scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview proposal</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:279
+msgid "Proposal draft updated. <a target=\"_blank\" href=\"%s\">Preview proposal</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-proposal.php:321
+msgid "Proposal Information"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:94
+msgctxt "Post Type General Name"
+msgid "Summaries"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:95
+msgctxt "Post Type Singular Name"
+msgid "Summary"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:96
+msgid "Summaries"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:97
+#: includes/cpts/class-cpt-summary.php:134
+#: includes/wordpress-meetings-functions.php:250
+msgid "Summary"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:98
+msgid "Parent Summary:"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:99
+#: includes/cpts/class-cpt-summary.php:287
+#: includes/cpts/class-cpt-summary.php:288
+msgid "All Summaries"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:100
+#: includes/cpts/class-cpt-summary.php:101
+msgid "Add New Summary"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:102
+#: includes/cpts/class-cpt-summary.php:295
+#: includes/cpts/class-cpt-summary.php:296
+msgid "New Summary"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:103
+msgid "Edit Summary"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:104
+msgid "Update Summary"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:105
+msgid "View Summary"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:106
+msgid "Search Summaries"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:135
+msgid "Custom post type for summaries"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:199
+msgid "Summary updated. <a href=\"%s\">View summary</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:206
+msgid "Summary updated."
+msgstr ""
+
+#. translators: %s: date and time of the revision
+
+#: includes/cpts/class-cpt-summary.php:214
+msgid "Summary restored to revision from %s"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:223
+msgid "Summary published. <a href=\"%s\">View summary</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:228
+msgid "Summary saved."
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:232
+msgid "Summary submitted. <a target=\"_blank\" href=\"%s\">Preview summary</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:238
+msgid "Summary scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview summary</a>"
+msgstr ""
+
+#: includes/cpts/class-cpt-summary.php:247
+msgid "Summary draft updated. <a target=\"_blank\" href=\"%s\">Preview summary</a>"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:334
+msgid "Install Required Plugins"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:335
+msgid "Install Plugins"
+msgstr ""
+
+#. translators: %s: plugin name.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:337
+msgid "Installing Plugin: %s"
+msgstr ""
+
+#. translators: %s: plugin name.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:339
+msgid "Updating Plugin: %s"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:340
+msgid "Something went wrong with the plugin API."
+msgstr ""
+
+#. translators: 1: plugin name(s).
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:377
+msgid "Begin installing plugin"
+msgid_plural "Begin installing plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:382
+msgid "Begin updating plugin"
+msgid_plural "Begin updating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:387
+msgid "Begin activating plugin"
+msgid_plural "Begin activating plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:392
+msgid "Return to Required Plugins Installer"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:393
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:920
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2626
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3673
+msgid "Return to the Dashboard"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:394
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3252
+msgid "Plugin activated successfully."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:395
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3045
+msgid "The following plugin was activated successfully:"
+msgstr ""
+
+#. translators: 1: plugin name.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:397
+msgid "No action taken. Plugin %1$s was already active."
+msgstr ""
+
+#. translators: 1: plugin name.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:399
+msgid "Plugin not activated. A higher version of %s is needed for this theme. Please update the plugin."
+msgstr ""
+
+#. translators: 1: dashboard link.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:401
+msgid "All plugins installed and activated successfully. %1$s"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:402
+msgid "Dismiss this notice"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:403
+msgid "There are one or more required or recommended plugins to install, update or activate."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:404
+msgid "Please contact the administrator of this site for help."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:607
+msgid "This plugin needs to be updated to be compatible with your theme."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:608
+msgid "Update Required"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:725
+msgid "Set the parent_slug config variable instead."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:1027
+msgid "The remote plugin package does not contain a folder with the desired slug and renaming did not work."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:1027
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:1030
+msgid "Please contact the plugin provider and ask them to package their plugin according to the WordPress guidelines."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:1030
+msgid "The remote plugin package consists of more than one file, but the files are not packaged in a folder."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:1214
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3041
+msgctxt "plugin A *and* plugin B"
+msgid "and"
+msgstr ""
+
+#. translators: %s: version number
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2075
+msgid "TGMPA v%s"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2366
+msgid "Required"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2369
+msgid "Recommended"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2385
+msgid "WordPress Repository"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2388
+msgid "External Source"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2391
+msgid "Pre-Packaged"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2408
+msgid "Not Installed"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2412
+msgid "Installed But Not Activated"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2414
+msgid "Active"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2420
+msgid "Required Update not Available"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2423
+msgid "Requires Update"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2426
+msgid "Update recommended"
+msgstr ""
+
+#. translators: 1: install status, 2: update status
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2435
+msgctxt "Install/Update Status"
+msgid "%1$s, %2$s"
+msgstr ""
+
+#. translators: 1: number of plugins.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2481
+msgctxt "plugins"
+msgid "All <span class=\"count\">(%s)</span>"
+msgid_plural "All <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2485
+msgid "To Install <span class=\"count\">(%s)</span>"
+msgid_plural "To Install <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2489
+msgid "Update Available <span class=\"count\">(%s)</span>"
+msgid_plural "Update Available <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: number of plugins.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2493
+msgid "To Activate <span class=\"count\">(%s)</span>"
+msgid_plural "To Activate <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2575
+msgctxt "as in: \"version nr unknown\""
+msgid "unknown"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2583
+msgid "Installed version:"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2591
+msgid "Minimum required version:"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2603
+msgid "Available version:"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2626
+msgid "No plugins to install, update or activate."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2640
+msgid "Plugin"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2641
+msgid "Source"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2642
+msgid "Type"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2646
+msgid "Version"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2696
+msgid "Install %2$s"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2701
+msgid "Update %2$s"
+msgstr ""
+
+#. translators: %2$s: plugin name in screen reader markup
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2707
+msgid "Activate %2$s"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2777
+msgid "Upgrade message from the plugin author:"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2810
+msgid "Install"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2816
+msgid "Update"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2819
+msgid "Activate"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2850
+msgid "No plugins were selected to be installed. No action taken."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2852
+msgid "No plugins were selected to be updated. No action taken."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2893
+msgid "No plugins are available to be installed at this time."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2895
+msgid "No plugins are available to be updated at this time."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3001
+msgid "No plugins were selected to be activated. No action taken."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3027
+msgid "No plugins are available to be activated at this time."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3251
+msgid "Plugin activation failed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3591
+msgid "Updating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#. translators: 1: plugin name, 2: error message.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3594
+msgid "An error occurred while installing %1$s: <strong>%2$s</strong>."
+msgstr ""
+
+#. translators: 1: plugin name.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3596
+msgid "The installation of %1$s failed."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3600
+msgid "The installation and activation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3602
+msgid "%1$s installed and activated successfully."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3602
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3610
+msgid "Show Details"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3602
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3610
+msgid "Hide Details"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3603
+msgid "All installations and activations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3605
+msgid "Installing and Activating Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3608
+msgid "The installation process is starting. This process may take a while on some hosts, so please be patient."
+msgstr ""
+
+#. translators: 1: plugin name.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3610
+msgid "%1$s installed successfully."
+msgstr ""
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3611
+msgid "All installations have been completed."
+msgstr ""
+
+#. translators: 1: plugin name, 2: action number 3: total number of actions.
+
+#: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:3613
+msgid "Installing Plugin %1$s (%2$d/%3$d)"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:77
+msgctxt "Taxonomy General Name"
+msgid "Meeting Tags"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:78
+msgctxt "Taxonomy Singular Name"
+msgid "Meeting Tag"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:79
+msgid "Tags"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:80
+msgid "All Tags"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:81
+msgid "Parent Tag"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:82
+msgid "Parent Tag:"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:83
+msgid "New Tag Name"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:84
+msgid "Add New Tag"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:85
+msgid "Edit Tag"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:86
+msgid "Update Tag"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:87
+msgid "View Tag"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:88
+msgid "Separate tags with commas"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:89
+msgid "Add or remove tags"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:90
+#: includes/taxonomies/class-taxonomy-meeting-type.php:90
+#: includes/taxonomies/class-taxonomy-organization.php:87
+#: includes/taxonomies/class-taxonomy-proposal-status.php:90
+msgid "Choose from the most used"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:91
+msgid "Popular Tags"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:92
+msgid "Search Tags"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-tag.php:93
+#: includes/taxonomies/class-taxonomy-meeting-type.php:93
+#: includes/taxonomies/class-taxonomy-organization.php:90
+#: includes/taxonomies/class-taxonomy-proposal-status.php:93
+msgid "Not Found"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:77
+msgctxt "Taxonomy General Name"
+msgid "Meeting Type"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:78
+msgctxt "Taxonomy Singular Name"
+msgid "Meeting Type"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:79
+msgid "Types"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:80
+msgid "All Meeting Types"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:81
+msgid "Parent Meeting Type"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:82
+msgid "Parent Meeting Type:"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:83
+msgid "New Meeting Type Name"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:84
+msgid "Add New Meeting Type"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:85
+msgid "Edit Meeting Type"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:86
+msgid "Update Meeting Type"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:87
+msgid "View Meeting Type"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:88
+msgid "Separate meeting types with commas"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:89
+msgid "Add or remove meeting types"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:91
+msgid "Popular Meeting Types"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-meeting-type.php:92
+msgid "Search Meeting Types"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:74
+msgctxt "Taxonomy General Name"
+msgid "Organizational Group"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:75
+msgctxt "Taxonomy Singular Name"
+msgid "Organizational Group"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:76
+msgid "Organizations"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:77
+msgid "All Organizational Groups"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:78
+msgid "Parent Organizational Group"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:79
+msgid "Parent Organizational Group:"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:80
+msgid "New Organizational Group Name"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:81
+msgid "Add New Organizational Group"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:82
+msgid "Edit Organizational Group"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:83
+msgid "Update Organizational Group"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:84
+msgid "View Organizational Group"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:85
+msgid "Separate organizational groups with commas"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:86
+msgid "Add or remove organizational groups"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:88
+msgid "Popular Organizational Groups"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-organization.php:89
+msgid "Search Organizational Groups"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:77
+msgctxt "Taxonomy General Name"
+msgid "Proposal Statuses"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:78
+msgctxt "Taxonomy Singular Name"
+msgid "Proposal Status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:79
+msgid "Statuses"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:80
+msgid "All Proposal Statuses"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:81
+msgid "Parent Proposal Status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:82
+msgid "Parent Proposal Status:"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:83
+msgid "New Proposal Status Name"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:84
+msgid "Add New Proposal Status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:85
+msgid "Edit Proposal Status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:86
+msgid "Update Proposal Status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:87
+msgid "View Proposal Status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:88
+msgid "Separate proposal status with commas"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:89
+msgid "Add or remove proposal status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:91
+msgid "Popular Proposal Statuses"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:92
+msgid "Search Proposal Status"
+msgstr ""
+
+#: includes/taxonomies/class-taxonomy-proposal-status.php:165
+#: includes/taxonomies/class-taxonomy-proposal-status.php:166
+msgid "Proposal Statuses"
+msgstr ""
+
+#: includes/wordpress-meetings-functions.php:284
+msgid "Event"
+msgstr ""
+#. Plugin Name of the plugin/theme
+msgid "WordPress Meetings"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/christianwach/wordpress-meetings"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Creates custom post types for Meetings with custom fields and custom taxonomies that can be used to store and display meeting notes/minutes, agendas, proposals and summaries."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Pea, Glocal, needle"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "http://glocal.coop"
+msgstr ""
