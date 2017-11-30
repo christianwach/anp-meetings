@@ -5,7 +5,7 @@
  *
  * A class that encapsulates admin functionality.
  *
- * @since 0.1
+ * @since 2.0
  */
  class WordPress_Meetings_Admin {
 
@@ -373,7 +373,7 @@
 		if ( empty( $_POST ) ) return;
 
 		// check that we trust the source of the request
-		check_admin_referer( 'wordpress_meetings_settings_action', 'wordpress_meetings_nonce' );
+		check_admin_referer( 'wordpress_meetings_settings_action', 'wordpress_meetings_settings_nonce' );
 
 		// check that our sumbit button was clicked
 		if ( ! isset( $_POST['wordpress_meetings_settings_submit'] ) ) return;

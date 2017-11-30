@@ -7,7 +7,7 @@
 
 	<form method="post" id="wordpress_meetings_settings_form" action="<?php echo $url; ?>">
 
-		<?php wp_nonce_field( 'wordpress_meetings_settings_action', 'wordpress_meetings_nonce' ); ?>
+		<?php wp_nonce_field( 'wordpress_meetings_settings_action', 'wordpress_meetings_settings_nonce' ); ?>
 
 		<hr>
 
