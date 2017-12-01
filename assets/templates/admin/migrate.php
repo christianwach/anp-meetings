@@ -9,12 +9,16 @@
 
 		<?php wp_nonce_field( 'wordpress_meetings_migrate_action', 'wordpress_meetings_migrate_nonce' ); ?>
 
-		</table>
+		<hr>
+
+		<p><?php _e( 'To continue using this plugin, we need to migrate the ANP Meetings settings.', 'wordpress-meetings' ); ?></p>
+
+		<p><?php _e( 'After this is done, please deactivate the ANP Meetings plugin to continue to use Meetings.', 'wordpress-meetings' ); ?></p>
 
 		<hr>
 
 		<p class="submit">
-			<input class="button-primary" type="submit" id="wordpress_meetings_migrate_submit" name="wordpress_meetings_migrate_submit" value="<?php esc_attr_e( 'Save Changes', 'wordpress-meetings' ); ?>" />
+			<input class="button-primary" type="submit" id="wordpress_meetings_migrate_submit" name="wordpress_meetings_migrate_submit" value="<?php esc_attr_e( 'Migrate', 'wordpress-meetings' ); ?>" />
 		</p>
 
 	</form>

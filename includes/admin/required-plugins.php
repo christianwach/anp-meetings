@@ -31,7 +31,7 @@ require_once WORDPRESS_MEETINGS_PATH . 'includes/libs/tgm-plugin-activation/clas
  */
 if ( class_exists( 'TGM_Plugin_Activation' ) ) {
 
-	function meetings_register_required_plugins() {
+	function wordpress_meetings_register_required_plugins() {
 
 		$plugins = array(
 			array(
@@ -87,6 +87,6 @@ if ( class_exists( 'TGM_Plugin_Activation' ) ) {
 
 }
 
-add_action( 'tgmpa_register', 'meetings_register_required_plugins' );
+add_action( 'tgmpa_register', 'wordpress_meetings_register_required_plugins' );
 
 

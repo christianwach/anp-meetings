@@ -131,8 +131,16 @@ class WordPress_Meetings {
 		// third-party plugin installer
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/required-plugins.php' );
 
-		// admin classes
+		// admin base
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-admin-base.php' );
+
+		// migrate settings if ANP Meetings is present
+		if ( function_exists( 'anp_meetings_init' ) ) {
+			include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-admin-migrate.php' );
+			return;
+		}
+
+		// admin settings
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-admin-settings.php' );
 
 		// template class
@@ -165,6 +173,13 @@ class WordPress_Meetings {
 	 * @since 2.0
 	 */
 	public function setup_objects() {
+
+		// migrate settings if ANP Meetings is present
+		if ( function_exists( 'anp_meetings_init' ) ) {
+			$this->admin = new WordPress_Meetings_Admin_Migrate( $this );
+			$this->admin->register_hooks();
+			return;
+		}
 
 		// admin class
 		$this->admin = new WordPress_Meetings_Admin_Settings( $this );
@@ -206,6 +221,9 @@ class WordPress_Meetings {
 	 */
 	public function register_hooks() {
 
+		// bail if ANP Meetings is present
+		if ( function_exists( 'anp_meetings_init' ) ) return;
+
 		// map capabilities
 		add_filter( 'map_meta_cap', array( $this, 'map_meta_cap' ), 10, 4 );
 
@@ -222,6 +240,9 @@ class WordPress_Meetings {
 	 * @since 2.0
 	 */
 	public function activate() {
+
+		// bail if ANP Meetings is present
+		if ( function_exists( 'anp_meetings_init' ) ) return;
 
 		// add global capabilites
 		$this->add_capabilities();

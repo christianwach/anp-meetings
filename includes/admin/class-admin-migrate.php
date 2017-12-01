@@ -44,7 +44,7 @@
 		// add the Admin page to the WordPress Settings menu
 		$this->admin_page = add_options_page(
 			__( 'WordPress Meetings: Migrate', 'wordpress-meetings' ), // page title
-			__( 'Meetings', 'wordpress-meetings' ), // menu title
+			__( 'Meetings: Migrate', 'wordpress-meetings' ), // menu title
 			'manage_options', // required caps
 			'wordpress_meetings_migrate', // slug name
 			array( $this, 'page_migrate' ) // callback
@@ -156,17 +156,11 @@
 	 */
 	public function settings_update() {
 
-		// include CSS
-		$include_css = $this->setting_get( 'include_css', 'y' );
-		if ( isset( $_POST['wordpress_meetings_include_css'] ) ) {
-			$include_css = 'y';
-		} else {
-			$include_css = 'n';
-		}
-		$this->setting_set( 'include_css', $include_css );
+		// migrate global settings
+		$this->settings_update_global();
 
-		// save settings
-		$this->settings_save();
+		// migrate settings for CPTs
+		$this->settings_update_cpts();
 
 		// construct Migrate page URL
 		$url = $this->page_get_url();
@@ -174,6 +168,44 @@
 
 		// prevent reload weirdness
 		wp_redirect( $redirect );
+
+	}
+
+
+
+	/**
+	 * Update Global Settings.
+	 *
+	 * @since 2.0
+	 */
+	public function settings_update_global() {
+
+		// get existing CSS setting
+		$hide_css = anp_meetings_get_option( 'anp_meetings_css', false );
+
+		// convert to WordPress Meetings setting
+		if ( ! $hide_css ) {
+			$include_css = 'y';
+		} else {
+			$include_css = 'n';
+		}
+
+		// save
+		$this->setting_set( 'include_css', $include_css );
+
+		// save settings
+		$this->settings_save();
+
+	}
+
+
+
+	/**
+	 * Update Custom Post Types.
+	 *
+	 * @since 2.0
+	 */
+	public function settings_update_cpts() {
 
 	}
 
