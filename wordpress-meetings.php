@@ -131,8 +131,9 @@ class WordPress_Meetings {
 		// third-party plugin installer
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/required-plugins.php' );
 
-		// admin class
-		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-admin.php' );
+		// admin classes
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-admin-base.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-admin-settings.php' );
 
 		// template class
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/wordpress-meetings-template.php' );
@@ -166,7 +167,7 @@ class WordPress_Meetings {
 	public function setup_objects() {
 
 		// admin class
-		$this->admin = new WordPress_Meetings_Admin( $this );
+		$this->admin = new WordPress_Meetings_Admin_Settings( $this );
 		$this->admin->register_hooks();
 
 		// template class

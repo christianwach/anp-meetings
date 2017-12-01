@@ -1,13 +1,15 @@
 <?php
 
 /**
- * WordPress Meetings Admin Class.
+ * WordPress Meetings Admin Base Class.
  *
- * A class that encapsulates admin functionality.
+ * A class that holds common Custom Post Type characteristics for WordPress Meetings.
  *
  * @since 2.0
+ *
+ * @package WordPress_Meetings
  */
- class WordPress_Meetings_Admin {
+ class WordPress_Meetings_Admin_Base {
 
 	/**
 	 * Plugin (calling) object.
@@ -28,13 +30,13 @@
 	public $plugin_version;
 
 	/**
-	 * Settings page.
+	 * Admin page.
 	 *
 	 * @since 2.0
 	 * @access public
-	 * @var str $settings_page The Settings page reference.
+	 * @var str $admin_page The Admin page reference.
 	 */
-	public $settings_page;
+	public $admin_page;
 
 	/**
 	 * Settings data.
@@ -155,37 +157,13 @@
 
 
 	/**
-	 * Add this plugin's Settings Page to the WordPress admin menu.
+	 * Add this plugin's Admin Page to the WordPress admin menu.
+	 *
+	 * This must be overloaded in the child class.
 	 *
 	 * @since 2.0
 	 */
-	public function admin_menu() {
-
-		// check user permissions
-		if ( ! current_user_can('manage_options') ) return false;
-
-		// add the Settings page to the WordPress Settings menu
-		$this->settings_page = add_options_page(
-			__( 'WordPress Meetings: Settings', 'wordpress-meetings' ), // page title
-			__( 'Meetings', 'wordpress-meetings' ), // menu title
-			'manage_options', // required caps
-			'wordpress_meetings_settings', // slug name
-			array( $this, 'page_settings' ) // callback
-		);
-
-		// maybe save settings on page load
-		add_action( 'load-' . $this->settings_page, array( $this, 'settings_parse' ) );
-
-		// add help text to UI
-		add_action( 'admin_head-' . $this->settings_page, array( $this, 'admin_head' ) );
-
-		/*
-		// add scripts and styles
-		add_action( 'admin_print_scripts-' . $this->settings_page, array( $this, 'admin_js' ) );
-		add_action( 'admin_print_styles-' . $this->settings_page, array( $this, 'admin_css' ) );
-		*/
-
-	}
+	public function admin_menu() {}
 
 
 
@@ -217,7 +195,7 @@
 	public function admin_help( $screen ) {
 
 		// kick out if not our screen
-		if ( $screen->id != $this->settings_page ) {
+		if ( $screen->id != $this->admin_page ) {
 			return $screen;
 		}
 
@@ -291,58 +269,6 @@
 
 
 	/**
-	 * Show General Settings page.
-	 *
-	 * @since 2.0
-	 */
-	public function page_settings() {
-
-		// check user permissions
-		if ( ! current_user_can( 'manage_options' ) ) return;
-
-		// get admin page URL
-		$url = $this->page_get_url();
-
-		// init checkbox
-		$include_css = '';
-		if ( $this->setting_get( 'include_css', 'y' ) == 'y' ) $include_css = ' checked="checked"';
-
-		// include template file
-		include( WORDPRESS_MEETINGS_PATH . 'assets/templates/admin/settings.php' );
-
-	}
-
-
-
-	/**
-	 * Get admin page URL.
-	 *
-	 * @since 2.0
-	 *
-	 * @return array $admin_url The admin page URL.
-	 */
-	public function page_get_url() {
-
-		// only calculate once
-		if ( isset( $this->url ) ) {
-			return $this->url;
-		}
-
-		// construct admin page URL
-		$this->url = menu_page_url( 'wordpress_meetings_settings', false );
-
-		// --<
-		return $this->url;
-
-	}
-
-
-
-	//##########################################################################
-
-
-
-	/**
 	 * Initialise plugin settings.
 	 *
 	 * @since 2.0
@@ -353,63 +279,6 @@
 		if ( 'fgffgs' == get_option( 'wordpress_meetings_settings', 'fgffgs' ) ) {
 			add_option( 'wordpress_meetings_settings', $this->settings_get_default() );
 		}
-
-	}
-
-
-
-	/**
-	 * Maybe save general settings.
-	 *
-	 * This is the callback from 'load-' . $this->settings_page which determines
-	 * if there are settings to be saved and parses them before calling the
-	 * actual save method.
-	 *
-	 * @since 2.0
-	 */
-	public function settings_parse() {
-
-		// bail if no post data
-		if ( empty( $_POST ) ) return;
-
-		// check that we trust the source of the request
-		check_admin_referer( 'wordpress_meetings_settings_action', 'wordpress_meetings_settings_nonce' );
-
-		// check that our sumbit button was clicked
-		if ( ! isset( $_POST['wordpress_meetings_settings_submit'] ) ) return;
-
-		// okay, now update
-		$this->settings_update();
-
-	}
-
-
-
-	/**
-	 * Update Settings.
-	 *
-	 * @since 2.0
-	 */
-	public function settings_update() {
-
-		// include CSS
-		$include_css = $this->setting_get( 'include_css', 'y' );
-		if ( isset( $_POST['wordpress_meetings_include_css'] ) ) {
-			$include_css = 'y';
-		} else {
-			$include_css = 'n';
-		}
-		$this->setting_set( 'include_css', $include_css );
-
-		// save settings
-		$this->settings_save();
-
-		// construct Settings page URL
-		$url = $this->page_get_url();
-		$redirect = add_query_arg( 'updated', 'true', $url );
-
-		// prevent reload weirdness
-		wp_redirect( $redirect );
 
 	}
 
@@ -499,7 +368,7 @@
 	 * @since 2.0
 	 *
 	 * @param str $setting_name The name of the setting.
-	 * @return mixed $default The default value of the setting.
+	 * @param mixed $default The default value of the setting.
 	 * @return mixed $setting The actual value of the setting.
 	 */
 	public function setting_get( $setting_name = '', $default = false ) {
@@ -515,6 +384,9 @@
 	 * Set a value for a specified setting.
 	 *
 	 * @since 2.0
+	 *
+	 * @param str $setting_name The name of the setting.
+	 * @param mixed $value The value of the setting.
 	 */
 	public function setting_set( $setting_name = '', $value = '' ) {
 
@@ -529,6 +401,8 @@
 	 * Unset a specified setting.
 	 *
 	 * @since 2.0
+	 *
+	 * @param str $setting_name The name of the setting.
 	 */
 	public function setting_unset( $setting_name = '' ) {
 
