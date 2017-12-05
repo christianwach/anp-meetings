@@ -19,11 +19,11 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 	public $post_type_name = 'proposal';
 
 	/**
-	 * Status meta key.
+	 * Status form key.
 	 *
 	 * @since 2.0
 	 * @access public
-	 * @var str $date_accepted_meta_key The meta key for the Proposal Status.
+	 * @var str $status_meta_key The form key for the Proposal Status.
 	 */
 	public $status_meta_key = 'wordpress_meetings_proposal_status';
 
@@ -353,13 +353,17 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 			'all' // media
 		);
 
-		// set key
-		$key = '_' . $this->status_meta_key;
+		// get existing terms (there will be either one or none)
+		$terms = wp_get_object_terms(
+			$post->ID,
+			'proposal_status',
+			array( 'fields' => 'all' )
+		);
 
-		// if the custom field already has a value, grab it
+		// set status
 		$status = '-1';
-		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
-			$status = get_post_meta( $post->ID, $key, true );
+		if ( count( $terms ) > 0 ) {
+			$status = $terms[0]->term_id;
 		}
 
 		// set key
@@ -462,15 +466,14 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 		$nonce = isset( $_POST['wordpress_meetings_proposal_info_nonce'] ) ? $_POST['wordpress_meetings_proposal_info_nonce'] : '';
 		if ( ! wp_verify_nonce( $nonce, 'wordpress_meetings_proposal_info_box' ) ) return;
 
-		// define key
-		$db_key = '_' . $this->status_meta_key;
+		// get value of select
+		$status = isset( $_POST[$this->status_meta_key] ) ? trim( $_POST[$this->status_meta_key] ) : '-1';
 
-		// get value
-		$status = isset( $_POST[$this->status_meta_key] ) ? trim( $_POST[$this->status_meta_key] ) : 0;
-
-		// save if valid
-		if ( $this->is_valid_status( $status ) ) {
-			$this->save_meta( $post, $db_key, $status );
+		// save if valid, delete otherwise
+		if ( $this->is_valid_term( $status ) ) {
+			wp_set_object_terms( $post->ID, absint( $status ), 'proposal_status' );
+		} else {
+			wp_delete_object_term_relationships( $post->ID, 'proposal_status' );
 		}
 
 		// define key
@@ -524,21 +527,21 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 
 
 	/**
-	 * Utility to check a status.
+	 * Utility to check a "status" term.
 	 *
-	 * @since 2.0
+	 * @since 2.0.1
 	 *
 	 * @param str $status The status to test.
 	 * @return bool $is_valid True if the status is valid, false otherwise.
 	 */
-	private function is_valid_status( $status ) {
+	private function is_valid_term( $status ) {
 
 		// assume invalid
 		$is_valid = false;
 
-		// -1 is a valid status (means none selected)
+		// -1 is not a valid status (means none selected)
 		if ( $status == '-1' ) {
-			$is_valid = true;
+			return $is_valid;
 		}
 
 		// other statuses must be integers

@@ -30,6 +30,10 @@ Prior to version 2.0, this plugin was known as *ANP Meetings*. Please deactivate
 
 == Changelog ==
 
+= 2.0 =
+* Major code refactoring
+* Removed CMB2 dependency
+
 = 1.3.0 =
 * Added meeting Options
 * Added default styling that can be overridden in options

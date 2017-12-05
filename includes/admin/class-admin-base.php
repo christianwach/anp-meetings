@@ -413,6 +413,60 @@
 
 
 
+	//##########################################################################
+
+
+
+	/**
+	 * Get WordPress plugin reference by name.
+	 *
+	 * This is required because we never know for sure what the enclosing directory
+	 * is called.
+	 *
+	 * @since 2.0.1
+	 *
+	 * @param str $plugin_name The name of the plugin.
+	 * @return str $path_to_plugin The path to the plugin or false on failure.
+	 */
+	public function find_plugin_by_name( $plugin_name = '' ) {
+
+		// kick out if no param supplied
+		if ( $plugin_name == '' ) return false;
+
+		// init path
+		$path_to_plugin = false;
+
+		// ensure function is available
+		if ( ! function_exists( 'get_plugins' ) ) {
+			require_once ABSPATH . 'wp-admin/includes/plugin.php';
+		}
+
+		// get plugins
+		$plugins = get_plugins();
+
+		// because the key is the path to the plugin file, we have to find the
+		// key by iterating over the values (which are arrays) to find the
+		// plugin with the name we want. Doh!
+		foreach( $plugins AS $key => $plugin ) {
+
+			// is it ours?
+			if ( $plugin['Name'] == $plugin_name ) {
+
+				// now get the key, which is our path
+				$path_to_plugin = $key;
+				break;
+
+			}
+
+		}
+
+		// --<
+		return $path_to_plugin;
+
+	}
+
+
+
 } // class ends
 
 

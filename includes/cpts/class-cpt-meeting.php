@@ -484,13 +484,10 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// get date value (yyyy-mm-dd)
 		$value = isset( $_POST[$this->date_meta_key] ) ? trim( $_POST[$this->date_meta_key] ) : 0;
 
-		// validate
-		$parts = explode( '-', $value );
-		if ( count( $parts ) !== 3 ) return; // must be yyyy-mm-dd
-		if ( ! wp_checkdate( $parts[1], $parts[2], $parts[0], $value ) ) return;
-
-		// save for this post
-		$this->save_meta( $post, $db_key, $value );
+		// save if valid
+		if ( $this->is_valid_date( $value ) ) {
+			$this->save_meta( $post, $db_key, $value );
+		}
 
 	}
 
@@ -515,6 +512,37 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 		// --<
 		return $data;
+
+	}
+
+
+
+	/**
+	 * Utility to check the format of a date.
+	 *
+	 * @since 2.0
+	 *
+	 * @param str $date The date to test in yyyy-mm-dd format.
+	 * @return bool $is_valid True if the date is valid, false otherwise.
+	 */
+	private function is_valid_date( $date ) {
+
+		// assume invalid
+		$is_valid = false;
+
+		// get parts
+		$parts = explode( '-', $date );
+
+		// bail if not yyyy-mm-dd
+		if ( count( $parts ) !== 3 ) return $is_valid;
+
+		// check parts
+		if ( wp_checkdate( $parts[1], $parts[2], $parts[0], $date ) ) {
+			$is_valid = true;
+		}
+
+		// --<
+		return $is_valid;
 
 	}
 

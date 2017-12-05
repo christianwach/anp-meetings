@@ -11,9 +11,11 @@
 
 		<hr>
 
-		<p><?php _e( 'To continue using this plugin, we need to migrate the ANP Meetings settings.', 'wordpress-meetings' ); ?></p>
+		<p><?php _e( 'To continue using this plugin, we need to migrate the Activist Network Meetings settings.', 'wordpress-meetings' ); ?></p>
 
-		<p><?php _e( 'After this is done, please deactivate the ANP Meetings plugin to continue to use Meetings.', 'wordpress-meetings' ); ?></p>
+		<p><?php _e( 'After this is done, this plugin will try and deactivate the Activist Network Meetings plugin.', 'wordpress-meetings' ); ?></p>
+
+		<p><?php _e( 'Please ensure that the Activist Network Meetings plugin has indeed been deactivated to continue to use this plugin.', 'wordpress-meetings' ); ?></p>
 
 		<hr>
 
