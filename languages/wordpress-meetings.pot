@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WordPress Meetings package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress Meetings 2.0\n"
+"Project-Id-Version: WordPress Meetings 2.0.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-meetings\n"
-"POT-Creation-Date: 2017-11-30 18:00:39+00:00\n"
+"POT-Creation-Date: 2017-12-11 20:42:47+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,6 +14,14 @@ msgstr ""
 
 #: assets/templates/admin/metabox-meeting-info.php:4
 msgid "Meeting Date"
+msgstr ""
+
+#: assets/templates/admin/metabox-meeting-info.php:8
+msgid "Start Time"
+msgstr ""
+
+#: assets/templates/admin/metabox-meeting-info.php:12
+msgid "End Time"
 msgstr ""
 
 #: assets/templates/admin/metabox-proposal-info.php:4
@@ -32,6 +40,26 @@ msgstr ""
 
 #: assets/templates/admin/metabox-proposal-info.php:20
 msgid "Date Effective"
+msgstr ""
+
+#: assets/templates/admin/migrate.php:4
+msgid "WordPress Meetings Migration"
+msgstr ""
+
+#: assets/templates/admin/migrate.php:14
+msgid "To continue using this plugin, we need to migrate the Activist Network Meetings settings."
+msgstr ""
+
+#: assets/templates/admin/migrate.php:16
+msgid "After this is done, this plugin will try and deactivate the Activist Network Meetings plugin."
+msgstr ""
+
+#: assets/templates/admin/migrate.php:18
+msgid "Please ensure that the Activist Network Meetings plugin has indeed been deactivated to continue to use this plugin."
+msgstr ""
+
+#: assets/templates/admin/migrate.php:23
+msgid "Migrate"
 msgstr ""
 
 #: assets/templates/admin/settings.php:4
@@ -114,20 +142,41 @@ msgstr ""
 msgid "Proposals"
 msgstr ""
 
-#: includes/admin/class-admin.php:169
-msgid "WordPress Meetings: Settings"
-msgstr ""
-
-#: includes/admin/class-admin.php:170 includes/cpts/class-cpt-meeting.php:112
-msgid "Meetings"
-msgstr ""
-
-#: includes/admin/class-admin.php:227
+#: includes/admin/class-admin-base.php:199
 msgid "WordPress Meetings"
 msgstr ""
 
-#: includes/admin/class-admin.php:248
+#: includes/admin/class-admin-base.php:220
 msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel iaculis leo. Fusce eget erat vitae justo vestibulum tincidunt efficitur id nunc. Vivamus id quam tempus, aliquam tortor nec, volutpat nisl. Ut venenatis aliquam enim, a placerat libero vehicula quis. Etiam neque risus, vestibulum facilisis erat a, tincidunt vestibulum nulla. Sed ultrices ante nulla. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Praesent maximus purus ac lacinia vulputate. Aenean ex quam, aliquet id feugiat et, cursus vel magna. Cras id congue ipsum, vel consequat libero."
+msgstr ""
+
+#: includes/admin/class-admin-base.php:475
+#: includes/admin/class-admin-migrate.php:352
+#: includes/admin/class-admin-settings.php:47
+#: includes/cpts/class-cpt-meeting.php:133
+msgid "Meetings"
+msgstr ""
+
+#: includes/admin/class-admin-base.php:486
+#: includes/admin/class-admin-migrate.php:363
+msgid "A category for Events associated with Meetings."
+msgstr ""
+
+#: includes/admin/class-admin-base.php:500
+#: includes/admin/class-admin-migrate.php:377
+msgid "Could not create term."
+msgstr ""
+
+#: includes/admin/class-admin-migrate.php:46
+msgid "WordPress Meetings: Migrate"
+msgstr ""
+
+#: includes/admin/class-admin-migrate.php:47
+msgid "Meetings: Migrate"
+msgstr ""
+
+#: includes/admin/class-admin-settings.php:46
+msgid "WordPress Meetings: Settings"
 msgstr ""
 
 #: includes/admin/required-plugins.php:66
@@ -192,14 +241,14 @@ msgid "Search Agendas"
 msgstr ""
 
 #: includes/cpts/class-cpt-agenda.php:107
-#: includes/cpts/class-cpt-meeting.php:123
+#: includes/cpts/class-cpt-meeting.php:144
 #: includes/cpts/class-cpt-proposal.php:137
 #: includes/cpts/class-cpt-summary.php:107
 msgid "Not found"
 msgstr ""
 
 #: includes/cpts/class-cpt-agenda.php:108
-#: includes/cpts/class-cpt-meeting.php:124
+#: includes/cpts/class-cpt-meeting.php:145
 #: includes/cpts/class-cpt-proposal.php:138
 #: includes/cpts/class-cpt-summary.php:108
 msgid "Not found in Trash"
@@ -214,14 +263,14 @@ msgid "Agenda updated. <a href=\"%s\">View agenda</a>"
 msgstr ""
 
 #: includes/cpts/class-cpt-agenda.php:203
-#: includes/cpts/class-cpt-meeting.php:222
+#: includes/cpts/class-cpt-meeting.php:243
 #: includes/cpts/class-cpt-proposal.php:236
 #: includes/cpts/class-cpt-summary.php:204
 msgid "Custom field updated."
 msgstr ""
 
 #: includes/cpts/class-cpt-agenda.php:204
-#: includes/cpts/class-cpt-meeting.php:223
+#: includes/cpts/class-cpt-meeting.php:244
 #: includes/cpts/class-cpt-proposal.php:237
 #: includes/cpts/class-cpt-summary.php:205
 msgid "Custom field deleted."
@@ -256,7 +305,7 @@ msgstr ""
 #. translators: Publish box date format, see http://php.net/date
 
 #: includes/cpts/class-cpt-agenda.php:239
-#: includes/cpts/class-cpt-meeting.php:258
+#: includes/cpts/class-cpt-meeting.php:279
 #: includes/cpts/class-cpt-proposal.php:272
 #: includes/cpts/class-cpt-summary.php:240
 msgid "M j, Y @ G:i"
@@ -266,18 +315,18 @@ msgstr ""
 msgid "Agenda draft updated. <a target=\"_blank\" href=\"%s\">Preview agenda</a>"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:110
+#: includes/cpts/class-cpt-meeting.php:131
 msgctxt "Post Type General Name"
 msgid "Meetings"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:111
+#: includes/cpts/class-cpt-meeting.php:132
 msgctxt "Post Type Singular Name"
 msgid "Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:113
-#: includes/cpts/class-cpt-meeting.php:152
+#: includes/cpts/class-cpt-meeting.php:134
+#: includes/cpts/class-cpt-meeting.php:173
 #: includes/wordpress-meetings-functions.php:239
 #: includes/wordpress-meetings-functions.php:250
 #: includes/wordpress-meetings-functions.php:262
@@ -285,82 +334,82 @@ msgstr ""
 msgid "Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:114
+#: includes/cpts/class-cpt-meeting.php:135
 msgid "Parent Meeting:"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:115
+#: includes/cpts/class-cpt-meeting.php:136
 msgid "All Meetings"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:116
-#: includes/cpts/class-cpt-meeting.php:117
+#: includes/cpts/class-cpt-meeting.php:137
+#: includes/cpts/class-cpt-meeting.php:138
 msgid "Add New Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:118
+#: includes/cpts/class-cpt-meeting.php:139
 msgid "New Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:119
+#: includes/cpts/class-cpt-meeting.php:140
 msgid "Edit Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:120
+#: includes/cpts/class-cpt-meeting.php:141
 msgid "Update Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:121
+#: includes/cpts/class-cpt-meeting.php:142
 msgid "View Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:122
+#: includes/cpts/class-cpt-meeting.php:143
 msgid "Search Meetings"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:153
+#: includes/cpts/class-cpt-meeting.php:174
 msgid "Custom post type for meetings"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:217
+#: includes/cpts/class-cpt-meeting.php:238
 msgid "Meeting updated. <a href=\"%s\">View meeting</a>"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:224
+#: includes/cpts/class-cpt-meeting.php:245
 msgid "Meeting updated."
 msgstr ""
 
 #. translators: %s: date and time of the revision
 
-#: includes/cpts/class-cpt-meeting.php:232
+#: includes/cpts/class-cpt-meeting.php:253
 msgid "Meeting restored to revision from %s"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:241
+#: includes/cpts/class-cpt-meeting.php:262
 msgid "Meeting published. <a href=\"%s\">View meeting</a>"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:246
+#: includes/cpts/class-cpt-meeting.php:267
 msgid "Meeting saved."
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:250
+#: includes/cpts/class-cpt-meeting.php:271
 msgid "Meeting submitted. <a target=\"_blank\" href=\"%s\">Preview meeting</a>"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:256
+#: includes/cpts/class-cpt-meeting.php:277
 msgid "Meeting scheduled for: <strong>%1$s</strong>. <a target=\"_blank\" href=\"%2$s\">Preview meeting</a>"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:265
+#: includes/cpts/class-cpt-meeting.php:286
 msgid "Meeting draft updated. <a target=\"_blank\" href=\"%s\">Preview meeting</a>"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:289
+#: includes/cpts/class-cpt-meeting.php:345
 msgid "Date"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:355
+#: includes/cpts/class-cpt-meeting.php:412
 msgid "Meeting Information"
 msgstr ""
 
@@ -386,8 +435,8 @@ msgid "Parent Proposal:"
 msgstr ""
 
 #: includes/cpts/class-cpt-proposal.php:129
-#: includes/cpts/class-cpt-proposal.php:598
-#: includes/cpts/class-cpt-proposal.php:599
+#: includes/cpts/class-cpt-proposal.php:601
+#: includes/cpts/class-cpt-proposal.php:602
 msgid "All Proposals"
 msgstr ""
 
@@ -397,8 +446,8 @@ msgid "Add New Proposal"
 msgstr ""
 
 #: includes/cpts/class-cpt-proposal.php:132
-#: includes/cpts/class-cpt-proposal.php:606
-#: includes/cpts/class-cpt-proposal.php:607
+#: includes/cpts/class-cpt-proposal.php:609
+#: includes/cpts/class-cpt-proposal.php:610
 msgid "New Proposal"
 msgstr ""
 
