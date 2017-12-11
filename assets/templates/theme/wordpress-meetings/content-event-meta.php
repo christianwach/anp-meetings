@@ -1,26 +1,35 @@
 <?php
 
-/*
- * Content Variables - DO NOT REMOVE.
- * Variables that can be used in the template.
- */
+global $post;
+
 $post_id = get_the_ID();
 $post_type = get_post_type( $post_id );
 
-?>
+// get connected meetings
+$connected_meetings = get_posts( array(
+	'post_status' => 'any',
+	'connected_type' => 'meeting_to_event',
+	'connected_items' => $post,
+	'nopaging' => true,
+	'suppress_filters' => false,
+) );
 
-<?php if ( 'meeting' == $post_type ) : ?>
+// loop, though there's only one
+foreach( $connected_meetings as $meeting ) {
 
-	<div class="meta meeting-meta">
-		<?php echo ( ! empty( $meeting_type ) ) ? __( 'Type: ', 'wordpress-meetings'	) . $meeting_type : ''; ?>
-	</div>
+	// get meeting type
+	$meeting_type = get_the_term_list( $meeting->ID, 'meeting_type', '<span class="meeting-type tag">', ', ', '</span>' );
 
-	<?php $events = (function_exists( 'meeting_get_event' ) ) ? meeting_get_event( $post_id ) : ''; ?>
+	// construct link to meeting
+	$link = '<a href="' . get_permalink( $meeting->ID ) . '">' . get_the_title( $meeting->ID ) . '</a>';
 
-	<?php if ( $events ) : ?>
-		<ul class="connected-content">
-			<?php echo ( $events ) ? $events : ''; ?>
-		</ul>
-	<?php endif; ?>
+}
 
+?><!-- assets/templates/theme/wordpress-meetings/content-event-meta.php -->
+<?php if ( ! empty( $link ) ) : ?>
+	<li><strong><?php _e( 'Meeting:', 'wordpress-meetings' ); ?></strong> <?php echo $link; ?></li>
+<?php endif; ?>
+
+<?php if ( ! empty( $meeting_type ) ) : ?>
+	<li><strong><?php _e( 'Meeting Type:', 'wordpress-meetings' ); ?></strong> <?php echo $meeting_type; ?></li>
 <?php endif; ?>

@@ -68,6 +68,9 @@ class WordPress_Meetings_CPT_Event {
 		// keep Event status in sync with Meeting status
 		add_action( 'wordpress_meetings_cpt_meeting_status', array( $this, 'event_status' ), 10, 3 );
 
+		// add link to Meeting to Event content
+		add_action( 'eventorganiser_additional_event_meta', array( $this, 'event_meta' ), 10 );
+
 	}
 
 
@@ -291,6 +294,28 @@ class WordPress_Meetings_CPT_Event {
 
 		// update the event
 		$event_id = eo_update_event( $args['event_id'], $post_data, $event_data );
+
+	}
+
+
+
+	/**
+	 * Modify Event Archive Meta Content.
+	 *
+	 * @since 1.1.0
+	 *
+	 * @return string $content
+	 */
+	public function event_meta() {
+
+		global $post;
+
+		// use template
+		$file = 'wordpress-meetings/content-event-meta.php';
+		$content = wordpress_meetings_template_buffer( $file );
+
+		// print to screen
+		echo $content;
 
 	}
 

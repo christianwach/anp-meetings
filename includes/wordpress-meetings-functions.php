@@ -463,27 +463,3 @@ function meeting_get_proposal( $post_id ) {
 
 
 
-/**
- * Modify Event Archive Meta Content.
- *
- * @since 1.1.0
- *
- * @return string $content
- */
-function wordpress_meetings_event_meta_content() {
-
-	global $post;
-
-	// use template
-	$file = 'wordpress-meetings/content-event-meta.php';
-	$content = wordpress_meetings_template_buffer( $file );
-
-	// --<
-	return $content;
-
-}
-
-add_action( 'eventorganiser_additional_event_meta', 'wordpress_meetings_event_meta_content' );
-
-
-

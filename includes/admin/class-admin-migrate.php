@@ -308,11 +308,11 @@
 			// no event data to update
 			$event_data = array();
 
-			// define as array
-			$terms = array( absint( $term->term_id ) );
-
 			// init post data
 			$post_data = array();
+
+			// define term as array
+			$terms = array( absint( $term->term_id ) );
 
 			// add to post data
 			$post_data['tax_input'] = array(
