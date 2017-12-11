@@ -216,6 +216,7 @@
 
 		// get all meetings
 		$meetings = get_posts( array(
+			'post_status' => 'any',
 			'post_type' => 'meeting',
 		) );
 
@@ -233,6 +234,7 @@
 
 		// get all proposals
 		$proposals = get_posts( array(
+			'post_status' => 'any',
 			'post_type' => 'proposal',
 		) );
 

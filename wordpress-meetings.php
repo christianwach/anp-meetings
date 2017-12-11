@@ -155,6 +155,7 @@ class WordPress_Meetings {
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-agenda.php' );
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-summary.php' );
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-proposal.php' );
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-event.php' );
 
 		// custom taxonomies
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/taxonomies/class-taxonomy-base.php' );
@@ -194,6 +195,7 @@ class WordPress_Meetings {
 		$this->cpts['agenda'] = new WordPress_Meetings_CPT_Agenda( $this );
 		$this->cpts['summary'] = new WordPress_Meetings_CPT_Summary( $this );
 		$this->cpts['proposal'] = new WordPress_Meetings_CPT_Proposal( $this );
+		$this->cpts['event'] = new WordPress_Meetings_CPT_Event( $this );
 
 		foreach( $this->cpts as $obj ) {
 			$obj->register_hooks();

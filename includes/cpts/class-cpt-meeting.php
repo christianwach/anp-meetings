@@ -89,6 +89,9 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// intercept save
 		add_action( 'save_post', array( $this, 'save_post' ), 1, 2 );
 
+		// intercept status changes
+		add_action( 'transition_post_status', array( $this, 'post_type_status' ), 10, 3 );
+
 	}
 
 
@@ -294,6 +297,41 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 
 	/**
+	 * Intercept status transition for Meetings.
+	 *
+	 * @since 2.0.1
+	 *
+	 * @param string $new_status The new post status.
+	 * @param string $old_status The old post status.
+	 * @param WP_Post $post The Meeting post object.
+	 */
+	public function post_type_status( $new_status, $old_status, $post ) {
+
+		// bail if not this post type
+		if ( $this->post_type_name !== $post->post_type ) return;
+
+		// remove our hook
+		remove_action( 'save_post', array( $this, 'save_post' ), 1 );
+
+		/**
+		 * Broadcast that the Meeting has transitioned status.
+		 *
+		 * @since 2.0.1
+		 *
+		 * @param string $new_status The new post status.
+		 * @param string $old_status The old post status.
+		 * @param WP_Post $post The Meeting post object.
+		 */
+		do_action( 'wordpress_meetings_cpt_' . $this->post_type_name . '_status', $new_status, $old_status, $post );
+
+		// rehook
+		add_action( 'save_post', array( $this, 'save_post' ), 1, 2 );
+
+	}
+
+
+
+	/**
 	 * Amend the columns shown in the listing table for this CPT.
 	 *
 	 * @since 2.0
@@ -426,7 +464,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->date_meta_key;
 
-		//if the custom field already has a value, grab it
+		// if the custom field already has a value, grab it
 		$date = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$date = get_post_meta( $post->ID, $key, true );
@@ -435,7 +473,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->start_time_meta_key;
 
-		//if the custom field already has a value, grab it
+		// if the custom field already has a value, grab it
 		$start_time = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$start_time = get_post_meta( $post->ID, $key, true );
@@ -444,7 +482,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->end_time_meta_key;
 
-		//if the custom field already has a value, grab it
+		// if the custom field already has a value, grab it
 		$end_time = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$end_time = get_post_meta( $post->ID, $key, true );
@@ -478,6 +516,10 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		</script>
 		<?php
 	}
+
+
+
+	// #########################################################################
 
 
 
@@ -541,34 +583,57 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		$db_key = '_' . $this->date_meta_key;
 
 		// get date value (yyyy-mm-dd)
-		$value = isset( $_POST[$this->date_meta_key] ) ? trim( $_POST[$this->date_meta_key] ) : 0;
+		$date = isset( $_POST[$this->date_meta_key] ) ? trim( $_POST[$this->date_meta_key] ) : 0;
 
 		// save if valid
-		if ( $this->is_valid_date( $value ) ) {
-			$this->save_meta( $post, $db_key, $value );
+		if ( $this->is_valid_date( $date ) ) {
+			$this->save_meta( $post, $db_key, $date );
 		}
 
 		// define key
 		$db_key = '_' . $this->start_time_meta_key;
 
 		// get time value (yyyy-mm-dd)
-		$value = isset( $_POST[$this->start_time_meta_key] ) ? trim( $_POST[$this->start_time_meta_key] ) : 0;
+		$start_time = isset( $_POST[$this->start_time_meta_key] ) ? trim( $_POST[$this->start_time_meta_key] ) : 0;
 
 		// save if valid
-		if ( $this->is_valid_time( $value ) ) {
-			$this->save_meta( $post, $db_key, $value );
+		if ( $this->is_valid_time( $start_time ) ) {
+			$this->save_meta( $post, $db_key, $start_time );
 		}
 
 		// define key
 		$db_key = '_' . $this->end_time_meta_key;
 
 		// get time value (yyyy-mm-dd)
-		$value = isset( $_POST[$this->end_time_meta_key] ) ? trim( $_POST[$this->end_time_meta_key] ) : 0;
+		$end_time = isset( $_POST[$this->end_time_meta_key] ) ? trim( $_POST[$this->end_time_meta_key] ) : 0;
 
 		// save if valid
-		if ( $this->is_valid_time( $value ) ) {
-			$this->save_meta( $post, $db_key, $value );
+		if ( $this->is_valid_time( $end_time ) ) {
+			$this->save_meta( $post, $db_key, $end_time );
 		}
+
+		// build array to pass to action
+		$metadata = array(
+			'date' => $date,
+			'start_time' => $start_time,
+			'end_time' => $end_time,
+		);
+
+		// remove our hook
+		remove_action( 'save_post', array( $this, 'save_post' ), 1 );
+
+		/**
+		 * Broadcast that the metadata for a Meeting has been saved.
+		 *
+		 * @since 2.0.1
+		 *
+		 * @param WP_Post $post The meeting post object.
+		 * @param array $metadata The meeting metadata.
+		 */
+		do_action( 'wordpress_meetings_cpt_' . $this->post_type_name . '_meta_saved', $post, $metadata );
+
+		// rehook
+		add_action( 'save_post', array( $this, 'save_post' ), 1, 2 );
 
 	}
 
