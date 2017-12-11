@@ -158,11 +158,11 @@
 		// migrate global settings
 		$this->settings_update_global();
 
-		// migrate settings for CPTs
-		$this->settings_update_cpts();
-
 		// create term
 		$this->term_create();
+
+		// migrate settings for CPTs
+		$this->settings_update_cpts();
 
 		// deactivate ANP Meetings
 		$anp = $this->find_plugin_by_name( 'Activist Network Meetings' );
@@ -236,6 +236,9 @@
 				'_wordpress_meetings_meeting_date' // new key
 			);
 
+			// assign term to events linked to this meeting
+			$this->assign_events_to_term( $meeting );
+
 		}
 
 		// get all proposals
@@ -260,6 +263,64 @@
 				'proposal_date_effective', // old key
 				'_wordpress_meetings_proposal_date_effective' // new key
 			);
+
+		}
+
+	}
+
+
+
+	/**
+	 * Assign term to Events linked to a Meeting.
+	 *
+	 * @since 2.0.1
+	 *
+	 * @param WP_Post $meeting The WordPress Meeting post object.
+	 */
+	private function assign_events_to_term( $meeting ) {
+
+		// bail if Event Organiser plugin is not present
+		if ( ! defined( 'EVENT_ORGANISER_VER' ) ) return;
+
+		// init title
+		$title = __( 'Meetings', 'wordpress-meetings' );
+
+		// try and match by term slug to see if a term exists
+		$term = get_term_by( 'slug', sanitize_title( $title ), 'event-category' );
+
+		// create the term if it doesn't exist
+		if ( $term === false ) {
+			$this->term_create();
+		}
+
+		// get connected events
+		$connected_events = get_posts( array(
+			'post_status' => 'any',
+			'connected_type' => 'meeting_to_event',
+			'connected_items' => $meeting,
+			'nopaging' => true,
+			'suppress_filters' => false,
+		) );
+
+		// loop, though there's only one
+		foreach( $connected_events as $event ) {
+
+			// no event data to update
+			$event_data = array();
+
+			// define as array
+			$terms = array( absint( $term->term_id ) );
+
+			// init post data
+			$post_data = array();
+
+			// add to post data
+			$post_data['tax_input'] = array(
+				'event-category' => $terms,
+			);
+
+			// update the event
+			$event_id = eo_update_event( $event->ID, $post_data, $event_data );
 
 		}
 
@@ -333,53 +394,6 @@
 
 		// --<
 		return $is_valid;
-
-	}
-
-
-
-	/**
-	 * Create an EO event-category term.
-	 *
-	 * @since 2.0.1
-	 */
-	public function term_create() {
-
-		// bail if Event Organiser plugin is not present
-		if ( ! defined( 'EVENT_ORGANISER_VER' ) ) return;
-
-		// init title
-		$title = __( 'Meetings', 'wordpress-meetings' );
-
-		// try and match by term slug to see if a term exists
-		$term = get_term_by( 'slug', sanitize_title( $title ), 'event-category' );
-
-		// bail if we already have one
-		if ( $term !== false ) return;
-
-		// construct args
-		$args = array(
-			'slug' => sanitize_title( $title ),
-			'description'=> __( 'A category for Events associated with Meetings.', 'wordpress-meetings' ),
-		);
-
-		// insert term
-		$result = wp_insert_term( $title, 'event-category', $args );
-
-		// if all goes well, we get: array( 'term_id' => 12, 'term_taxonomy_id' => 34 )
-		// if something goes wrong, we get a WP_Error object
-		if ( is_wp_error( $result ) ) {
-
-			$e = new Exception;
-			$trace = $e->getTraceAsString();
-			error_log( print_r( array(
-				'method' => __METHOD__,
-				'message' => __( 'Could not create term.', 'wordpress-meetings' ),
-				'result' => $result,
-				'backtrace' => $trace,
-			), true ) );
-
-		}
 
 	}
 
