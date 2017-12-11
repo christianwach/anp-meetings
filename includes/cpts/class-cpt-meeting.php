@@ -23,9 +23,27 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 	 *
 	 * @since 2.0
 	 * @access public
-	 * @var str $meeting_date The meta key for the Meeting Date.
+	 * @var str $date_meta_key The meta key for the Meeting Date.
 	 */
 	public $date_meta_key = 'wordpress_meetings_meeting_date';
+
+	/**
+	 * Meeting Start Time meta key.
+	 *
+	 * @since 2.0.1
+	 * @access public
+	 * @var str $start_time_meta_key The meta key for the Meeting Start Time.
+	 */
+	public $start_time_meta_key = 'wordpress_meetings_meeting_start_time';
+
+	/**
+	 * Meeting End Time meta key.
+	 *
+	 * @since 2.0.1
+	 * @access public
+	 * @var str $end_time_meta_key The meta key for the Meeting End Time.
+	 */
+	public $end_time_meta_key = 'wordpress_meetings_meeting_end_time';
 
 
 
@@ -310,6 +328,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 	 */
 	public function columns_populate( $column ) {
 
+		// bail if not date column
 		if ( 'meeting_date' !== $column ) return;
 
 		// get the date
@@ -375,13 +394,30 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// enqueue date picker
 		wp_enqueue_script( 'jquery-ui-datepicker' );
 
-		// trigger date picker
+		// enqueue time picker
+		wp_enqueue_script(
+			'jquery-timepicker',
+			WORDPRESS_MEETINGS_URL . 'assets/js/timepicker/jquery.timepicker.min.js',
+			array( 'jquery' ), // dependencies
+			WORDPRESS_MEETINGS_VERSION // version
+		);
+
+		// trigger date and time pickers
 		add_action( 'admin_footer', array( $this, 'metabox_js' ) );
 
-		// give it some style
+		// give datepicker some style
 		wp_enqueue_style(
 			'wordpress_meetings_datepicker',
 			WORDPRESS_MEETINGS_URL . 'assets/css/datepicker/jquery-ui.min.css',
+			array(), // dependencies
+			WORDPRESS_MEETINGS_VERSION, // version
+			'all' // media
+		);
+
+		// give timepicker some style
+		wp_enqueue_style(
+			'wordpress_meetings_timepicker',
+			WORDPRESS_MEETINGS_URL . 'assets/css/timepicker/jquery.timepicker.min.css',
 			array(), // dependencies
 			WORDPRESS_MEETINGS_VERSION, // version
 			'all' // media
@@ -394,6 +430,24 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		$date = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$date = get_post_meta( $post->ID, $key, true );
+		}
+
+		// set key
+		$key = '_' . $this->start_time_meta_key;
+
+		//if the custom field already has a value, grab it
+		$start_time = '';
+		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
+			$start_time = get_post_meta( $post->ID, $key, true );
+		}
+
+		// set key
+		$key = '_' . $this->end_time_meta_key;
+
+		//if the custom field already has a value, grab it
+		$end_time = '';
+		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
+			$end_time = get_post_meta( $post->ID, $key, true );
 		}
 
 		// include template file
@@ -414,6 +468,11 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		jQuery(document).ready(function(){
 			jQuery('.wp_datepicker').datepicker({
 				dateFormat : 'yy-mm-dd'
+			});
+			jQuery('.wp_timepicker').timepicker({
+				'scrollDefault' : 'now',
+				'step' : 15,
+				'timeFormat' : 'H:i'
 			});
 		});
 		</script>
@@ -489,6 +548,28 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 			$this->save_meta( $post, $db_key, $value );
 		}
 
+		// define key
+		$db_key = '_' . $this->start_time_meta_key;
+
+		// get time value (yyyy-mm-dd)
+		$value = isset( $_POST[$this->start_time_meta_key] ) ? trim( $_POST[$this->start_time_meta_key] ) : 0;
+
+		// save if valid
+		if ( $this->is_valid_time( $value ) ) {
+			$this->save_meta( $post, $db_key, $value );
+		}
+
+		// define key
+		$db_key = '_' . $this->end_time_meta_key;
+
+		// get time value (yyyy-mm-dd)
+		$value = isset( $_POST[$this->end_time_meta_key] ) ? trim( $_POST[$this->end_time_meta_key] ) : 0;
+
+		// save if valid
+		if ( $this->is_valid_time( $value ) ) {
+			$this->save_meta( $post, $db_key, $value );
+		}
+
 	}
 
 
@@ -540,6 +621,39 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		if ( wp_checkdate( $parts[1], $parts[2], $parts[0], $date ) ) {
 			$is_valid = true;
 		}
+
+		// --<
+		return $is_valid;
+
+	}
+
+
+
+	/**
+	 * Utility to check the format of a time.
+	 *
+	 * @since 2.0.1
+	 *
+	 * @param str $date The time to test in hh:mm format.
+	 * @return bool $is_valid True if the time is valid, false otherwise.
+	 */
+	private function is_valid_time( $time ) {
+
+		// assume invalid
+		$is_valid = false;
+
+		// get parts
+		$parts = explode( ':', $time );
+
+		// bail if not hh:mm
+		if ( count( $parts ) !== 2 ) return $is_valid;
+
+		// check parts
+		if ( absint( $parts[0] ) > 23 ) return $is_valid;
+		if ( absint( $parts[1] ) > 59 ) return $is_valid;
+
+		// we're good
+		$is_valid = true;
 
 		// --<
 		return $is_valid;
