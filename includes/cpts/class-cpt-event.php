@@ -289,8 +289,27 @@ class WordPress_Meetings_CPT_Event {
 
 		);
 
-		// we don't have any event post data
+		// init post data
 		$post_data = array();
+
+		// init title
+		$title = __( 'Meetings', 'wordpress-meetings' );
+
+		// try and match by term slug to see if a term exists
+		$term = get_term_by( 'slug', sanitize_title( $title ), 'event-category' );
+
+		// if we have it
+		if ( $term !== false ) {
+
+			// define term as array
+			$terms = array( absint( $term->term_id ) );
+
+			// add to post data
+			$post_data['tax_input'] = array(
+				'event-category' => $terms,
+			);
+
+		}
 
 		// update the event
 		$event_id = eo_update_event( $args['event_id'], $post_data, $event_data );
