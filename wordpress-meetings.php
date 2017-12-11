@@ -108,6 +108,10 @@ class WordPress_Meetings {
 	 */
 	public function initialise() {
 
+		// only once please
+		static $done;
+		if ( $done === true ) return;
+
 		// include files
 		$this->include_files();
 
@@ -116,6 +120,16 @@ class WordPress_Meetings {
 
 		// register hooks
 		$this->register_hooks();
+
+		/**
+		 * Broadcast that this plugin is loaded.
+		 *
+		 * @since 2.0.1
+		 */
+		do_action( 'wordpress_meetings_initialised' );
+
+		// set flag
+		$done = true;
 
 	}
 

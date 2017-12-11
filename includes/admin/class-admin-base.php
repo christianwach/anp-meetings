@@ -67,25 +67,22 @@
 		// load plugin version
 		$this->plugin_version = $this->version_get();
 
-		// perform any upgrade tasks
-		$this->upgrade_tasks();
-
 	}
 
 
 
 	/**
-	 * Perform activation tasks.
+	 * Register hooks on plugin init.
 	 *
 	 * @since 2.0
 	 */
-	public function activate() {
+	public function register_hooks() {
 
-		// store plugin version
-		$this->version_set();
+		// do upgrade tasks when plugin is loaded
+		add_action( 'wordpress_meetings_initialised', array( $this, 'upgrade_tasks' ) );
 
-		// add settings option
-		$this->settings_init();
+		// add menu item
+		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
 	}
 
@@ -128,25 +125,22 @@
 		}
 		*/
 
+		// if the current version is less than 2.0.1 and we're upgrading to 2.0.2+
+		if (
+			version_compare( $this->plugin_version, '2.0.1', '<' ) AND
+			version_compare( WORDPRESS_MEETINGS_VERSION, '2.0.1', '>=' )
+		) {
+
+			// add term
+			add_action( 'init', array( $this, 'term_create' ) );
+
+		}
+
 		// save settings
 		$this->settings_save();
 
 		// store new version
 		$this->version_set();
-
-	}
-
-
-
-	/**
-	 * Register hooks on plugin init.
-	 *
-	 * @since 2.0
-	 */
-	public function register_hooks() {
-
-		// add menu item
-		add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 
 	}
 
@@ -258,7 +252,7 @@
 	public function version_get() {
 
 		// retrieve version
-		return get_option( 'wordpress_meetings_version', WORDPRESS_MEETINGS_VERSION );
+		return get_option( 'wordpress_meetings_version', '' );
 
 	}
 
@@ -462,6 +456,53 @@
 
 		// --<
 		return $path_to_plugin;
+
+	}
+
+
+
+	/**
+	 * Create an EO event-category term.
+	 *
+	 * @since 2.0.1
+	 */
+	public function term_create() {
+
+		// bail if Event Organiser plugin is not present
+		if ( ! defined( 'EVENT_ORGANISER_VER' ) ) return;
+
+		// init title
+		$title = __( 'Meetings', 'wordpress-meetings' );
+
+		// try and match by term slug to see if a term exists
+		$term = get_term_by( 'slug', sanitize_title( $title ), 'event-category' );
+
+		// bail if we already have one
+		if ( $term !== false ) return;
+
+		// construct args
+		$args = array(
+			'slug' => sanitize_title( $title ),
+			'description'=> __( 'A category for Events associated with Meetings.', 'wordpress-meetings' ),
+		);
+
+		// insert term
+		$result = wp_insert_term( $title, 'event-category', $args );
+
+		// if all goes well, we get: array( 'term_id' => 12, 'term_taxonomy_id' => 34 )
+		// if something goes wrong, we get a WP_Error object
+		if ( is_wp_error( $result ) ) {
+
+			$e = new Exception;
+			$trace = $e->getTraceAsString();
+			error_log( print_r( array(
+				'method' => __METHOD__,
+				'message' => __( 'Could not create term.', 'wordpress-meetings' ),
+				'result' => $result,
+				'backtrace' => $trace,
+			), true ) );
+
+		}
 
 	}
 
