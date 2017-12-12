@@ -83,9 +83,6 @@ function wordpress_meetings_cpt_title( $connection_type ) {
 		array_push( $title_parts, '<span class="post-type">' . $post_type_name . '</span>' );
 	}
 
-	// the query
-	$meetings = new WP_Query( $args );
-
 	// define query args
 	$query_args = array(
 		'connected_type' => $connection_type,
@@ -272,17 +269,17 @@ function wordpress_meetings_connection_types() {
 	 * @link https://github.com/scribu/wp-posts-to-posts/wiki/p2p_register_connection_type
 	 */
 	if ( post_type_exists( 'event' ) ) {
-	  p2p_register_connection_type( array(
-		  'name' => 'meeting_to_event',
-		  'from' => 'meeting',
-		  'to' => 'event',
-		  'reciprocal' => true,
-		  'cardinality' => 'one-to-one',
-		  'admin_column' => true,
-		  'admin_dropdown' => 'any',
-		  'sortable' => 'any',
-		  'title' => array( 'from' => __( 'Event', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
-	  ) );
+		p2p_register_connection_type( array(
+			'name' => 'meeting_to_event',
+			'from' => 'meeting',
+			'to' => 'event',
+			'reciprocal' => true,
+			'cardinality' => 'one-to-one',
+			'admin_column' => true,
+			'admin_dropdown' => 'any',
+			'sortable' => 'any',
+			'title' => array( 'from' => __( 'Event', 'wordpress-meetings' ), 'to' => __( 'Meeting', 'wordpress-meetings' ) ),
+		) );
 	}
 
 }
@@ -333,10 +330,10 @@ function meeting_get_agenda( $post_id ) {
 	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
 	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
 
-	$content = sprintf( '<li class="agenda-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
-	  get_post_permalink( $post->ID ),
-	  ( $post_type_name ) ? $post_type_name : $post->post_title,
-	  ( $post_type_name ) ? $post_type_name : $post->post_title
+	$content = sprintf( '<li class="agenda-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
+		get_post_permalink( $post->ID ),
+		( $post_type_name ) ? $post_type_name : $post->post_title,
+		( $post_type_name ) ? $post_type_name : $post->post_title
 	);
 
 	// Filter added to allow content be overriden
@@ -362,7 +359,7 @@ function meeting_get_summary( $post_id ) {
 	$summaries = get_posts( $query_args );
 
 	if ( empty( $summaries ) ) {
-	  return;
+		return;
 	}
 
 	$post = $summaries[0];
@@ -370,10 +367,11 @@ function meeting_get_summary( $post_id ) {
 	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
 	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
 
-	$content = sprintf( '<li class="summary-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
-	  get_post_permalink( $post->ID ),
-	  ( $post_type_name ) ? esc_attr( $post_type_name ) : esc_attr( $post->post_title ),
-	  ( $post_type_name ) ? $post_type_name : $post->post_title
+	$content = sprintf(
+		'<li class="summary-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
+		get_post_permalink( $post->ID ),
+		( $post_type_name ) ? esc_attr( $post_type_name ) : esc_attr( $post->post_title ),
+		( $post_type_name ) ? $post_type_name : $post->post_title
 	);
 
 	// Filter added to allow content be overriden
@@ -399,7 +397,7 @@ function meeting_get_proposal( $post_id ) {
 	$proposals = get_posts( $query_args );
 
 	if ( empty( $proposals ) ) {
-	  return;
+		return;
 	}
 
 	$url = array(
@@ -408,10 +406,11 @@ function meeting_get_proposal( $post_id ) {
 		'connected_direction' => 'from'
 	);
 
-	$content = sprintf( '<li class="proposal-link"><a href="%s" rel="bookmark" title="View %s"><span class="link-text">%s</span></a></li>',
-	  esc_url( add_query_arg( $url ) ),
-	  ( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' ),
-	  ( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' )
+	$content = sprintf(
+		'<li class="proposal-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
+		esc_url( add_query_arg( $url ) ),
+		( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' ),
+		( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' )
 	);
 
 	// Filter added to allow content be overriden
@@ -428,36 +427,37 @@ function meeting_get_proposal( $post_id ) {
  *
  * @since 1.0.0
  *
- * @param  int $post_id
+ * @param	int $post_id
  * @return string event
  */
  function meeting_get_event( $post_id ) {
 
-	 $query_args = array(
-		 'connected_type' => 'meeting_to_event',
-		 'connected_items' => intval( $post_id ),
-		 'nopaging' => true
-	 );
+	$query_args = array(
+		'connected_type' => 'meeting_to_event',
+		'connected_items' => intval( $post_id ),
+		'nopaging' => true
+	);
 
-	 $events = get_posts( $query_args );
+	$events = get_posts( $query_args );
 
-	 if ( empty( $events ) ) {
-	   return;
-	 }
+	if ( empty( $events ) ) {
+		return;
+	}
 
-	 $post = $events[0];
+	$post = $events[0];
 
-	 $post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
-	 $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
+	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
+	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
 
-	 $content = sprintf( '<li class="event-link"><a href="%s" rel="bookmark" Title="View %s"><span class="link-text">%s</span></a></li>',
-	   get_post_permalink( $post->ID ),
-	   ( $post_type_name ) ? $post_type_name : $post->post_title,
-	   ( $post_type_name ) ? $post_type_name : $post->post_title
-	 );
+	$content = sprintf(
+		'<li class="event-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
+		get_post_permalink( $post->ID ),
+		( $post_type_name ) ? $post_type_name : $post->post_title,
+		( $post_type_name ) ? $post_type_name : $post->post_title
+	);
 
-	 // Filter added to allow content be overriden
-	 return apply_filters( 'meeting_get_event_content', $content, $post_id );
+	// Filter added to allow content be overriden
+	return apply_filters( 'meeting_get_event_content', $content, $post_id );
 
 }
 
