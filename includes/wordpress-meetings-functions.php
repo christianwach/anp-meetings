@@ -215,36 +215,57 @@ if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
 
 
 /**
- * Agenda.
+ * Return markup to link to an Agenda connected to a Meeting.
  *
- * Render agenda associated with content.
+ * @since 1.0.0
+ *
+ * @param int $post_id The numeric ID of the Meeting.
+ * @return string $content The rendered list item showing the Agenda.
  */
 function meeting_get_agenda( $post_id ) {
 
+	// build query (do not show drafts)
 	$query_args = array(
 		'connected_type' => 'meeting_to_agenda',
 		'connected_items' => intval( $post_id ),
 		'nopaging' => true
 	);
 
+	// get agendas
 	$agendas = get_posts( $query_args );
 
+	// return empty string if there's no Agenda
 	if ( empty( $agendas ) ) {
 		return;
 	}
 
-	$post = $agendas[0];
+	// one-to-one means there's only a single Agenda
+	$agenda = $agendas[0];
 
+	// get post type name, fall back to Agenda title
 	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
-	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
+	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : $agenda->post_title;
 
-	$content = sprintf( '<li class="agenda-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
-		get_post_permalink( $post->ID ),
-		( $post_type_name ) ? $post_type_name : $post->post_title,
-		( $post_type_name ) ? $post_type_name : $post->post_title
+	// construct title attribute
+	$title = sprintf( __( 'View %s', 'wordpress-meetings' ), $post_type_name );
+
+	// construct list item
+	$content = sprintf(
+		'<li class="agenda-link"><a href="%1$s" rel="bookmark" title="%2$s"><span class="link-text">%3$s</span></a></li>',
+		get_permalink( $summary->ID ),
+		esc_attr( $title ),
+		esc_html( $title )
 	);
 
-	// Filter added to allow content be overriden
+	/**
+	 * Allow content be filtered.
+	 *
+	 * @since 1.0
+	 *
+	 * @param str $content The rendered list item.
+	 * @param int $post_id The numeric ID of the Meeting.
+	 * @return str $content The modified list item.
+	 */
 	return apply_filters( 'meeting_get_agenda_content', $content, $post_id );
 
 }
@@ -252,37 +273,57 @@ function meeting_get_agenda( $post_id ) {
 
 
 /**
- * Summary.
+ * Return markup to link to a Summary connected to a Meeting.
  *
- * Render summary associated with content.
+ * @since 1.0.0
+ *
+ * @param int $post_id The numeric ID of the Meeting.
+ * @return string $content The rendered list item showing the Summary.
  */
 function meeting_get_summary( $post_id ) {
 
+	// build query (do not show drafts)
 	$query_args = array(
 		'connected_type' => 'meeting_to_summary',
 		'connected_items' => intval( $post_id ),
 		'nopaging' => true
 	);
 
+	// get summaries
 	$summaries = get_posts( $query_args );
 
+	// return empty string if there's no Summary
 	if ( empty( $summaries ) ) {
-		return;
+		return '';
 	}
 
-	$post = $summaries[0];
+	// one-to-one means there's only a single Summary
+	$summary = $summaries[0];
 
-	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
-	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
+	// get post type name, fall back to Summary title
+	$post_type_obj = get_post_type_object( get_post_type( $summary->ID ) );
+	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : $summary->post_title;
 
+	// construct title attribute
+	$title = sprintf( __( 'View %s', 'wordpress-meetings' ), $post_type_name );
+
+	// construct list item
 	$content = sprintf(
-		'<li class="summary-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
-		get_post_permalink( $post->ID ),
-		( $post_type_name ) ? esc_attr( $post_type_name ) : esc_attr( $post->post_title ),
-		( $post_type_name ) ? $post_type_name : $post->post_title
+		'<li class="summary-link"><a href="%1$s" rel="bookmark" title="%2$s"><span class="link-text">%3$s</span></a></li>',
+		get_permalink( $summary->ID ),
+		esc_attr( $title ),
+		esc_html( $title )
 	);
 
-	// Filter added to allow content be overriden
+	/**
+	 * Allow content be filtered.
+	 *
+	 * @since 1.0
+	 *
+	 * @param str $content The rendered list item.
+	 * @param int $post_id The numeric ID of the Meeting.
+	 * @return str $content The modified list item.
+	 */
 	return apply_filters( 'meeting_get_summary_content', $content, $post_id );
 
 }
@@ -290,22 +331,31 @@ function meeting_get_summary( $post_id ) {
 
 
 /**
- * Proposal.
+ * Return markup to link to the Proposals connected to a Meeting.
  *
- * Render proposal associated with content.
+ * At present, this does not function as expected. The UI probably needs a
+ * rethink, since there can be multiple Proposals per Meeting.
+ *
+ * @since 1.0.0
+ *
+ * @param int $post_id The numeric ID of the Meeting.
+ * @return string $content The rendered list showing the Proposals.
  */
 function meeting_get_proposal( $post_id ) {
 
+	// build query (do not show drafts)
 	$query_args = array(
 		'connected_type' => 'meeting_to_proposal',
 		'connected_items' => intval( $post_id ),
 		'nopaging' => true
 	);
 
+	// get proposals
 	$proposals = get_posts( $query_args );
 
+	// return empty string if there are no Proposals
 	if ( empty( $proposals ) ) {
-		return;
+		return '';
 	}
 
 	$url = array(
@@ -314,6 +364,7 @@ function meeting_get_proposal( $post_id ) {
 		'connected_direction' => 'from'
 	);
 
+	// construct list item
 	$content = sprintf(
 		'<li class="proposal-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
 		esc_url( add_query_arg( $url ) ),
@@ -321,7 +372,15 @@ function meeting_get_proposal( $post_id ) {
 		( 1 == count( $proposals ) ) ? __( 'Proposal', 'wordpress-meetings' ) : __( 'Proposals', 'wordpress-meetings' )
 	);
 
-	// Filter added to allow content be overriden
+	/**
+	 * Allow content be filtered.
+	 *
+	 * @since 1.0
+	 *
+	 * @param str $content The rendered list item.
+	 * @param int $post_id The numeric ID of the Meeting.
+	 * @return str $content The modified list item.
+	 */
 	return apply_filters( 'meeting_get_proposal_content', $content, $post_id );
 
 }
@@ -329,42 +388,57 @@ function meeting_get_proposal( $post_id ) {
 
 
 /**
- * Get Events.
- *
- * Return event connected to post.
+ * Return markup to link to an Event connected to a Meeting.
  *
  * @since 1.0.0
  *
- * @param	int $post_id
- * @return string event
+ * @param int $post_id The numeric ID of the Meeting.
+ * @return string $content The rendered list item showing the Event.
  */
  function meeting_get_event( $post_id ) {
 
+	// build query (do not show drafts)
 	$query_args = array(
 		'connected_type' => 'meeting_to_event',
 		'connected_items' => intval( $post_id ),
 		'nopaging' => true
 	);
 
+	// get events
 	$events = get_posts( $query_args );
 
+	// return empty string if there's no Event
 	if ( empty( $events ) ) {
-		return;
+		return '';
 	}
 
-	$post = $events[0];
+	// one-to-one means there's only a single Event
+	$event = $events[0];
 
-	$post_type_obj = get_post_type_object( get_post_type( $post->ID ) );
-	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : '';
+	// get post type name, fall back to Event title
+	$post_type_obj = get_post_type_object( get_post_type( $event->ID ) );
+	$post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : $event->post_title;
 
+	// construct title attribute
+	$title = sprintf( __( 'View %s', 'wordpress-meetings' ), $post_type_name );
+
+	// construct list item
 	$content = sprintf(
-		'<li class="event-link"><a href="%1$s" rel="bookmark" title="View %2$s"><span class="link-text">%3$s</span></a></li>',
-		get_post_permalink( $post->ID ),
-		( $post_type_name ) ? $post_type_name : $post->post_title,
-		( $post_type_name ) ? $post_type_name : $post->post_title
+		'<li class="event-link"><a href="%1$s" rel="bookmark" title="%2$s"><span class="link-text">%3$s</span></a></li>',
+		get_permalink( $event->ID ),
+		esc_attr( $title ),
+		esc_html( $title )
 	);
 
-	// Filter added to allow content be overriden
+	/**
+	 * Allow content be filtered.
+	 *
+	 * @since 1.0
+	 *
+	 * @param str $content The rendered list item.
+	 * @param int $post_id The numeric ID of the Meeting.
+	 * @return str $content The modified list item.
+	 */
 	return apply_filters( 'meeting_get_event_content', $content, $post_id );
 
 }
