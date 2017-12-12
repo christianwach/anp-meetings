@@ -26,8 +26,8 @@ get_header(); ?>
 		<main id="main" class="site-main meetings-archive" role="main">
 
 		<div class="archive-heading">
-			<div class="heading-title" role="heading"><?php __( 'Title', 'wordpress-meetings' ); ?></div>
-			<div class="heading-date" role="heading"><?php __( 'Details', 'wordpress-meetings' ); ?></div>
+			<div class="heading-title" role="heading"><?php _e( 'Title', 'wordpress-meetings' ); ?></div>
+			<div class="heading-date" role="heading"><?php _e( 'Details', 'wordpress-meetings' ); ?></div>
 		</div>
 
 		<?php if ( have_posts() ) : ?>
