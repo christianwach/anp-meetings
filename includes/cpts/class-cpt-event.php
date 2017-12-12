@@ -362,7 +362,7 @@ class WordPress_Meetings_CPT_Event {
 
 		// use template
 		$file = 'wordpress-meetings/content-event-meta.php';
-		$content = wordpress_meetings_template_buffer( $file );
+		$content = wp_meetings_template_buffer( $file );
 
 		// print to screen
 		echo $content;
@@ -382,7 +382,7 @@ class WordPress_Meetings_CPT_Event {
  *
  * @return bool $has_type True if the Event has a Meeting type, false otherwise.
  */
-function wordpress_meetings_event_has_meeting_type() {
+function wp_meetings_event_has_meeting_type() {
 
 	// assume not
 	$has_type = false;
@@ -404,8 +404,8 @@ function wordpress_meetings_event_has_meeting_type() {
  *
  * @since 2.0.2
  */
-function wordpress_meetings_event_meeting_type() {
-	echo wordpress_meetings_event_get_meeting_type();
+function wp_meetings_event_meeting_type() {
+	echo wp_meetings_event_get_meeting_type();
 }
 
 /**
@@ -415,7 +415,7 @@ function wordpress_meetings_event_meeting_type() {
  *
  * @return str $markup The current Event's Meeting type markup.
  */
-function wordpress_meetings_event_get_meeting_type() {
+function wp_meetings_event_get_meeting_type() {
 
 	// assume none
 	$markup = '';
@@ -439,7 +439,7 @@ function wordpress_meetings_event_get_meeting_type() {
  *
  * @return bool $has_link True if the Event has a Meeting link, false otherwise.
  */
-function wordpress_meetings_event_has_meeting_link() {
+function wp_meetings_event_has_meeting_link() {
 
 	// assume not
 	$has_link = false;
@@ -461,8 +461,8 @@ function wordpress_meetings_event_has_meeting_link() {
  *
  * @since 2.0.2
  */
-function wordpress_meetings_event_meeting_link() {
-	echo wordpress_meetings_event_get_meeting_link();
+function wp_meetings_event_meeting_link() {
+	echo wp_meetings_event_get_meeting_link();
 }
 
 /**
@@ -472,7 +472,7 @@ function wordpress_meetings_event_meeting_link() {
  *
  * @return str $markup The current Event's Meeting link markup.
  */
-function wordpress_meetings_event_get_meeting_link() {
+function wp_meetings_event_get_meeting_link() {
 
 	// assume none
 	$markup = '';

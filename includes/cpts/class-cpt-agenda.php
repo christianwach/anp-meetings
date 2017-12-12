@@ -323,7 +323,7 @@ class WordPress_Meetings_CPT_Agenda extends WordPress_Meetings_CPT_Common {
 		}
 
 		// use common function
-		$title = wordpress_meetings_cpt_title( 'meeting_to_agenda' );
+		$title = wp_meetings_cpt_title( 'meeting_to_agenda' );
 
 		// --<
 		return $title;

@@ -137,7 +137,7 @@ class WordPress_Meetings_Taxonomy_Base {
 		}
 
 		// use common function
-		wordpress_meetings_enqueue_styles();
+		wp_meetings_enqueue_styles();
 
 	}
 
@@ -163,7 +163,7 @@ class WordPress_Meetings_Taxonomy_Base {
 
 		// use template
 		$file = 'wordpress-meetings/archive.php';
-		$template_path = wordpress_meetings_template_get( $file );
+		$template_path = wp_meetings_template_get( $file );
 
 		// --<
 		return $template_path;
@@ -194,7 +194,7 @@ class WordPress_Meetings_Taxonomy_Base {
 
 		// archive template
 		$file = 'wordpress-meetings/content-archive.php';
-		$content = wordpress_meetings_template_buffer( $file );
+		$content = wp_meetings_template_buffer( $file );
 
 		// --<
 		return $content;

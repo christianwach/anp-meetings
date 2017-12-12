@@ -35,7 +35,7 @@ get_header(); ?>
 
 			while ( have_posts() ) : the_post();
 				$file = 'wordpress-meetings/content-archive.php';
-				$template_path = wordpress_meetings_template_get( $file );
+				$template_path = wp_meetings_template_get( $file );
 				include( $template_path );
 				//get_template_part( 'assets/templates/content', 'archive' );
 			endwhile;

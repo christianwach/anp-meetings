@@ -324,7 +324,7 @@ class WordPress_Meetings_CPT_Summary extends WordPress_Meetings_CPT_Common {
 		}
 
 		// use common function
-		$title = wordpress_meetings_cpt_title( 'meeting_to_summary' );
+		$title = wp_meetings_cpt_title( 'meeting_to_summary' );
 
 		// --<
 		return $title;

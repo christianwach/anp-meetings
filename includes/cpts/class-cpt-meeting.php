@@ -795,7 +795,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		}
 
 		// use common function
-		$title = wordpress_meetings_meeting_title();
+		$title = wp_meetings_meeting_title();
 
 		// --<
 		return $title;

@@ -174,7 +174,7 @@ class WordPress_Meetings_Taxonomy_Meeting_Tag extends WordPress_Meetings_Taxonom
 		}
 
 		// use common function
-		$title = wordpress_meetings_meeting_title();
+		$title = wp_meetings_meeting_title();
 
 		// --<
 		return $title;

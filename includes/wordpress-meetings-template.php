@@ -144,7 +144,7 @@ class WordPress_Meetings_Template {
  * @param str $file The relative path to the template file.
  * @param str $template The absolute path to the template file.
  */
-function wordpress_meetings_template_get( $file ) {
+function wp_meetings_template_get( $file ) {
 
 	// get template
 	$template = wordpress_meetings()->template->find_file( $file );
@@ -164,10 +164,10 @@ function wordpress_meetings_template_get( $file ) {
  * @param str $file The relative path to the template file.
  * @param str $template The absolute path to the template file.
  */
-function wordpress_meetings_template_buffer( $file ) {
+function wp_meetings_template_buffer( $file ) {
 
 	// get template part
-	$template = wordpress_meetings_template_get( $file );
+	$template = wp_meetings_template_get( $file );
 
 	// buffer the template part
 	ob_start();

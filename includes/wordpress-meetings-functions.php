@@ -18,7 +18,7 @@
  *
  * @return str $title The modified title.
  */
-function wordpress_meetings_meeting_title() {
+function wp_meetings_meeting_title() {
 
 	global $post;
 
@@ -68,7 +68,7 @@ function wordpress_meetings_meeting_title() {
  * @param str $connection_type The connection type.
  * @return str $title The modified title.
  */
-function wordpress_meetings_cpt_title( $connection_type ) {
+function wp_meetings_cpt_title( $connection_type ) {
 
 	global $post;
 
@@ -147,7 +147,7 @@ function wordpress_meetings_cpt_title( $connection_type ) {
  *
  * @since 2.0
  */
-function wordpress_meetings_enqueue_styles() {
+function wp_meetings_enqueue_styles() {
 
 	// only do this once
 	static $done;
@@ -186,9 +186,9 @@ function wordpress_meetings_enqueue_styles() {
  *
  * Commented out @since 1.0.9
  */
-if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
+if ( ! function_exists( 'wp_meetings_pre_get_posts' ) ) {
 
-	function wordpress_meetings_pre_get_posts( $query ) {
+	function wp_meetings_pre_get_posts( $query ) {
 
 		// Do not modify queries in the admin or other queries (like nav)
 		if ( is_admin() || ! $query->is_main_query() ) {
@@ -208,7 +208,7 @@ if ( ! function_exists( 'wordpress_meetings_pre_get_posts' ) ) {
 
 	}
 
-	//add_action( 'pre_get_posts', 'wordpress_meetings_pre_get_posts' );
+	//add_action( 'pre_get_posts', 'wp_meetings_pre_get_posts' );
 
 }
 

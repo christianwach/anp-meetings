@@ -181,7 +181,7 @@ class WordPress_Meetings_CPT_Common {
 		}
 
 		// use common function
-		wordpress_meetings_enqueue_styles();
+		wp_meetings_enqueue_styles();
 
 	}
 
@@ -207,7 +207,7 @@ class WordPress_Meetings_CPT_Common {
 
 		// use template
 		$file = 'wordpress-meetings/archive.php';
-		$template_path = wordpress_meetings_template_get( $file );
+		$template_path = wp_meetings_template_get( $file );
 
 		// --<
 		return $template_path;
@@ -239,7 +239,7 @@ class WordPress_Meetings_CPT_Common {
 		// archive template
 		if ( is_post_type_archive( $this->post_type_name ) ) {
 			$file = 'wordpress-meetings/content-archive.php';
-			$content = wordpress_meetings_template_buffer( $file );
+			$content = wp_meetings_template_buffer( $file );
 		}
 
 		// singular template
@@ -249,11 +249,11 @@ class WordPress_Meetings_CPT_Common {
 
 			// meta template
 			$file = 'wordpress-meetings/content-single-meta.php';
-			$meta = wordpress_meetings_template_buffer( $file );
+			$meta = wp_meetings_template_buffer( $file );
 
 			// nav template
 			$file = 'wordpress-meetings/content-single-nav.php';
-			$nav = wordpress_meetings_template_buffer( $file );
+			$nav = wp_meetings_template_buffer( $file );
 
 			// wrap in div
 			$header = '<div class="wp-meetings-meta">' . $meta . $nav . '</div>';
@@ -262,8 +262,8 @@ class WordPress_Meetings_CPT_Common {
 			$content = $header . $content;
 
 			// footer template
-			$file = 'wordpress-meetings/single-footer.php';
-			$footer = wordpress_meetings_template_buffer( $file );
+			$file = 'wordpress-meetings/content-single-footer.php';
+			$footer = wp_meetings_template_buffer( $file );
 
 			// append footer
 			$content = $content . $footer;
