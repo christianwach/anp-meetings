@@ -329,6 +329,37 @@ class WordPress_Meetings_CPT_Event {
 
 		global $post;
 
+		// init properties
+		$this->meeting_type = '';
+		$this->meeting_link = '';
+
+		$post_id = get_the_ID();
+		$post_type = get_post_type( $post_id );
+
+		// get connected meetings
+		$connected_meetings = get_posts( array(
+			'post_status' => 'any',
+			'connected_type' => 'meeting_to_event',
+			'connected_items' => $post,
+			'nopaging' => true,
+			'suppress_filters' => false,
+		) );
+
+		// loop, though there's only one
+		foreach( $connected_meetings as $meeting ) {
+
+			// get meeting type
+			$this->meeting_type = get_the_term_list(
+				$meeting->ID, 'meeting_type', '<span class="meeting-type tag">', ', ', '</span>'
+			);
+
+			// construct link to meeting
+			$this->meeting_link = '<a href="' . get_permalink( $meeting->ID ) . '">' .
+				get_the_title( $meeting->ID ) .
+			'</a>';
+
+		}
+
 		// use template
 		$file = 'wordpress-meetings/content-event-meta.php';
 		$content = wordpress_meetings_template_buffer( $file );
@@ -341,6 +372,120 @@ class WordPress_Meetings_CPT_Event {
 
 
 } // class ends
+
+
+
+/**
+ * Does the current Event have a Meeting type.
+ *
+ * @since 2.0.2
+ *
+ * @return bool $has_type True if the Event has a Meeting type, false otherwise.
+ */
+function wordpress_meetings_event_has_meeting_type() {
+
+	// assume not
+	$has_type = false;
+
+	$plugin = wordpress_meetings();
+	if ( ! empty( $plugin->cpts['event']->meeting_type ) ) {
+		$has_type = true;
+	}
+
+	// --<
+	return $has_type;
+
+}
+
+
+
+/**
+ * Echo the current Event's Meeting type markup.
+ *
+ * @since 2.0.2
+ */
+function wordpress_meetings_event_meeting_type() {
+	echo wordpress_meetings_event_get_meeting_type();
+}
+
+/**
+ * Retrieve the current Event's Meeting type markup.
+ *
+ * @since 2.0.2
+ *
+ * @return str $markup The current Event's Meeting type markup.
+ */
+function wordpress_meetings_event_get_meeting_type() {
+
+	// assume none
+	$markup = '';
+
+	$plugin = wordpress_meetings();
+	if ( ! empty( $plugin->cpts['event']->meeting_type ) ) {
+		$markup = $plugin->cpts['event']->meeting_type;
+	}
+
+	// --<
+	return $markup;
+
+}
+
+
+
+/**
+ * Does the current Event have a Meeting link.
+ *
+ * @since 2.0.2
+ *
+ * @return bool $has_link True if the Event has a Meeting link, false otherwise.
+ */
+function wordpress_meetings_event_has_meeting_link() {
+
+	// assume not
+	$has_link = false;
+
+	$plugin = wordpress_meetings();
+	if ( ! empty( $plugin->cpts['event']->meeting_link ) ) {
+		$has_link = true;
+	}
+
+	// --<
+	return $has_link;
+
+}
+
+
+
+/**
+ * Echo the current Event's Meeting link markup.
+ *
+ * @since 2.0.2
+ */
+function wordpress_meetings_event_meeting_link() {
+	echo wordpress_meetings_event_get_meeting_link();
+}
+
+/**
+ * Retrieve the current Event's Meeting link markup.
+ *
+ * @since 2.0.2
+ *
+ * @return str $markup The current Event's Meeting link markup.
+ */
+function wordpress_meetings_event_get_meeting_link() {
+
+	// assume none
+	$markup = '';
+
+	$plugin = wordpress_meetings();
+	if ( ! empty( $plugin->cpts['event']->meeting_link ) ) {
+		$markup = $plugin->cpts['event']->meeting_link;
+	}
+
+	// --<
+	return $markup;
+
+}
 
 
 
