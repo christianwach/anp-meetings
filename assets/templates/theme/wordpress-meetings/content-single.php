@@ -42,37 +42,6 @@ if ( ! empty( $date_effective_raw ) ) {
 	$date_accepted = mysql2date( get_option('date_format'), $date_effective_raw, false);
 }
 
-// Associated Content
-$queried_obj = get_queried_object();
-
-$connected_agenda = get_posts( array(
-	'connected_type' => 'meeting_to_agenda',
-	'connected_items' => $queried_obj,
-	'nopaging' => true,
-	'suppress_filters' => false
-) );
-
-$connected_summary = get_posts( array(
-	'connected_type' => 'meeting_to_summary',
-	'connected_items' => $queried_obj,
-	'nopaging' => true,
-	'suppress_filters' => false
-) );
-
-$connected_proposal = get_posts( array(
-	'connected_type' => 'meeting_to_proposal',
-	'connected_items' => $queried_obj,
-	'nopaging' => true,
-	'suppress_filters' => false
-) );
-
-$connected_event = get_posts( array(
-	'connected_type' => 'meeting_to_event',
-	'connected_items' => $queried_obj,
-	'nopaging' => true,
-	'suppress_filters' => false
-) );
-
 ?>
 
 <?php if ( 'meeting' == $post_type ) : ?>
@@ -133,7 +102,40 @@ $connected_event = get_posts( array(
 
 <?php endif; ?>
 
-<?php if ( ! empty( $connected_agenda ) || ! empty( $connected_summary ) || ! empty( $connected_proposal ) || ! empty( $connected_event ) ) : ?>
+<?php
+
+// Associated Content
+$queried_obj = get_queried_object();
+
+$connected_agenda = get_posts( array(
+	'connected_type' => 'meeting_to_agenda',
+	'connected_items' => $queried_obj,
+	'nopaging' => true,
+	'suppress_filters' => false
+) );
+
+$connected_summary = get_posts( array(
+	'connected_type' => 'meeting_to_summary',
+	'connected_items' => $queried_obj,
+	'nopaging' => true,
+	'suppress_filters' => false
+) );
+
+$connected_proposal = get_posts( array(
+	'connected_type' => 'meeting_to_proposal',
+	'connected_items' => $queried_obj,
+	'nopaging' => true,
+	'suppress_filters' => false
+) );
+
+$connected_event = get_posts( array(
+	'connected_type' => 'meeting_to_event',
+	'connected_items' => $queried_obj,
+	'nopaging' => true,
+	'suppress_filters' => false
+) );
+
+if ( ! empty( $connected_agenda ) || ! empty( $connected_summary ) || ! empty( $connected_proposal ) || ! empty( $connected_event ) ) : ?>
 
 	<nav class="connected-content-nav" role="navigation">
 
