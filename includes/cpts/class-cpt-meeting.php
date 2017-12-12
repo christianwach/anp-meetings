@@ -464,8 +464,10 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->date_meta_key;
 
+		// init date with today
+		$date = date( 'Y-m-d' );
+
 		// if the custom field already has a value, grab it
-		$date = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$date = get_post_meta( $post->ID, $key, true );
 		}
@@ -473,8 +475,11 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->start_time_meta_key;
 
+		// init start time with now rounded to nearest 15 min
+		$start_time_obj = $this->rounded_time();
+		$start_time = $start_time_obj->format( 'H:i' );
+
 		// if the custom field already has a value, grab it
-		$start_time = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$start_time = get_post_meta( $post->ID, $key, true );
 		}
@@ -482,8 +487,11 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->end_time_meta_key;
 
+		// init end time with start time plus 1 hour
+		$end_time_obj = $start_time_obj->add( new DateInterval( 'PT1H' ) );
+		$end_time = $end_time_obj->format( 'H:i' );
+
 		// if the custom field already has a value, grab it
-		$end_time = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$end_time = get_post_meta( $post->ID, $key, true );
 		}
@@ -505,7 +513,8 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		<script type="text/javascript">
 		jQuery(document).ready(function(){
 			jQuery('.wp_datepicker').datepicker({
-				dateFormat : 'yy-mm-dd'
+				dateFormat : 'yy-mm-dd',
+				defaultDate : '<?php echo date( 'Y-m-d' ); ?>'
 			});
 			jQuery('.wp_timepicker').timepicker({
 				'scrollDefault' : 'now',
@@ -722,6 +731,39 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 		// --<
 		return $is_valid;
+
+	}
+
+
+
+	/**
+	 * Get the time rounded to the nearest 15 min.
+	 *
+	 * @since 2.0.2
+	 *
+	 * @return str $time The rounded time.
+	 */
+	private function rounded_time() {
+
+		// init datetime object
+		$datetime = new DateTime( date( 'Y-m-d H:i:s' ) );
+
+		// round up if seconds are past the nearest mark
+		$second = $datetime->format( 's' );
+		if ( $second > 0 ) {
+			$datetime->add( new DateInterval( 'PT' . ( 60 - $second ) . 'S' ) );
+		}
+
+		// round up if minutes are past the nearest mark
+		$minute = $datetime->format( 'i' );
+		$minute = $minute % 15;
+		if ( $minute != 0 ) {
+			$diff = 15 - $minute;
+			$datetime->add( new DateInterval( 'PT' . $diff . 'M' ) );
+		}
+
+		// --<
+		return $datetime;
 
 	}
 
