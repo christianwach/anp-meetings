@@ -247,9 +247,16 @@ class WordPress_Meetings_CPT_Common {
 
 			global $post;
 
-			// header template
-			$file = 'wordpress-meetings/content-single.php';
-			$header = wordpress_meetings_template_buffer( $file );
+			// meta template
+			$file = 'wordpress-meetings/content-single-meta.php';
+			$meta = wordpress_meetings_template_buffer( $file );
+
+			// nav template
+			$file = 'wordpress-meetings/content-single-nav.php';
+			$nav = wordpress_meetings_template_buffer( $file );
+
+			// wrap in div
+			$header = '<div class="wp-meetings-meta">' . $meta . $nav . '</div>';
 
 			// prefix content with header
 			$content = $header . $content;
