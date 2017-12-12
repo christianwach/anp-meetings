@@ -163,6 +163,9 @@ class WordPress_Meetings {
 		// functions library
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/wordpress-meetings-functions.php' );
 
+		// connections class
+		include_once( WORDPRESS_MEETINGS_PATH . 'includes/admin/class-p2p-connections.php' );
+
 		// custom post types
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-base.php' );
 		include_once( WORDPRESS_MEETINGS_PATH . 'includes/cpts/class-cpt-meeting.php' );
@@ -202,6 +205,10 @@ class WordPress_Meetings {
 
 		// template class
 		$this->template = new WordPress_Meetings_Template( $this );
+
+		// connections class
+		$this->connections = new WordPress_Meetings_Connections( $this );
+		$this->connections->register_hooks();
 
 		// custom post types
 		$this->cpts = array();
