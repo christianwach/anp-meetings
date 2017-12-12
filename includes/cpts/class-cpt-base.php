@@ -251,13 +251,15 @@ class WordPress_Meetings_CPT_Common {
 			$file = 'wordpress-meetings/content-single.php';
 			$header = wordpress_meetings_template_buffer( $file );
 
-			$body = wpautop( $post->post_content );
+			// prefix content with header
+			$content = $header . $content;
 
 			// footer template
 			$file = 'wordpress-meetings/single-footer.php';
 			$footer = wordpress_meetings_template_buffer( $file );
 
-			$content = $header . $body . $footer;
+			// append footer
+			$content = $content . $footer;
 
 		}
 

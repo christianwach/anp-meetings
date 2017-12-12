@@ -54,7 +54,7 @@ $proposal_status = get_the_term_list( $post_id, 'proposal_status', '<span class=
 		$agendas = ( function_exists( 'meeting_get_agenda' ) ) ? meeting_get_agenda( $post_id ) : '';
 		$summaries = ( function_exists( 'meeting_get_summary' ) ) ? meeting_get_summary( $post_id ) : '';
 		$proposals = ( function_exists( 'meeting_get_proposal' ) ) ? meeting_get_proposal( $post_id ) : '';
-		$events =	(function_exists( 'meeting_get_event' ) ) ? meeting_get_event( $post_id ) : '';
+		$events = ( function_exists( 'meeting_get_event' ) ) ? meeting_get_event( $post_id ) : '';
 		?>
 
 		<?php if ( $agendas || $summaries || $proposals || $events ) : ?>
