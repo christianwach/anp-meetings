@@ -1,3 +1,4 @@
+<!-- assets/templates/theme/wordpress-meetings/content-single-meta.php -->
 <?php
 
 $post_id = get_the_ID();
@@ -41,7 +42,6 @@ if ( ! empty( $date_effective_raw ) ) {
 ?>
 
 <?php if ( 'meeting' == $post_type ) : ?>
-
 	<?php if ( ! empty( $meeting_date ) ) : ?>
 		<div class="meta meeting-meta">
 			<span class="meta-label"><?php _e( 'Date:', 'wordpress-meetings' ); ?></span> <?php echo $meeting_date; ?>
@@ -59,16 +59,17 @@ if ( ! empty( $date_effective_raw ) ) {
 			<span class="meta-label"><?php _e( 'Type:', 'wordpress-meetings' ); ?></span> <?php echo $meeting_type; ?>
 		</div>
 	<?php endif; ?>
-
 <?php endif; ?>
 
-<?php if ( ! empty( $organization ) ) : ?>
 
+
+<?php if ( ! empty( $organization ) ) : ?>
 	<div class="meta meeting-meta">
 		<span class="meta-label"><?php _e( 'Organization:', 'wordpress-meetings' ); ?></span> <?php echo $organization; ?>
 	</div>
-
 <?php endif; ?>
+
+
 
 <?php if ( ! empty( $meeting_tags ) ) : ?>
 	<div class="meta meeting-meta">
@@ -76,8 +77,9 @@ if ( ! empty( $date_effective_raw ) ) {
 	</div>
 <?php endif; ?>
 
-<?php if ( 'proposal' == $post_type ) : ?>
 
+
+<?php if ( 'proposal' == $post_type ) : ?>
 	<?php if ( ! empty( $proposal_status ) ) : ?>
 		<div class="meta meeting-meta">
 			<span class="meta-label"><?php _e( 'Status:', 'wordpress-meetings' ); ?></span> <?php echo $proposal_status; ?>
@@ -95,5 +97,4 @@ if ( ! empty( $date_effective_raw ) ) {
 			<span class="meta-label"><?php _e( 'Date Effective:', 'wordpress-meetings' ); ?></span> <?php echo $date_effective; ?>
 		</div>
 	<?php endif; ?>
-
 <?php endif; ?>

@@ -1,34 +1,40 @@
+<!-- assets/templates/theme/wordpress-meetings/content-single-nav.php -->
 <?php
 
-// Associated Content
-$queried_obj = get_queried_object();
+// get meeting object
+$queried_obj = wp_meetings_meeting_get_object();
+
+// if empty, get current queried object
+if ( $queried_obj === false ) {
+	$queried_obj = get_queried_object();
+}
 
 $connected_agenda = get_posts( array(
 	'connected_type' => 'meeting_to_agenda',
 	'connected_items' => $queried_obj,
 	'nopaging' => true,
-	'suppress_filters' => false
+	'suppress_filters' => false,
 ) );
 
 $connected_summary = get_posts( array(
 	'connected_type' => 'meeting_to_summary',
 	'connected_items' => $queried_obj,
 	'nopaging' => true,
-	'suppress_filters' => false
+	'suppress_filters' => false,
 ) );
 
 $connected_proposal = get_posts( array(
 	'connected_type' => 'meeting_to_proposal',
 	'connected_items' => $queried_obj,
 	'nopaging' => true,
-	'suppress_filters' => false
+	'suppress_filters' => false,
 ) );
 
 $connected_event = get_posts( array(
 	'connected_type' => 'meeting_to_event',
 	'connected_items' => $queried_obj,
 	'nopaging' => true,
-	'suppress_filters' => false
+	'suppress_filters' => false,
 ) );
 
 if ( ! empty( $connected_agenda ) || ! empty( $connected_summary ) || ! empty( $connected_proposal ) || ! empty( $connected_event ) ) : ?>
@@ -36,6 +42,15 @@ if ( ! empty( $connected_agenda ) || ! empty( $connected_summary ) || ! empty( $
 	<nav class="connected-content-nav" role="navigation">
 
 		<ul class="connected-content">
+
+			<?php if ( 'meeting' != get_queried_object()->post_type ) : ?>
+				<?php $post_type_obj = get_post_type_object( get_post_type( $queried_obj->ID ) ); ?>
+				<?php $post_type_name = ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>
+				<?php $post_class = $post_type_obj->name; ?>
+				<li class="<?php echo ( $post_class ) ? $post_class : '' ?>-link">
+					<a href="<?php echo get_post_permalink( $queried_obj->ID ); ?>" title="View <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>" rel="bookmark"><span class="link-text"><?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?></span></a>
+				</li>
+			<?php endif; ?>
 
 			<?php if ( ! empty( $connected_event ) ) : ?>
 				<?php foreach( $connected_event as $event ) : ?>
@@ -66,16 +81,6 @@ if ( ! empty( $connected_agenda ) || ! empty( $connected_summary ) || ! empty( $
 					<?php $post_class = $post_type_obj->name; ?>
 					<li class="<?php echo ( $post_class ) ? $post_class : '' ?>-link">
 						<a href="<?php echo get_post_permalink( $summary->ID ); ?>" title="View <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>" rel="bookmark"><span class="link-text"><?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?></span></a>
-					</li>
-				<?php endforeach; ?>
-			<?php endif; ?>
-
-			<?php if ( 'proposal' == get_post_type() && ! empty( $connected_proposal ) ) : ?>
-				<?php foreach( $connected_proposal as $proposal ) : ?>
-					<?php $post_type_obj = get_post_type_object( get_post_type( $proposal->ID ) ); ?>
-					<?php $post_class = $post_type_obj->name; ?>
-					<li class="<?php echo ( $post_class ) ? $post_class : '' ?>-link">
-						<a href="<?php echo get_post_permalink( $proposal->ID ); ?>" title="View <?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?>" rel="bookmark"><span class="link-text"><?php echo ( $post_type_obj ) ? $post_type_obj->labels->singular_name : ''; ?></span></a>
 					</li>
 				<?php endforeach; ?>
 			<?php endif; ?>

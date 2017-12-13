@@ -804,7 +804,68 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 
 
+	// #########################################################################
+
+
+
+	/**
+	 * Get the Meeting object connected to another post type.
+	 *
+	 * @since 2.0.2
+	 *
+	 * @return object|bool $queried_obj The meeting object if found, false otherwise.
+	 */
+	public function meeting_get() {
+
+		// default to false
+		$queried_obj = false;
+
+		// get post info
+		$post_id = get_the_ID();
+		$post_type = get_post_type( $post_id );
+
+		// get meeting object if not meeting CPT
+		if ( 'meeting' != $post_type ) {
+
+			$connected_meetings = get_posts( array(
+				'connected_type' => 'meeting_to_' . $post_type,
+				'connected_items' => get_queried_object(),
+				'nopaging' => true,
+				'suppress_filters' => false,
+			) );
+
+			// there should only ever be one
+			if ( isset( $connected_meetings[0] ) ) {
+				$queried_obj = $connected_meetings[0];
+			}
+
+		} else {
+
+			// meeting object is the queried object
+			$queried_obj = get_queried_object();
+
+		}
+
+		// --<
+		return $queried_obj;
+
+	}
+
+
+
 } // class ends
 
+
+
+/**
+ * Get the Meeting object connected to another post type.
+ *
+ * @since 2.0.2
+ *
+ * @return object The meeting object if found, queried object if not.
+ */
+function wp_meetings_meeting_get_object() {
+	return wordpress_meetings()->cpts['meeting']->meeting_get();
+}
 
 

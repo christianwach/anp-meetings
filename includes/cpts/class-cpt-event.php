@@ -360,7 +360,7 @@ class WordPress_Meetings_CPT_Event {
 
 		}
 
-		// use template
+		// use event meta template
 		$file = 'wordpress-meetings/content-event-meta.php';
 		$content = wp_meetings_template_buffer( $file );
 
@@ -387,8 +387,7 @@ function wp_meetings_event_has_meeting_type() {
 	// assume not
 	$has_type = false;
 
-	$plugin = wordpress_meetings();
-	if ( ! empty( $plugin->cpts['event']->meeting_type ) ) {
+	if ( ! empty( wordpress_meetings()->cpts['event']->meeting_type ) ) {
 		$has_type = true;
 	}
 
@@ -420,9 +419,8 @@ function wp_meetings_event_get_meeting_type() {
 	// assume none
 	$markup = '';
 
-	$plugin = wordpress_meetings();
-	if ( ! empty( $plugin->cpts['event']->meeting_type ) ) {
-		$markup = $plugin->cpts['event']->meeting_type;
+	if ( ! empty( wordpress_meetings()->cpts['event']->meeting_type ) ) {
+		$markup = wordpress_meetings()->cpts['event']->meeting_type;
 	}
 
 	// --<
@@ -444,8 +442,7 @@ function wp_meetings_event_has_meeting_link() {
 	// assume not
 	$has_link = false;
 
-	$plugin = wordpress_meetings();
-	if ( ! empty( $plugin->cpts['event']->meeting_link ) ) {
+	if ( ! empty( wordpress_meetings()->cpts['event']->meeting_link ) ) {
 		$has_link = true;
 	}
 
@@ -477,9 +474,8 @@ function wp_meetings_event_get_meeting_link() {
 	// assume none
 	$markup = '';
 
-	$plugin = wordpress_meetings();
-	if ( ! empty( $plugin->cpts['event']->meeting_link ) ) {
-		$markup = $plugin->cpts['event']->meeting_link;
+	if ( ! empty( wordpress_meetings()->cpts['event']->meeting_link ) ) {
+		$markup = wordpress_meetings()->cpts['event']->meeting_link;
 	}
 
 	// --<
