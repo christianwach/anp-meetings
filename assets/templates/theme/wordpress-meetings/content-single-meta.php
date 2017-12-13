@@ -33,6 +33,8 @@ if ( $meeting !== false ) {
 	$organization = get_the_term_list( $meeting->ID, 'organization', '<span class="organization tag">', ', ', '</span>' );
 	$meeting_type = get_the_term_list( $meeting->ID, 'meeting_type', '<span class="meeting-type tag">', ', ', '</span>' );
 	$meeting_tags = get_the_term_list( $meeting->ID, 'meeting_tag', '<span class="meeting-tag tag">', ', ', '</span>' );
+	$meeting_link = get_permalink( $meeting->ID );
+	$meeting_link = '<a href="' . get_permalink( $meeting->ID ) . '">' . esc_html( $meeting->post_title ) . '</a>';
 
 }
 
@@ -59,6 +61,12 @@ if ( 'proposal' == $post_type ) {
 <div class="wp-meetings-meeting-meta">
 
 	<h4><?php _e( 'Meeting Details', 'wordpress-meetings' ); ?></h4>
+
+	<?php if ( ! empty( $meeting_link ) AND 'meeting' != $post_type ) : ?>
+		<div class="meta meeting-meta">
+			<span class="meta-label"><?php _e( 'Meeting:', 'wordpress-meetings' ); ?></span> <?php echo $meeting_link; ?>
+		</div>
+	<?php endif; ?>
 
 	<?php if ( ! empty( $meeting_date ) ) : ?>
 		<div class="meta meeting-meta">
