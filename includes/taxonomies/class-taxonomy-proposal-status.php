@@ -168,6 +168,34 @@ class WordPress_Meetings_Taxonomy_Proposal_Status extends WordPress_Meetings_Tax
 			'edit-tags.php?taxonomy=' . $this->taxonomy_name . '&post_type=proposal'
 		);
 
+		add_action( 'admin_head', array( $this, 'admin_menu_highlight' ), 50 );
+
+	}
+
+
+
+	/**
+	 * Tell WordPress to highlight the plugin's menu item, regardless of which
+	 * actual admin screen we are on.
+	 *
+	 * @since 2.0.3
+	 *
+	 * @global string $plugin_page
+	 * @global array $submenu
+	 */
+	public function admin_menu_highlight() {
+
+		// get screen object
+		$screen = get_current_screen();
+
+		// kick out if not our screen
+		if ( $screen->id != 'edit-proposal_status' ) {
+			return;
+		}
+
+		// force parent menu to open
+		$GLOBALS['parent_file'] = 'edit.php?post_type=meeting';
+
 	}
 
 
