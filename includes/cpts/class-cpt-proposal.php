@@ -369,8 +369,10 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->date_accepted_meta_key;
 
+		// init date with today
+		$date_accepted = date( 'Y-m-d' );
+
 		// if the custom field already has a value, grab it
-		$date_accepted = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$date_accepted = get_post_meta( $post->ID, $key, true );
 		}
@@ -378,8 +380,10 @@ class WordPress_Meetings_CPT_Proposal extends WordPress_Meetings_CPT_Common {
 		// set key
 		$key = '_' . $this->date_effective_meta_key;
 
+		// init date with today
+		$date_effective = date( 'Y-m-d' );
+
 		// if the custom field already has a value, grab it
-		$date_effective = '';
 		if ( get_post_meta( $post->ID, $key, true ) != '' ) {
 			$date_effective = get_post_meta( $post->ID, $key, true );
 		}
