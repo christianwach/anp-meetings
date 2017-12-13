@@ -28,6 +28,10 @@ get_header(); ?>
 		<div class="archive-heading">
 			<div class="heading-title" role="heading"><?php _e( 'Title', 'wordpress-meetings' ); ?></div>
 			<div class="heading-date" role="heading"><?php _e( 'Details', 'wordpress-meetings' ); ?></div>
+			<div></div>
+			<div></div>
+			<div></div>
+			<div></div>
 		</div>
 
 		<?php if ( have_posts() ) : ?>

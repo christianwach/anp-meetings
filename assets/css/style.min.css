@@ -11,7 +11,7 @@ a:hover {
 
 .meetings-archive {
     display: table;
-    width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
     font-size: 1rem
 }
@@ -30,7 +30,7 @@ a:hover {
 .meetings-archive>.post>div,
 .meetings-archive>.post h3 {
     display: table-cell;
-    padding: .5em .25em
+    padding: 0.8em 0.4em;
 }
 
 .meetings-archive .archive-heading {
@@ -176,4 +176,14 @@ article.post.type-meeting footer li {
 .type-proposal .agenda-link a:before,
 .type-summary .agenda-link a:before {
     content: "\f204"
+}
+
+.wp-meetings-meta > div {
+	border: 1px solid lightgray;
+	padding: 0.5em;
+	margin: 0 0 0.5em 0;
+}
+
+.wp-meetings-meta div h4 {
+	margin: 0 0 0.5em 0;
 }

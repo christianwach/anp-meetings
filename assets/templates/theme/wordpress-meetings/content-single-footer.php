@@ -1,20 +1,24 @@
 <!-- assets/templates/theme/wordpress-meetings/content-single-footer.php -->
 <?php
 
+$post_id = get_the_ID();
+$post_type = get_post_type( $post_id );
+
 // get meeting object
-$queried_obj = wp_meetings_meeting_get_object();
+$meeting = wp_meetings_meeting_get_object( $post_id );
 
-// if empty, get current queried object
-if ( $queried_obj === false ) {
-	$queried_obj = get_queried_object();
+// if found
+if ( $meeting !== false ) {
+
+	// get proposals
+	$connected_proposals = get_posts( array(
+		'connected_type' => 'meeting_to_proposal',
+		'connected_items' => $meeting,
+		'nopaging' => true,
+		'suppress_filters' => false,
+	) );
+
 }
-
-$connected_proposals = get_posts( array(
-	'connected_type' => 'meeting_to_proposal',
-	'connected_items' => $queried_obj,
-	'nopaging' => true,
-	'suppress_filters' => false
-) );
 
 ?>
 

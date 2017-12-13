@@ -813,15 +813,23 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 	 *
 	 * @since 2.0.2
 	 *
+	 * @param int $post_id The numeric ID of the post.
 	 * @return object|bool $queried_obj The meeting object if found, false otherwise.
 	 */
-	public function meeting_get() {
+	public function meeting_get( $post_id = null ) {
 
 		// default to false
 		$queried_obj = false;
 
-		// get post info
-		$post_id = get_the_ID();
+		// get post ID
+		if ( is_null( $post_id ) ) {
+			$post_id = get_the_ID();
+		}
+
+		// get post
+		$post = get_post( $post_id );
+
+		// get post type
 		$post_type = get_post_type( $post_id );
 
 		// get meeting object if not meeting CPT
@@ -829,7 +837,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 			$connected_meetings = get_posts( array(
 				'connected_type' => 'meeting_to_' . $post_type,
-				'connected_items' => get_queried_object(),
+				'connected_items' => $post,
 				'nopaging' => true,
 				'suppress_filters' => false,
 			) );
@@ -841,8 +849,8 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 		} else {
 
-			// meeting object is the queried object
-			$queried_obj = get_queried_object();
+			// meeting object is the post
+			$queried_obj = $post;
 
 		}
 
@@ -858,14 +866,15 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 
 
 /**
- * Get the Meeting object connected to another post type.
+ * For a given post, get the Meeting object connected to it.
  *
  * @since 2.0.2
  *
+ * @param int $post_id The numeric ID of the post.
  * @return object The meeting object if found, queried object if not.
  */
-function wp_meetings_meeting_get_object() {
-	return wordpress_meetings()->cpts['meeting']->meeting_get();
+function wp_meetings_meeting_get_object( $post_id ) {
+	return wordpress_meetings()->cpts['meeting']->meeting_get( $post_id );
 }
 
 
