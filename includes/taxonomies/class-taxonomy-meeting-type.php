@@ -56,7 +56,7 @@ class WordPress_Meetings_Taxonomy_Meeting_Type extends WordPress_Meetings_Taxono
 		parent::register_hooks();
 
 		// filter the title
-		add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
+		//add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
 
 	}
 
@@ -167,7 +167,7 @@ class WordPress_Meetings_Taxonomy_Meeting_Type extends WordPress_Meetings_Taxono
 			return $title;
 		}
 
-		// bail if not one of our CPT pages
+		// bail if not one of our Taxonomy pages
 		if ( ! is_tax( $this->taxonomy_name ) ) {
 			return $title;
 		}
