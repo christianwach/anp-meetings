@@ -26,7 +26,7 @@ if ( $meeting !== false ) {
 
 	<?php if ( ! empty( $connected_proposals ) ) : ?>
 
-		<h3 id="proposals"><?php _e( 'Proposals', 'wordpress-meetings' ); ?></h3>
+		<h3 id="proposals"><?php echo sprintf( __( 'Proposals for %s', 'wordpress-meetings' ), esc_html( $meeting->post_title ) ); ?></h3>
 
 		<ul class="proposal-links">
 			<?php foreach( $connected_proposals as $proposal ) : ?>
