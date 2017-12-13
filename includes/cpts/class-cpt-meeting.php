@@ -78,7 +78,7 @@ class WordPress_Meetings_CPT_Meeting extends WordPress_Meetings_CPT_Common {
 		add_action( 'manage_posts_custom_column', array( $this, 'columns_populate' ) );
 
 		// filter the title
-		add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
+		//add_filter( 'the_title', array( $this, 'title_filter' ), 10, 2 );
 
 		// remove unwanted metaboxes
 		add_action( 'admin_menu', array( $this, 'metaboxes_remove' ) );
