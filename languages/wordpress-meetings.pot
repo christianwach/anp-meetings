@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the WordPress Meetings package.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress Meetings 2.0.2\n"
+"Project-Id-Version: WordPress Meetings 2.0.3\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wordpress-meetings\n"
-"POT-Creation-Date: 2017-12-11 20:42:47+00:00\n"
+"POT-Creation-Date: 2017-12-13 16:26:06+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgid "End Time"
 msgstr ""
 
 #: assets/templates/admin/metabox-proposal-info.php:4
-#: assets/templates/theme/wordpress-meetings/single-footer.php:15
+#: assets/templates/theme/wordpress-meetings/content-single-footer.php:39
 #: includes/libs/tgm-plugin-activation/class-tgm-plugin-activation.php:2647
 msgid "Status"
 msgstr ""
@@ -86,60 +86,73 @@ msgstr ""
 msgid "Details"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/archive.php:44
+#: assets/templates/theme/wordpress-meetings/archive.php:48
 msgid "Previous page"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/archive.php:45
+#: assets/templates/theme/wordpress-meetings/archive.php:49
 msgid "Next page"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/archive.php:46
+#: assets/templates/theme/wordpress-meetings/archive.php:50
 msgid "Page"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-archive.php:29
-#: assets/templates/theme/wordpress-meetings/content-single.php:58
+#: assets/templates/theme/wordpress-meetings/content-archive.php:37
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:73
 msgid "Date:"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-archive.php:35
-#: assets/templates/theme/wordpress-meetings/content-single.php:73
+#: assets/templates/theme/wordpress-meetings/content-archive.php:43
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:97
 msgid "Organization:"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-archive.php:41
-#: assets/templates/theme/wordpress-meetings/content-single.php:64
+#: assets/templates/theme/wordpress-meetings/content-archive.php:49
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:85
 msgid "Type:"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-archive.php:47
-#: assets/templates/theme/wordpress-meetings/content-single.php:80
+#: assets/templates/theme/wordpress-meetings/content-archive.php:55
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:91
 msgid "Tags:"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-event-meta.php:15
-msgid "Type: "
+#: assets/templates/theme/wordpress-meetings/content-event-meta.php:3
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:67
+msgid "Meeting:"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-single.php:88
+#: assets/templates/theme/wordpress-meetings/content-event-meta.php:7
+msgid "Meeting Type:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single-footer.php:29
+msgid "Proposals for %s"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:63
+msgid "Meeting Details"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:79
+msgid "Time:"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:109
+msgid "Proposal Details"
+msgstr ""
+
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:113
 msgid "Status:"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-single.php:94
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:119
 msgid "Date Appoved:"
 msgstr ""
 
-#: assets/templates/theme/wordpress-meetings/content-single.php:100
+#: assets/templates/theme/wordpress-meetings/content-single-meta.php:125
 msgid "Date Effective:"
-msgstr ""
-
-#: assets/templates/theme/wordpress-meetings/single-footer.php:5
-#: includes/cpts/class-cpt-proposal.php:126
-#: includes/wordpress-meetings-functions.php:262
-#: includes/wordpress-meetings-functions.php:413
-#: includes/wordpress-meetings-functions.php:414
-msgid "Proposals"
 msgstr ""
 
 #: includes/admin/class-admin-base.php:199
@@ -151,19 +164,18 @@ msgid "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed vel iaculis 
 msgstr ""
 
 #: includes/admin/class-admin-base.php:475
-#: includes/admin/class-admin-migrate.php:352
+#: includes/admin/class-admin-migrate.php:286
 #: includes/admin/class-admin-settings.php:47
+#: includes/cpts/class-cpt-event.php:296
 #: includes/cpts/class-cpt-meeting.php:133
 msgid "Meetings"
 msgstr ""
 
 #: includes/admin/class-admin-base.php:486
-#: includes/admin/class-admin-migrate.php:363
 msgid "A category for Events associated with Meetings."
 msgstr ""
 
 #: includes/admin/class-admin-base.php:500
-#: includes/admin/class-admin-migrate.php:377
 msgid "Could not create term."
 msgstr ""
 
@@ -177,6 +189,118 @@ msgstr ""
 
 #: includes/admin/class-admin-settings.php:46
 msgid "WordPress Meetings: Settings"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:75
+#: includes/admin/class-p2p-connections.php:85
+#: includes/cpts/class-cpt-agenda.php:97 includes/cpts/class-cpt-agenda.php:133
+msgid "Agenda"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:76
+#: includes/admin/class-p2p-connections.php:79
+#: includes/admin/class-p2p-connections.php:103
+#: includes/admin/class-p2p-connections.php:106
+#: includes/admin/class-p2p-connections.php:131
+#: includes/admin/class-p2p-connections.php:134
+#: includes/admin/class-p2p-connections.php:162
+#: includes/admin/class-p2p-connections.php:165
+#: includes/cpts/class-cpt-meeting.php:134
+#: includes/cpts/class-cpt-meeting.php:173
+#: includes/wordpress-meetings-functions.php:80
+msgid "Meeting"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:80
+#: includes/admin/class-p2p-connections.php:107
+#: includes/admin/class-p2p-connections.php:135
+#: includes/admin/class-p2p-connections.php:166
+msgid "Search meetings"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:81
+#: includes/admin/class-p2p-connections.php:108
+#: includes/admin/class-p2p-connections.php:136
+#: includes/admin/class-p2p-connections.php:167
+msgid "No meetings found."
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:82
+#: includes/admin/class-p2p-connections.php:109
+#: includes/admin/class-p2p-connections.php:137
+#: includes/admin/class-p2p-connections.php:168
+msgid "Add meeting"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:86
+msgid "Search agendas"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:87
+msgid "No agendas found."
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:88
+msgid "Add agenda"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:102
+#: includes/admin/class-p2p-connections.php:112
+#: includes/cpts/class-cpt-summary.php:97
+#: includes/cpts/class-cpt-summary.php:134
+msgid "Summary"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:113
+msgid "Search summaries"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:114
+msgid "No summaries found."
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:115
+msgid "Add summary"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:130
+#: includes/cpts/class-cpt-proposal.php:126
+msgid "Proposals"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:140
+#: includes/cpts/class-cpt-proposal.php:127
+#: includes/cpts/class-cpt-proposal.php:166
+msgid "Proposal"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:141
+msgid "Search proposals"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:142
+msgid "No proposals found."
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:143
+msgid "Add proposal"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:161
+#: includes/admin/class-p2p-connections.php:171
+msgid "Event"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:172
+msgid "Search events"
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:173
+msgid "No events found."
+msgstr ""
+
+#: includes/admin/class-p2p-connections.php:174
+msgid "Add event"
 msgstr ""
 
 #: includes/admin/required-plugins.php:66
@@ -197,11 +321,6 @@ msgstr ""
 
 #: includes/cpts/class-cpt-agenda.php:96
 msgid "Agendas"
-msgstr ""
-
-#: includes/cpts/class-cpt-agenda.php:97 includes/cpts/class-cpt-agenda.php:133
-#: includes/wordpress-meetings-functions.php:239
-msgid "Agenda"
 msgstr ""
 
 #: includes/cpts/class-cpt-agenda.php:98
@@ -325,15 +444,6 @@ msgctxt "Post Type Singular Name"
 msgid "Meeting"
 msgstr ""
 
-#: includes/cpts/class-cpt-meeting.php:134
-#: includes/cpts/class-cpt-meeting.php:173
-#: includes/wordpress-meetings-functions.php:239
-#: includes/wordpress-meetings-functions.php:250
-#: includes/wordpress-meetings-functions.php:262
-#: includes/wordpress-meetings-functions.php:284
-msgid "Meeting"
-msgstr ""
-
 #: includes/cpts/class-cpt-meeting.php:135
 msgid "Parent Meeting:"
 msgstr ""
@@ -423,20 +533,13 @@ msgctxt "Post Type Singular Name"
 msgid "Proposal"
 msgstr ""
 
-#: includes/cpts/class-cpt-proposal.php:127
-#: includes/cpts/class-cpt-proposal.php:166
-#: includes/wordpress-meetings-functions.php:413
-#: includes/wordpress-meetings-functions.php:414
-msgid "Proposal"
-msgstr ""
-
 #: includes/cpts/class-cpt-proposal.php:128
 msgid "Parent Proposal:"
 msgstr ""
 
 #: includes/cpts/class-cpt-proposal.php:129
-#: includes/cpts/class-cpt-proposal.php:601
-#: includes/cpts/class-cpt-proposal.php:602
+#: includes/cpts/class-cpt-proposal.php:605
+#: includes/cpts/class-cpt-proposal.php:606
 msgid "All Proposals"
 msgstr ""
 
@@ -446,8 +549,8 @@ msgid "Add New Proposal"
 msgstr ""
 
 #: includes/cpts/class-cpt-proposal.php:132
-#: includes/cpts/class-cpt-proposal.php:609
-#: includes/cpts/class-cpt-proposal.php:610
+#: includes/cpts/class-cpt-proposal.php:613
+#: includes/cpts/class-cpt-proposal.php:614
 msgid "New Proposal"
 msgstr ""
 
@@ -521,12 +624,6 @@ msgstr ""
 
 #: includes/cpts/class-cpt-summary.php:96
 msgid "Summaries"
-msgstr ""
-
-#: includes/cpts/class-cpt-summary.php:97
-#: includes/cpts/class-cpt-summary.php:134
-#: includes/wordpress-meetings-functions.php:250
-msgid "Summary"
 msgstr ""
 
 #: includes/cpts/class-cpt-summary.php:98
@@ -1254,8 +1351,8 @@ msgstr ""
 msgid "Proposal Statuses"
 msgstr ""
 
-#: includes/wordpress-meetings-functions.php:284
-msgid "Event"
+#: includes/wordpress-meetings-functions.php:99
+msgid "%1$s for %2$s"
 msgstr ""
 #. Plugin Name of the plugin/theme
 msgid "WordPress Meetings"
