@@ -67,6 +67,10 @@ class WordPress_Meetings_CPT_Common {
 		// override the content
 		add_filter( 'the_content', array( $this, 'the_content' ) );
 
+		// maybe override next/previous links
+		add_filter( 'next_post_link', array( $this, 'post_link' ), 100, 5 );
+		add_filter( 'previous_post_link', array( $this, 'post_link' ), 100, 5 );
+
 	}
 
 
@@ -272,6 +276,35 @@ class WordPress_Meetings_CPT_Common {
 
 		// --<
 		return $content;
+
+	}
+
+
+
+	/**
+	 * Next/Previous link override.
+	 *
+	 * @since 2.0.2
+	 *
+     * @param string $output The adjacent post link.
+     * @param string $format Link anchor format.
+     * @param string $link Link permalink format.
+     * @param WP_Post $post The adjacent post.
+     * @param string $adjacent Whether the post is previous or next.
+     * @return string $output The modified adjacent post link.
+	 */
+	public function post_link( $output, $format, $link, $post, $adjacent ) {
+
+		// bail if not one of our CPT pages
+		if ( ! is_singular( $this->post_type_name ) ) {
+			return $output;
+		}
+
+		// clear the link
+		$output = '';
+
+		// --<
+		return $output;
 
 	}
 
