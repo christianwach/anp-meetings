@@ -3,7 +3,7 @@ Contributors: Pea, Glocal, needle
 Tags: meeting, custom post type, notes
 Requires at least: 4.4
 Tested up to: 4.9
-Version:  2.0.2
+Version:  2.0.3
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -29,6 +29,13 @@ Prior to version 2.0, this plugin was known as *ANP Meetings*. Please deactivate
 
 
 == Changelog ==
+
+= 2.0.2 =
+* Template fixes and enhancements
+
+= 2.0.1 =
+* Migration functionality
+* Event kept in sync with Meeting
 
 = 2.0 =
 * Major code refactoring
