@@ -61,7 +61,7 @@ function wp_meetings_meeting_title() {
 
 
 /**
- * Construct the title to display the post type and meeting type rather than post title.
+ * Construct the title to display the post type and meeting title rather than post title.
  *
  * @since 2.0
  *
@@ -72,68 +72,34 @@ function wp_meetings_cpt_title( $connection_type ) {
 
 	global $post;
 
-	// init parts array
-	$title_parts = array();
-
+	// get CPT name
 	$post_type_object = get_post_type_object( get_post_type( $post->ID ) );
 	$post_type_name = $post_type_object->labels->singular_name;
 
-	// add title if present
-	if ( ! empty( $post_type_name ) ) {
-		array_push( $title_parts, '<span class="post-type">' . $post_type_name . '</span>' );
-	}
+	// init Meeting title
+	$meeting_title = __( 'Meeting', 'wordpress-meetings' );
 
-	// define query args
-	$query_args = array(
+	// get connected meetings
+	$connected_meetings = get_posts( array(
 		'connected_type' => $connection_type,
 		'connected_items' => get_queried_object(),
 		'connected_direction' => 'to',
 		'nopaging' => true,
 		'no_found_rows' => true,
+		'suppress_filters' => false,
+	) );
+
+	// loop, though there will only be one
+	foreach( $connected_meetings as $meeting ) {
+		$meeting_title = $meeting->post_title;
+	}
+
+	// construct title
+	$title = sprintf(
+		__( '%1$s for %2$s' ),
+		esc_html( $post_type_name ),
+		esc_html( $meeting_title )
 	);
-
-	// the query
-	$query = new WP_Query( $query_args );
-
-	// how did we do?
-	if ( $query->have_posts() ) {
-
-		// get associated meeting
-		while ( $query->have_posts() ) {
-			$query->the_post();
-			$meeting_id = get_the_ID();
-		}
-
-		// prevent weirdness
-		wp_reset_postdata();
-
-	}
-
-	// formatted meeting date
-	$meeting_date = date_i18n( get_option( 'date_format' ), strtotime( get_post_meta( $meeting_id, 'meeting_date', true ) ) );
-
-	// get organization terms
-	$org_terms = wp_get_post_terms( $meeting_id, 'organization', array(
-		'fields' => 'names'
-	) );
-	$org_terms = ( ! empty( $org_terms ) ) ? $org_terms[0] : '' ;
-
-	// get meeting type terms
-	$type_terms = wp_get_post_terms( $meeting_id, 'meeting_type', array(
-		'fields' => 'names'
-	) );
-	$type_terms = ( ! empty( $type_terms ) ) ? $type_terms[0] : '';
-
-	// add terms if present
-	if ( ! empty( $org_terms ) ) {
-		array_push( $title_parts, '<span class="organization">' . $org_terms . '</span>' );
-	}
-	if ( ! empty( $type_terms ) ) {
-		array_push( $title_parts, '<span class="type">' . $type_terms . '</span>' );
-	}
-
-	// concatenate
-	$title = implode( ' - ', $title_parts );
 
 	// --<
 	return $title;
