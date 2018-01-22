@@ -188,8 +188,13 @@
 	 */
 	public function settings_update_global() {
 
-		// get existing CSS setting
-		$hide_css = anp_meetings_get_option( 'anp_meetings_css', false );
+		// init with sensible default
+		$hide_css = false;
+
+		// get existing CSS setting if present
+		if ( function_exists( 'anp_meetings_get_option' ) ) {
+			$hide_css = anp_meetings_get_option( 'anp_meetings_css', false );
+		}
 
 		// convert to WordPress Meetings setting
 		if ( ! $hide_css ) {
